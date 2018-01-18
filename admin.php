@@ -87,7 +87,7 @@ function show_in_admin() {
 
 	// Add drop-ins first.
 	foreach ( get_dropins() as $name => $plugin_file ) {
-		$plugin_data = get_plugin_data( __DIR__ . '/dropins/' . $plugin_file, false, false );
+		$plugin_data = get_plugin_data( dirname( dirname( __DIR__  ) ) . '/dropins/' . $plugin_file, false, false );
 
 		if ( empty ( $plugin_data['Name'] ) ) {
 			$plugin_data['Name'] = $name;
@@ -98,7 +98,7 @@ function show_in_admin() {
 
 	// Add our own mu-plugins to the page
 	foreach ( Platform\get_available_plugins() as $name => $plugin_file ) {
-		$plugin_data = get_plugin_data( __DIR__ . '/plugins/' . $plugin_file, false, false );
+		$plugin_data = get_plugin_data( dirname( dirname( __DIR__  ) ). '/plugins/' . $plugin_file, false, false );
 
 		if ( empty ( $plugin_data['Name'] ) ) {
 			$plugin_data['Name'] = $name;
