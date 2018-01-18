@@ -7,6 +7,9 @@ import '../../../../../wordpress/wp-admin/css/dashboard.css';
 import '../../../../../wordpress/wp-admin/css/forms.css';
 import '../../../../../wordpress/wp-admin/css/widgets.css';
 import '../../../../../wordpress/wp-admin/css/wp-admin.css';
+import '../../../../../wordpress/wp-admin/css/colors/blue/colors.css';
+import '../../../../../wordpress/wp-admin/css/edit.css';
+import '../../../../../wordpress/wp-admin/css/themes.css';
 
 // Our Application's CSS.
 import '../src/index.css';
