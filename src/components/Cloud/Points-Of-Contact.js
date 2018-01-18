@@ -6,11 +6,10 @@ import DashboardBlock from '../Dashboard-Block';
 /**
  * Display email addresses for important points of contact for the site.
  *
- * @param {Array} contacts C
+ * @param {Array} contacts Contacts to display.
  */
 const PointsOfContact = ( { contacts } ) => <DashboardBlock title="Internal Point of Contact" id="points-of-contact">
 	<div className="points-of-contact">
-
 		{ contacts.map( item => {
 			return <div className="points-of-contact__section">
 				<h3 className="points-of-contact__title">{ item.title }</h3>
