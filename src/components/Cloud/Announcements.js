@@ -15,12 +15,12 @@ import { convertBytesToGigabytes } from '../../utils';
  * @param {String} title
  */
 const Announcements = ( { buttonText, description, link, title } ) => {
-	return <DashboardBlock title="Announcement">
+	return <DashboardBlock title="Announcement" id="announcements-block">
 		<div className="announcement-block-content">
 			<h3 className="announcement-bloc__title">{ title }</h3>
 			{ description && <p className="announcement-block__description">{ description }</p> }
 			{ ( buttonText && link )
-				? <a className="button button-primary announcement-block__button" href={ link } target="_blank"><span className="screen-reader-text">Opens in a new window</span>{ buttonText }</a>
+				? <a className="button button-primary button-large" href={ link } target="_blank"><span className="screen-reader-text">Opens in a new window</span>{ buttonText }</a>
 				: null
 			}
 		</div>

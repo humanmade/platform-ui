@@ -29,7 +29,7 @@ storiesOf( 'Cloud', module )
 		buttonText="Download"
 		description="To tackle the problem of serving large volumes of images for WordPress while minimising costs, we developed Tachyon, our open-source scalable image service."
 		link="https://humanmade.com/2017/04/27/scaling-wordpress-images-tachyon/"
-		title="We have release a new whitepaper about Tachyon"
+		title="We have released a new whitepaper about Tachyon"
 	/> )
 	.add( 'Application Data', () => <EnvironmentData gitData={ gitData } environmentData={ environmentData } /> )
 	.add( 'Bandwidth Usage', () => <BandwidthUsage usageHistory={ bandwidthUsage } /> )
