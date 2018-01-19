@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
  * @param {Array} children React children.
  */
 const DashboardBlock = ( { title, children } ) => {
-	return <div className="postbox-container">
+	return <div className="meta-box-sortables">
 		<div className="postbox">
 			<button type="button" className="handlediv" aria-expanded="true">
 				<span className="screen-reader-text">Toggle panel: { title }</span>

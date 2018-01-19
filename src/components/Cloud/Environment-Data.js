@@ -34,6 +34,11 @@ const EnvironmentData = ( { gitData, environmentData } ) => <DashboardBlock titl
 	</div>
 </DashboardBlock>
 
+EnvironmentData.defaultProps = {
+	gitData:         {},
+	environmentData: {},
+}
+
 EnvironmentData.propTypes = {
 	gitData: PropTypes.shape( {
 		branch: PropTypes.string,

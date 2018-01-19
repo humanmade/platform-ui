@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { HashRouter, Route } from 'react-router-dom';
+
 import AdminPortal from '../portal';
+import CloudPage from './Pages/Cloud';
 import Menu from './Menu';
 import Header from './Header';
 
@@ -15,7 +17,7 @@ class Main extends Component {
 				<Header />
 				<Route exact path="/" render={() => <h2>Dashboard</h2>} />
 				<Route path="/ek" render={() => <h2>Enterprise Kit</h2>} />
-				<Route path="/cloud" render={() => <h2>Cloud Data</h2>} />
+				<Route path="/cloud" render={() => <CloudPage />} />
 			</div>
 		</HashRouter>;
 	}
