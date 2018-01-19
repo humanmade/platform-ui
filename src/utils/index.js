@@ -73,3 +73,29 @@ export const getTimeSince = time => {
 export const convertBytesToGigabytes = bytes => {
 	return Number( bytes / 1073741824 ).toLocaleString( undefined, { maximumFractionDigits: 0 } );
 }
+
+/**
+ * Get a human-readable and proper status text to accompany a GitHub PR status.
+ *
+ * @param {String} status GitHub PR status code.
+ * @returns {string} Proper text
+ */
+export const getGitHubStatusText = status => {
+	switch( status ) {
+		case 'APPROVED':
+			return 'Approved';
+
+		case 'PENDING':
+			return 'In Progress';
+
+		case 'CHANGES_REQUESTED':
+		case 'COMMENTED':
+			return 'Waiting on developer';
+
+		case 'DISMISSED':
+			return 'Icebox';
+
+		default:
+			return '';
+	}
+}

@@ -4,7 +4,7 @@
 
 .dashboard-block--loading {
 	position: relative;
-	min-width: 200px;
+	min-height: 100px;
 
 	&:before {
 		content: "\f531";

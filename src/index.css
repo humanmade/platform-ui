@@ -417,7 +417,7 @@
  */
 .dashboard-block--loading {
   position: relative;
-  min-width: 200px; }
+  min-height: 100px; }
   .dashboard-block--loading:before {
     content: "\f531";
     font-family: 'dashicons';

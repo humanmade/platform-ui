@@ -17,7 +17,7 @@ const DashboardBlock = ( { isLoading, title, children } ) => {
 			</button>
 			<h2 className="hndle"><span>{title}</span></h2>
 			<div className={ `inside ${ isLoading ? ' dashboard-block--loading' : '' }` }>
-				{children}
+				{ ! isLoading && children }
 			</div>
 		</div>
 	</div>

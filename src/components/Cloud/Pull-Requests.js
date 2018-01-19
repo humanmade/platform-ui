@@ -15,7 +15,7 @@ import withFetch from "../../utils/withFetch"
 export const PullRequests = ( { data, loading } ) => <DashboardBlock title="Pull Requests" isLoading={ loading }>
 	{ ( data && data.length > 0 )
 		? <ul>
-			{ data.map( pr => <PullRequestItem {...pr} /> ) }
+			{ data.map( pr => <PullRequestItem {...pr} key={ pr.number } /> ) }
 		</ul>
 		: <p>No Open Pull Requests</p>
 	}
@@ -26,7 +26,7 @@ PullRequests.defaultTypes = { items: [] }
 PullRequests.propTypes = {
 	items: PropTypes.shape( {
 		date:       PropTypes.string,
-		id:         PropTypes.number,
+		number:     PropTypes.number,
 		link:       PropTypes.string,
 		status:     PropTypes.string,
 		statusText: PropTypes.string,
