@@ -1,0 +1,53 @@
+/**
+ * Dashboard Block Generic Styles.
+ */
+
+.dashboard-block--loading {
+	position: relative;
+	min-width: 200px;
+
+	&:before {
+		content: "\f531";
+		font-family: 'dashicons';
+		font-size: 1.5rem;
+		position: absolute;
+		z-index:5;
+		top: calc( 50% - 10px );
+		left: calc( 50% - 10px );
+		animation: rotate linear 1s reverse;
+		animation-iteration-count: infinite;
+		transform-origin: 50% 50%;
+		-webkit-animation: rotate linear 1s reverse;
+		-webkit-animation-iteration-count: infinite;
+		-webkit-transform-origin: 50% 50%;
+	}
+
+	&:after {
+		content: "";
+		position: absolute;
+		z-index: 4;
+		background-color: rgba( 255, 255, 255, .9 );
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+}
+
+@keyframes rotate{
+	0% {
+		transform:  rotate(0deg) ;
+	}
+	100% {
+		transform:  rotate(360deg) ;
+	}
+}
+
+@-webkit-keyframes rotate {
+	0% {
+		-webkit-transform:  rotate(0deg) ;
+	}
+	100% {
+		-webkit-transform:  rotate(360deg) ;
+	}
+}
