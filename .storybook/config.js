@@ -17,4 +17,9 @@ function loadStories() {
 	req.keys().forEach( ( filename ) => req( filename ) )
 }
 
+// Setup Data object.
+window.HM = {
+	EnterpriseKit: {}
+}
+
 configure( loadStories, module );

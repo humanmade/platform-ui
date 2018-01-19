@@ -286,6 +286,7 @@ function enqueue_assets() {
 			'DocsVersion' => \HM\Platform\docs_version(),
 			'DocsURL'     => \HM\Platform\docs_url(),
 			'Features'    => [],
+			'restNonce'   => wp_create_nonce( 'wp_rest' ),
 		],
 		'Environment'   => get_environment(),
 	] );

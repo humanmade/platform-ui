@@ -1,3 +1,4 @@
+/* global HM */
 import 'whatwg-fetch';
 import React from 'react';
 
@@ -33,7 +34,12 @@ const withFetch = url => {
 
 				this.setState( { loading: true } );
 
-				fetch( url )
+				fetch( url, {
+					headers: {
+						'X-WP-Nonce': HM.EnterpriseKit.restNonce
+					},
+					credentials: "same-origin"
+				} )
 					.then( response => response.json() )
 					.then( data => this.updateStore( data, false ) )
 					.catch( error => this.updateStore( {}, false, error ) );
