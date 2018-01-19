@@ -9,10 +9,10 @@ import { convertBytesToGigabytes } from '../../utils';
 /**
  * Display an announcement fed in from the HM Stack
  *
- * @param {String} buttonText
- * @param {String} description
- * @param {String} link
- * @param {String} title
+ * @param {String} buttonText  Text to display in a button link.
+ * @param {String} description More contextual information about the announcement.
+ * @param {String} link        Link for the button.
+ * @param {String} title       Main title for the announcement.
  */
 const Announcements = ( { buttonText, description, link, title } ) => {
 	return <DashboardBlock title="Announcement" id="announcements-block">
@@ -20,7 +20,7 @@ const Announcements = ( { buttonText, description, link, title } ) => {
 			<h3 className="announcement-bloc__title">{ title }</h3>
 			{ description && <p className="announcement-block__description">{ description }</p> }
 			{ ( buttonText && link )
-				? <a className="button button-primary button-large" href={ link } target="_blank"><span className="screen-reader-text">Opens in a new window</span>{ buttonText }</a>
+				? <a className="button button-primary" href={ link } target="_blank"><span className="screen-reader-text">Opens in a new window</span>{ buttonText }</a>
 				: null
 			}
 		</div>
