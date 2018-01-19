@@ -26,15 +26,14 @@ import {
  */
 storiesOf( 'Cloud', module )
 	.addDecorator( DashboardAdminDecorator )
-	.add( 'Activity Log', () => <AlertsLog items={ alerts } /> )
-	.add( 'Announcements', () => <Announcements
-		buttonText="Download"
-		description="To tackle the problem of serving large volumes of images for WordPress while minimising costs, we developed Tachyon, our open-source scalable image service."
-		link="https://humanmade.com/2017/04/27/scaling-wordpress-images-tachyon/"
-		title="We have released a new whitepaper about Tachyon"
+	.add( 'Activity Log', () => <AlertsLog data={ alerts } loading={ false } /> )
+	.add( 'Application Data', () => <EnvironmentData
+		data={ {
+			git_data:         gitData,
+			environment_data: environmentData,
+		} }
+		loading={ false }
 	/> )
-	.add( 'Application Data', () => <EnvironmentData gitData={ gitData } environmentData={ environmentData } /> )
-	.add( 'Bandwidth Usage', () => <BandwidthUsage usageHistory={ bandwidthUsage } /> )
-	.add( 'Page Generation Time', () => <PageGenerationTime responseTimeHistory={ responseTimeHistory } /> )
-	.add( 'Points of Contact', () => <PointsOfContact contacts={ contacts } /> )
-	.add( 'Pull Requests', () => <PullRequests items={ pullRequests } /> );
+	.add( 'Bandwidth Usage', () => <BandwidthUsage data={ bandwidthUsage } loading={ false } /> )
+	.add( 'Page Generation Time', () => <PageGenerationTime data={ responseTimeHistory } loading={ false } /> )
+	.add( 'Pull Requests', () => <PullRequests data={ pullRequests } loading={ false } /> );

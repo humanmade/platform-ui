@@ -1,7 +1,6 @@
-/* global HM */
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import withFetch from '../../utils/withFetch';
+import withApiFetch from '../../utils/withApiFetch';
 import { compose } from 'recompose';
 
 import DashboardBlock from '../Dashboard-Block';
@@ -9,10 +8,10 @@ import DashboardBlock from '../Dashboard-Block';
 /**
  * Data about the current environment's data.
  *
- * @param {Object} git_data         Data about the current Git state in this environment.
- * @param {Object} environment_data Data about the HM Cloud environment in this environment.
+ * @param {Object} data    Data loaded from API.
+ * @param {Object} loading Whether data is still loading or not.
  */
-const EnvironmentData = ( { environment: { data: { git_data, environment_data } } } ) => {
+const EnvironmentData = ( { data: { git_data, environment_data } } ) => {
 	if ( ! git_data ) { return ''; }
 
 	return (
@@ -68,26 +67,17 @@ EnvironmentData.propTypes = {
 			rev:         PropTypes.string,
 			status:      PropTypes.string,
 		} ),
+		environment_data: PropTypes.shape( {
+			php:           PropTypes.string,
+			mysql:         PropTypes.string,
+			elasticsearch: PropTypes.string,
+		} ),
 	} ),
-	enironment_data: PropTypes.shape( {
-		hmplatform:    PropTypes.string,
-		php:           PropTypes.string,
-		mysql:         PropTypes.string,
-		elasticsearch: PropTypes.string,
-		architecture:  PropTypes.string,
-		version:       PropTypes.string,
-	} ),
+	loading: PropTypes.bool,
 }
 
 const EnvironmentDataWithData = compose(
-	withFetch(
-		`${HM.UI.REST.URL}hm-stack/v1/environment-data/`,
-		{
-			credentials: 'same-origin',
-			headers: { 'X-WP-Nonce': HM.UI.REST.Nonce }
-		},
-		'environment'
-	)
+	withApiFetch( 'hm-stack/v1/environment-data/' )
 )(EnvironmentData);
 
 export default EnvironmentDataWithData;

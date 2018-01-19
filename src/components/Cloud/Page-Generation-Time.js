@@ -8,12 +8,13 @@ import { adminTheme } from '../../victory-theme';
 /**
  * Display daily average page generation time for a rolling month period.
  *
- * @param {Array} responseTimeHistory An array of server response data for the current site.
+ * @param {Boolean} loading Whether data is still fetching or not.
+ * @param {Array}   data    An array of server response data for the current site.
  */
-const PageGenerationTime = ( { responseTimeHistory } ) => {
-	const highestTime = responseTimeHistory.reduce( ( carry, item ) => { return item.time > carry ? item.time : carry }, 0 );
+const PageGenerationTime = ( { loading, data } ) => {
+	const highestTime = data.reduce( ( carry, item ) => { return item.time > carry ? item.time : carry }, 0 );
 
-	return <DashboardBlock title="Page Generation Time">
+	return <DashboardBlock title="Page Generation Time"  isLoading={ loading }>
 		<VictoryChart
 			theme={ adminTheme }
 			domainPadding={ 10 }
@@ -34,7 +35,7 @@ const PageGenerationTime = ( { responseTimeHistory } ) => {
 					} } }
 			/>
 			<VictoryLine
-				data={ responseTimeHistory }
+				data={ data }
 				labels={ datum => {
 					if ( datum.time !== highestTime ) {
 						return '';
@@ -52,10 +53,11 @@ const PageGenerationTime = ( { responseTimeHistory } ) => {
 PageGenerationTime.defaultTypes = { usageHistory: [] }
 
 PageGenerationTime.propTypes = {
-	usageHistory: PropTypes.arrayOf( PropTypes.shape( {
+	data: PropTypes.arrayOf( PropTypes.shape( {
 		time: PropTypes.number,
 		date: PropTypes.string,
 	} ) ),
+	loading: PropTypes.boolean,
 }
 
 export default PageGenerationTime;

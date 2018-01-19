@@ -1,7 +1,6 @@
-/* global HM */
-import React from 'react';
 import PropTypes from 'prop-types';
-import withFetch from '../../utils/withFetch';
+import React from 'react';
+import withApiFetch from '../../utils/withApiFetch';
 import { compose } from 'recompose';
 
 import DashboardBlock from '../Dashboard-Block';
@@ -12,11 +11,11 @@ import PullRequestItem from './Pull-Request-Item';
  *
  * @param {Array} items Pull Requests.
  */
-const PullRequests = ( { pullRequests: { data: items } } ) => (
+const PullRequests = ( { data } ) => (
 	<DashboardBlock title="Pull Requests">
-		{ ( items && items.length > 0 )
+		{ ( data && data.length > 0 )
 			? <ul>
-				{ items.map( pr => <PullRequestItem {...pr} /> ) }
+				{ data.map( pr => <PullRequestItem {...pr} /> ) }
 			</ul>
 			: <p>No Open Pull Requests</p>
 		}
@@ -26,7 +25,7 @@ const PullRequests = ( { pullRequests: { data: items } } ) => (
 PullRequests.defaultTypes = { items: [] }
 
 PullRequests.propTypes = {
-	items: PropTypes.shape( {
+	data: PropTypes.shape( {
 		date:       PropTypes.string,
 		id:         PropTypes.number,
 		link:       PropTypes.string,
@@ -34,17 +33,11 @@ PullRequests.propTypes = {
 		statusText: PropTypes.string,
 		title:      PropTypes.string,
 	} ),
+	loading: PropTypes.bool,
 }
 
 const PullRequestsWithData = compose(
-	withFetch(
-		`${HM.UI.REST.URL}hm-stack/v1/pull-requests/`,
-		{
-			credentials: 'same-origin',
-			headers: { 'X-WP-Nonce': HM.UI.REST.Nonce }
-		},
-		'pullRequests'
-	)
-)(PullRequests);
+	withApiFetch( 'hm-stack/v1/pull-requests/' )
+)( PullRequests );
 
 export default PullRequestsWithData;
