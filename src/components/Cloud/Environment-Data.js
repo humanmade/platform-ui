@@ -24,20 +24,20 @@ export const EnvironmentData = ( { data, loading } ) => {
 				<h3 className="environment-data-block__title">Application Version</h3>
 				<dl>
 					<dt>Git Branch:</dt>
-					<dd>{git_data.branch}</dd>
+					<dd>{ git_data.branch }</dd>
 					<dt>Commit:</dt>
-					<dd>{git_data.commit && `${ git_data.commit.description } (${ git_data.commit.rev.substring( 0, 7 ) })`}</dd>
+					<dd>{ git_data.commit && `${ git_data.commit.description } (${ git_data.commit.rev.substring( 0, 7 ) })` }</dd>
 				</dl>
 			</div>
 			<div className="environment-data-block">
 				<h3 className="environment-data-block__title">HM Cloud Software</h3>
 				<dl>
 					<dt>PHP:</dt>
-					<dd>v{environment_data.php}</dd>
+					<dd>v{ environment_data.php }</dd>
 					<dt>MySQL:</dt>
-					<dd>v{environment_data.mySql}</dd>
+					<dd>v{ environment_data.mySql }</dd>
 					<dt>Elasticsearch:</dt>
-					<dd>v{environment_data.elasticsearch}</dd>
+					<dd>v{ environment_data.elasticsearch }</dd>
 				</dl>
 			</div>
 		</div>
@@ -56,9 +56,9 @@ EnvironmentData.propTypes = {
 			} ),
 		} ),
 		environment_data: PropTypes.shape( {
-			php:          PropTypes.string,
-			mySql:        PropTypes.string,
-			elsticsearch: PropTypes.string,
+			php:           PropTypes.string,
+			mysql:         PropTypes.string,
+			elasticsearch: PropTypes.string,
 		} ),
 	} )
 }
