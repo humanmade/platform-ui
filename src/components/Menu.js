@@ -20,7 +20,7 @@ class Menu extends Component {
 			<ul key="submenu" className="wp-submenu wp-submenu-wrap">
 				<li><NavLink exact to="/" activeClassName="current">Dashboard</NavLink></li>
 				<li><NavLink to="/ek" activeClassName="current">Enterprise Kit</NavLink></li>
-				<li><NavLink to="/stats" activeClassName="current">Stats</NavLink></li>
+				<li><NavLink to="/cloud" activeClassName="current">Cloud Data</NavLink></li>
 			</ul>
 		];
 	}

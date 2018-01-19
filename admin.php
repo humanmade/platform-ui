@@ -229,6 +229,7 @@ function add_menu_item() {
 	$sub_pages = [
 		'/'      => esc_html__( 'Dashboard', 'hm-platform' ),
 		'/ek'    => esc_html__( 'Enterprise Kit', 'hm-platform' ),
+		'/cloud' => esc_html__( 'Cloud Data', 'hm-platform' ),
 	];
 
 	foreach ( $sub_pages as $url => $title ) {

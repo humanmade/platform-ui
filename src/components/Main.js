@@ -15,6 +15,7 @@ class Main extends Component {
 				<Header />
 				<Route exact path="/" render={() => <h2>Dashboard</h2>} />
 				<Route path="/ek" render={() => <h2>Enterprise Kit</h2>} />
+				<Route path="/cloud" render={() => <h2>Cloud Data</h2>} />
 			</div>
 		</HashRouter>;
 	}
