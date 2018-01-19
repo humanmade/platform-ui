@@ -8,8 +8,8 @@ import withFetch from "../../utils/withFetch"
 /**
  * Data about the current environment's data.
  *
- * @param {Object} loading Whether data is still loading or not.
  * @param {Object} data    Data loaded from API.
+ * @param {Object} loading Whether data is still loading or not.
  */
 export const EnvironmentData = ( { data, loading } ) => {
 	data = 'git_data' in data ? data : {
@@ -60,7 +60,8 @@ EnvironmentData.propTypes = {
 			mysql:         PropTypes.string,
 			elasticsearch: PropTypes.string,
 		} ),
-	} )
+	} ),
+	loading: PropTypes.boolean,
 }
 
 export default withFetch(

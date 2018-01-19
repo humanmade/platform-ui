@@ -23,8 +23,14 @@ import {
  */
 storiesOf( 'Cloud', module )
 	.addDecorator( DashboardAdminDecorator )
-	.add( 'Activity Log', () => <AlertsLog items={ alerts } loading={ false } /> )
-	.add( 'Application Data', () => <EnvironmentData gitData={ gitData } environmentData={ environmentData } loading={ false } /> )
-	.add( 'Bandwidth Usage', () => <BandwidthUsage usageHistory={ bandwidthUsage } loading={ false } /> )
-	.add( 'Page Generation Time', () => <PageGenerationTime responseTimeHistory={ responseTimeHistory } loading={ false } /> )
+	.add( 'Activity Log', () => <AlertsLog data={ alerts } loading={ false } /> )
+	.add( 'Application Data', () => <EnvironmentData
+		data={ {
+			git_data:         gitData,
+			environment_data: environmentData,
+		} }
+		loading={ false }
+	/> )
+	.add( 'Bandwidth Usage', () => <BandwidthUsage data={ bandwidthUsage } loading={ false } /> )
+	.add( 'Page Generation Time', () => <PageGenerationTime data={ responseTimeHistory } loading={ false } /> )
 	.add( 'Pull Requests', () => <PullRequests data={ pullRequests } loading={ false } /> );

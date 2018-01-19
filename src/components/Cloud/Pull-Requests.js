@@ -24,7 +24,7 @@ export const PullRequests = ( { data, loading } ) => <DashboardBlock title="Pull
 PullRequests.defaultTypes = { items: [] }
 
 PullRequests.propTypes = {
-	items: PropTypes.shape( {
+	data: PropTypes.shape( {
 		date:       PropTypes.string,
 		number:     PropTypes.number,
 		link:       PropTypes.string,
@@ -32,6 +32,7 @@ PullRequests.propTypes = {
 		statusText: PropTypes.string,
 		title:      PropTypes.string,
 	} ),
+	loading: PropTypes.boolean,
 }
 
 export default withFetch(
