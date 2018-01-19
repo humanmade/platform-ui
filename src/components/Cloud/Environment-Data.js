@@ -1,15 +1,18 @@
+/* global HM */
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import DashboardBlock from '../Dashboard-Block';
+import withFetch from "../../utils/withFetch"
 
 /**
  * Data about the current environment's data.
  *
  * @param {Object} gitData        Data about the current Git state in this environment.
+ * @param {Object} loading        Whether data is still loading or not.
  * @param {Object} environmentData Data about the HM Cloud environment in this environment.
  */
-const EnvironmentData = ( { gitData, environmentData } ) => <DashboardBlock title="Application Data" id="environment-data">
+const EnvironmentData = ( { gitData, loading, environmentData } ) => <DashboardBlock isLoading={ loading } title="Application Data" id="environment-data">
 	<div className="environment-data">
 		<div className="environment-data-block">
 			<h3 className="environment-data-block__title">Application Version</h3>
@@ -56,4 +59,6 @@ EnvironmentData.propTypes = {
 	} ),
 }
 
-export default EnvironmentData;
+export default withFetch(
+	`${HM.EnterpriseKit.DocsURL}/wp-json/hm-stack/v1/environment-data`
+)( EnvironmentData );

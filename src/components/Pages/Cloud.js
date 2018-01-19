@@ -12,10 +12,10 @@ class Cloud extends Component {
 			<div id="dashboard-widgets-wrap">
 				<div className="metabox-holder" id="dashboard-widgets">
 					<div id="postbox-container-1" className="postbox-container">
-						<PullRequests />
+						<EnvironmentData />
 					</div>
 					<div id="postbox-container-2" className="postbox-container">
-						<EnvironmentData />
+						<PullRequests />
 					</div>
 				</div>
 			</div>
