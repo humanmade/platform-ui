@@ -12,6 +12,7 @@ module.exports = {
 				loaders: [ 'style-loader', 'css-loader' ],
 				include: [
 					path.resolve( __dirname, '../../../../../wordpress/wp-admin/css' ),
+					path.resolve( __dirname, '../../../../../wordpress/wp-includes/css' ),
 					path.resolve( __dirname, '../src' ),
 				]
 			},
