@@ -3,6 +3,7 @@ import { HashRouter, Route } from 'react-router-dom';
 import AdminPortal from '../portal';
 import Menu from './Menu';
 import Header from './Header';
+import Documentation from './Documentation';
 
 class Main extends Component {
 
@@ -15,6 +16,8 @@ class Main extends Component {
 				<Header />
 				<Route exact path="/" render={() => <h2>Dashboard</h2>} />
 				<Route path="/ek" render={() => <h2>Enterprise Kit</h2>} />
+				<Route path="/cloud" render={() => <h2>Cloud</h2>} />
+				<Route path="/documentation" component={Documentation} />
 			</div>
 		</HashRouter>;
 	}

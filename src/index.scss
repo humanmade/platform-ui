@@ -7,19 +7,19 @@ $images-path: "./hm-pattern-library/assets/images";
 @import "./hm-pattern-library/assets/sass/components/loading";
 @import "./hm-pattern-library/assets/sass/components/buttons";
 
+@import "./scss/Header";
+@import "./scss/Menu";
+@import "./scss/Toolbar";
 @import "./scss/Cloud/Alerts-Log";
 @import "./scss/Cloud/Pull-Requests";
 @import "./scss/Cloud/Environment-Data";
 
-#toplevel_page_hm-enterprise-kit .wp-menu-image img,
-#toplevel_page_hm-enterprise-kit .wp-menu-image svg {
-  max-width: 24px;
-  height:    auto;
-  width:     auto;
-}
-
-.wp-menu-image {
-  line-height: 34px;
+// Hide update & admin notices, we'll move those elsewhere in the UI to avoid the fugly.
+.toplevel_page_hm-platform #wpbody-content {
+  > .update-nag,
+  > .notice {
+    display: none;
+  }
 }
 
 .hm-logo-small {
@@ -28,46 +28,6 @@ $images-path: "./hm-pattern-library/assets/images";
   vertical-align: text-bottom;
   height:         auto;
   display:        inline-block;
-}
-
-#wpadminbar .hm-docs-indicator {
-  margin-left:  5px;
-  border-left:  1px solid rgba(255, 255, 255, .3);
-  padding-left: 10px;
-}
-
-#wpadminbar {
-
-  .ab-submenu-header {
-    margin-top: -6px;
-    border-top:  1px solid rgba(255, 255, 255, .3);
-    font-weight: bold;
-    padding:     0 10px;
-  }
-
-  .ab-top-menu > #wp-admin-bar-hm-platform-toolbar-ui.menupop > .ab-sub-wrapper {
-    min-width: 150%;
-  }
-
-}
-
-.hm-ek-Header {
-  margin-left: -20px;
-  background:  #fff;
-  padding:     20px 40px;
-}
-
-.hm-ek-Header h1 svg {
-  vertical-align: text-bottom;
-  margin-right:   20px;
-  height:         1.2em;
-  width:          auto;
-}
-
-.hm-ek-Header-Version {
-  margin-left: 10px;
-  font-size:   50%;
-  color:       #999;
 }
 
 .hm-platform-modal {
@@ -80,7 +40,7 @@ $images-path: "./hm-pattern-library/assets/images";
   }
 
   iframe {
-    position: absolute;
+    position: fixed;
     z-index: 9991;
     top: 0;
     left: 0;
@@ -99,4 +59,16 @@ $images-path: "./hm-pattern-library/assets/images";
     opacity: 1;
   }
 
+}
+
+.hm-platform-full-embed {
+  background: #fff;
+  position: fixed;
+  z-index: 9991;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 160px;
+  width: calc(100% - 160px);
+  height: 100%;
 }

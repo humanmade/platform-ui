@@ -1,0 +1,24 @@
+
+// Make sure SVG logo is appropriately sized.
+#adminmenu .toplevel_page_hm-platform {
+  .wp-menu-image img,
+  .wp-menu-image svg {
+    max-width: 24px;
+    height:    auto;
+    width:     auto;
+  }
+
+  // Center menu images.
+  .wp-menu-image {
+    line-height: 34px;
+
+  }
+
+  // Current class is applied to link in react.
+  .current {
+    font-weight: 600;
+    color: #fff;
+  }
+}
+
+
