@@ -1,0 +1,44 @@
+/**
+ * HM Points of Contact block.
+ */
+
+.points-of-contact {
+	justify-content: space-between;
+
+	// Side-by-side display.
+	@media screen and (min-width: 500px) {
+		display: flex;
+	}
+
+	// Small window where the block goes small again.
+	@media screen and (min-width: 800px) and (max-width: 900px) {
+		display: block;
+	}
+}
+
+.points-of-contact__section {
+	flex-basis: 48%;
+	margin: 20px 0;
+
+	@media screen and (min-width: 500px) {
+		margin: 10px;
+	}
+
+	@media screen and (min-width: 800px) and (max-width: 900px) {
+		margin: 20px 0;
+	}
+
+	&:last-of-type {
+		margin-bottom: 0;
+	}
+}
+
+// Yes, this is gross. #becauseWP
+#dashboard-widgets h3.points-of-contact__title {
+	font-weight: bold;
+}
+
+.points-of-contact__email {
+	display: block;
+	margin: 3px 0;
+}

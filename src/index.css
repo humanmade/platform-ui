@@ -531,6 +531,37 @@
   float: left;
   margin-left: 0; }
 
+/**
+ * HM Points of Contact block.
+ */
+.points-of-contact {
+  justify-content: space-between; }
+  @media screen and (min-width: 500px) {
+    .points-of-contact {
+      display: flex; } }
+  @media screen and (min-width: 800px) and (max-width: 900px) {
+    .points-of-contact {
+      display: block; } }
+
+.points-of-contact__section {
+  flex-basis: 48%;
+  margin: 20px 0; }
+  @media screen and (min-width: 500px) {
+    .points-of-contact__section {
+      margin: 10px; } }
+  @media screen and (min-width: 800px) and (max-width: 900px) {
+    .points-of-contact__section {
+      margin: 20px 0; } }
+  .points-of-contact__section:last-of-type {
+    margin-bottom: 0; }
+
+#dashboard-widgets h3.points-of-contact__title {
+  font-weight: bold; }
+
+.points-of-contact__email {
+  display: block;
+  margin: 3px 0; }
+
 #toplevel_page_hm-enterprise-kit .wp-menu-image img,
 #toplevel_page_hm-enterprise-kit .wp-menu-image svg {
   max-width: 24px;
