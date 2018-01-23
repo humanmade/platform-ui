@@ -23,6 +23,7 @@ function bootstrap() {
 	add_filter( 'menu_order', __NAMESPACE__ . '\\platform_menu_order', 20 );
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
 	add_action( 'admin_footer', __NAMESPACE__ . '\\app_root' );
+	add_action( 'rest_api_init', __NAMESPACE__ . '\\api_init' );
 }
 
 /**
@@ -190,6 +191,23 @@ function get_environment() {
 	return $_SERVER['SERVER_NAME'];
 }
 
+/**
+ * Gets a unique user ID containing no identifiable info for use with
+ * analytics packages.
+ *
+ * Uniqueness based on
+ *  - installation URL
+ *  - environment
+ *  - user ID
+ */
+function get_user() {
+	return md5( serialize( [
+		WP_HOME,
+		get_environment(),
+		get_current_user_id(),
+	] ) );
+}
+
 function platform_menu_order( $menu_order ) {
 	$hm_menu_order = [];
 
@@ -231,6 +249,7 @@ function add_menu_item() {
 		'/ek'            => esc_html__( 'Enterprise Kit', 'hm-platform' ),
 		'/cloud'         => esc_html__( 'Cloud', 'hm-platform' ),
 		'/documentation' => esc_html__( 'Documentation', 'hm-platform' ),
+		'/privacy'       => esc_html__( 'Privacy', 'hm-platform' ),
 	];
 
 	foreach ( $sub_pages as $url => $title ) {
@@ -273,9 +292,10 @@ function app_root() {
 }
 
 /**
- * Load the React App.
+ * Load the UI scripts.
  */
 function enqueue_assets() {
+	// React app.
 	ReactWPScripts\enqueue_assets( __DIR__, [
 		'base_url' => WP_CONTENT_URL . '/hm-platform',
 		'handle'   => 'hm-platform',
@@ -289,5 +309,47 @@ function enqueue_assets() {
 			'Features'    => [],
 		],
 		'Environment'   => get_environment(),
+		'User'          => get_user(),
 	] );
+
+	// Tag manager.
+	if ( ! get_site_option( 'hm-platform-analytics-optout', false ) && ( ! defined( 'HM_ANALYTICS_OPTOUT' ) || ! HM_ANALYTICS_OPTOUT ) ) {
+		wp_add_inline_script(
+			'hm-platform',
+			sprintf( 'var HMDataLayer = [ %s ];', wp_json_encode( [
+				'user'        => get_user(),
+				'docsVersion' => \HM\Platform\docs_version(),
+			] ) ),
+			'before'
+		);
+		wp_add_inline_script(
+			'hm-platform',
+			'(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({\'gtm.start\':
+			new Date().getTime(),event:\'gtm.js\'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!=\'dataLayer\'?\'&l=\'+l:\'\';j.async=true;j.src=
+			\'https://www.googletagmanager.com/gtm.js?id=\'+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,\'script\',\'HMDataLayer\',\'GTM-NV5TSKX\');',
+			'after'
+		);
+	}
+}
+
+/**
+ * Register API settings and endpoints for the platform UI.
+ */
+function api_init() {
+
+	// Allow optout to be set via the API.
+	register_setting( 'general', 'hm-platform-analytics-optout', [
+		'type'              => 'boolean',
+		'group'             => 'general',
+		'description'       => esc_html__( 'Whether to opt out of analytics tracking for HM Platform', 'hm-platform' ),
+		'sanitize_callback' => function ( $value ) {
+			$value = defined( 'HM_ANALYTICS_OPTOUT' ) ? HM_ANALYTICS_OPTOUT : empty( $value );
+			update_site_option( 'hm-platform-analytics-optout', $value );
+			return $value;
+		},
+		'show_in_rest'      => true,
+	] );
+
 }

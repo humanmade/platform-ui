@@ -4,6 +4,7 @@ import AdminPortal from '../portal';
 import Menu from './Menu';
 import Header from './Header';
 import Documentation from './Documentation';
+import Privacy from './Privacy';
 
 class Main extends Component {
 
@@ -18,6 +19,7 @@ class Main extends Component {
 				<Route path="/ek" render={() => <h2>Enterprise Kit</h2>} />
 				<Route path="/cloud" render={() => <h2>Cloud</h2>} />
 				<Route path="/documentation" component={Documentation} />
+				<Route path="/privacy" component={Privacy} />
 			</div>
 		</HashRouter>;
 	}

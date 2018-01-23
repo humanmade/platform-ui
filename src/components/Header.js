@@ -8,7 +8,7 @@ class Header extends Component {
 		return <header className="hm-ek-Header">
 			<h1>
 				<Logo className="hm-logo-large" title="Human Made" />
-				Platform
+				{ this.props.title || 'Platform' }
 				{ ' ' }
 				<small className="hm-ek-Header-Version">v{ HM.EnterpriseKit.Version }</small>
 			</h1>
