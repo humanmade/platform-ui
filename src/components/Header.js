@@ -12,6 +12,7 @@ class Header extends Component {
 				{ ' ' }
 				<small className="hm-ek-Header-Version">v{ HM.EnterpriseKit.Version }</small>
 			</h1>
+			{ this.props.children }
 		</header>;
 	}
 }

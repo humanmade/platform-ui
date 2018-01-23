@@ -2,8 +2,6 @@
 
 namespace HM\Platform\Admin;
 
-require_once 'react-loader.php';
-
 use HM\Platform;
 use WP_Admin_Bar;
 use ReactWPScripts;
@@ -295,6 +293,9 @@ function app_root() {
  * Load the UI scripts.
  */
 function enqueue_assets() {
+	// Load react scripts loader.
+	require_once 'react-loader.php';
+
 	// React app.
 	ReactWPScripts\enqueue_assets( __DIR__, [
 		'base_url' => WP_CONTENT_URL . '/hm-platform',
@@ -313,7 +314,7 @@ function enqueue_assets() {
 	] );
 
 	// Tag manager.
-	if ( ! get_site_option( 'hm-platform-analytics-optout', false ) && ( ! defined( 'HM_ANALYTICS_OPTOUT' ) || ! HM_ANALYTICS_OPTOUT ) ) {
+	if ( ! get_site_option( 'hm_analytics_optout', false ) && ( ! defined( 'HM_ANALYTICS_OPTOUT' ) || ! HM_ANALYTICS_OPTOUT ) ) {
 		wp_add_inline_script(
 			'hm-platform',
 			sprintf( 'var HMDataLayer = [ %s ];', wp_json_encode( [
@@ -340,16 +341,19 @@ function enqueue_assets() {
 function api_init() {
 
 	// Allow optout to be set via the API.
-	register_setting( 'general', 'hm-platform-analytics-optout', [
+	register_setting( 'hm-platform', 'hm_analytics_optout', [
 		'type'              => 'boolean',
-		'group'             => 'general',
+		'group'             => 'hm-platform',
 		'description'       => esc_html__( 'Whether to opt out of analytics tracking for HM Platform', 'hm-platform' ),
 		'sanitize_callback' => function ( $value ) {
 			$value = defined( 'HM_ANALYTICS_OPTOUT' ) ? HM_ANALYTICS_OPTOUT : empty( $value );
-			update_site_option( 'hm-platform-analytics-optout', $value );
+			update_site_option( 'hm_analytics_optout', $value );
 			return $value;
 		},
 		'show_in_rest'      => true,
+		'schema' => [
+			'default' => defined( 'HM_ANALYTICS_OPTOUT' ) ? HM_ANALYTICS_OPTOUT : false,
+		],
 	] );
 
 }
