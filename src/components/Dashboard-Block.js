@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 /**
  * Generic Dashboard wrapper block for displaying some information in the admin.
  *
- * @param {String} title   Title to display in collapsbile header.
- * @param {Array} children React children.
+ * @param {String} title    Title to display in collapsbile header.
+ * @param {Array}  children React children.
+ * @param {String} id       Unique ID to display for the block.
  */
-const DashboardBlock = ( { title, children } ) => {
-	return <div className="postbox-container">
+const DashboardBlock = ( { title, children, id } ) => {
+	return <div className="postbox-container" id={ id }>
 		<div className="postbox">
 			<button type="button" className="handlediv" aria-expanded="true">
 				<span className="screen-reader-text">Toggle panel: { title }</span>
@@ -22,6 +23,9 @@ const DashboardBlock = ( { title, children } ) => {
 	</div>
 }
 
-DashboardBlock.propTypes = { title: PropTypes.string }
+DashboardBlock.propTypes = {
+	id:    PropTypes.string,
+	title: PropTypes.string,
+}
 
 export default DashboardBlock;

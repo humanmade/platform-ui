@@ -6,7 +6,7 @@ import React from 'react';
  * @param storyFn
  */
 export const DashboardAdminDecorator = storyFn => (
-	<div className="wp-admin" id="wpbody-content">
+	<div className="wp-admin wp-core-ui" id="wpbody-content">
 		<div className="metabox-holder" id="dashboard-widgets" style={ { padding: 20 } }>
 			{ storyFn() }
 		</div>
