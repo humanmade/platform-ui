@@ -209,7 +209,7 @@ function get_environment() {
  *  - environment
  *  - user ID
  */
-function get_user() {
+function get_anonymous_user() {
 	return md5( serialize( [
 		WP_HOME,
 		get_environment(),
@@ -322,7 +322,7 @@ function enqueue_assets() {
 			'Features'    => [],
 		],
 		'Environment'   => get_environment(),
-		'User'          => get_user(),
+		'User'          => get_anonymous_user(),
 		'Analytics'     => [
 			'OptoutBy' => defined( 'HM_ANALYTICS_OPTOUT' ) ? 'code' : 'setting',
 			'Optout'   => defined( 'HM_ANALYTICS_OPTOUT' ) ? HM_ANALYTICS_OPTOUT : get_site_option( 'hm_analytics_optout', false ),
@@ -334,7 +334,7 @@ function enqueue_assets() {
 		wp_add_inline_script(
 			'hm-platform',
 			sprintf( 'var HMDataLayer = [ %s ];', wp_json_encode( [
-				'user'        => get_user(),
+				'user'        => get_anonymous_user(),
 				'docsVersion' => \HM\Platform\docs_version(),
 			] ) ),
 			'before'
