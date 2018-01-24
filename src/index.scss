@@ -1,0 +1,76 @@
+$images-path: "./hm-pattern-library/assets/images";
+
+@import "./hm-pattern-library/assets/sass/brand-colors";
+@import "./hm-pattern-library/assets/sass/variables";
+@import "./hm-pattern-library/assets/sass/base/typography-mixins";
+@import "./hm-pattern-library/assets/sass/utilities/icons";
+@import "./hm-pattern-library/assets/sass/components/loading";
+@import "./hm-pattern-library/assets/sass/components/buttons";
+
+@import "./scss/Header";
+@import "./scss/Menu";
+@import "./scss/Toolbar";
+@import "./scss/Cloud/Alerts-Log";
+@import "./scss/Cloud/Announcements";
+@import "./scss/Cloud/Pull-Requests";
+@import "./scss/Cloud/Environment-Data";
+@import "./scss/Cloud/Points-Of-Contact";
+
+// Hide update & admin notices, we'll move those elsewhere in the UI to avoid the fugly.
+.toplevel_page_hm-platform #wpbody-content {
+  > .update-nag,
+  > .notice {
+    display: none;
+  }
+}
+
+.hm-logo-small {
+  max-width:      24px;
+  width:          auto;
+  vertical-align: text-bottom;
+  height:         auto;
+  display:        inline-block;
+}
+
+.hm-platform-modal {
+
+  .hm-iframe-close {
+    position: fixed;
+    top: 50px;
+    right: 50px;
+    z-index: 9992;
+  }
+
+  iframe {
+    position: fixed;
+    z-index: 9991;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    transition: top .3s linear, opacity .3s linear;
+  }
+
+  .hm-iframe-loading {
+    opacity: 0;
+    top: 200px;
+  }
+
+  .hm-iframe-loaded {
+    opacity: 1;
+  }
+
+}
+
+.hm-platform-full-embed {
+  background: #fff;
+  position: fixed;
+  z-index: 9991;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 160px;
+  width: calc(100% - 160px);
+  height: 100%;
+}
