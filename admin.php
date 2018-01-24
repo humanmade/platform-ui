@@ -3,7 +3,7 @@
 namespace HM\Platform\Admin;
 
 // Load react scripts loader.
-if ( ! function_exists( '\\ReactWPScripts\\enqueue_assets()' ) ) {
+if ( ! function_exists( '\\ReactWPScripts\\enqueue_assets' ) ) {
 	require_once 'react-loader.php';
 }
 
