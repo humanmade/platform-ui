@@ -9,7 +9,14 @@ jobs:
         # Whitelist branches to build for.
         - master
     steps:
+      # Checkout repo & subs:
       - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
+
+      # Get npm cache:
+      - restore_cache:
+        key: npm
 
       # Build steps:
       - run: npm install
@@ -18,3 +25,10 @@ jobs:
       # Run the deploy:
       - deploy:
           command: .circleci/deploy.sh
+
+      # Make fast:
+      - save_cache:
+        key: npm
+        paths:
+          - ~/.npm
+
