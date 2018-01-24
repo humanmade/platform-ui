@@ -6,5 +6,5 @@
 # `branches` option in config.yml instead.
 
 .git
+.gitignore
 node_modules
-.storybook

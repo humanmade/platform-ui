@@ -1,7 +1,0 @@
-# dependencies
-/node_modules
-
-# misc
-/asset-manifest.json
-/build
-/src/index.css
