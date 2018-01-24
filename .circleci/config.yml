@@ -22,13 +22,12 @@ jobs:
       - run: npm install
       - run: npm run build
 
-      # Run the deploy:
-      - deploy:
-          command: .circleci/deploy.sh
-
       # Make fast:
       - save_cache:
           key: npm
           paths:
             - ~/.npm
 
+      # Run the deploy:
+      - deploy:
+          command: .circleci/deploy.sh

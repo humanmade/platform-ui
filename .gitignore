@@ -1,6 +1,7 @@
 # dependencies
-node_modules
+/node_modules
 
 # misc
-asset-manifest.json
-src/index.css
+/asset-manifest.json
+/build
+/src/index.css
