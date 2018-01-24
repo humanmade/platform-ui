@@ -2,6 +2,11 @@
 
 namespace HM\Platform\Admin;
 
+// Load react scripts loader.
+if ( ! function_exists( '\\ReactWPScripts\\enqueue_assets()' ) ) {
+	require_once 'react-loader.php';
+}
+
 use HM\Platform;
 use WP_Admin_Bar;
 use ReactWPScripts;
@@ -299,9 +304,6 @@ function app_root() {
  * Load the UI scripts.
  */
 function enqueue_assets() {
-	// Load react scripts loader.
-	require_once 'react-loader.php';
-
 	// React app.
 	ReactWPScripts\enqueue_assets( __DIR__, [
 		'base_url' => WP_CONTENT_URL . '/hm-platform',
