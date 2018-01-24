@@ -488,6 +488,23 @@
   font-style: italic; }
 
 /**
+ * Announcements.
+ */
+#announcements-block .postbox {
+  border: 4px solid #0073aa; }
+
+#dashboard-widgets h3.announcement-bloc__title {
+  font-size: 1.5rem;
+  line-height: 1.3; }
+
+#announcements-block .button-primary {
+  height: 34px;
+  font-size: 16px;
+  line-height: 32px;
+  padding: 0 14px 2px;
+  margin: 10px 0; }
+
+/**
  * HM Cloud Pull Requests Pane.
  */
 .pull-request-item {
@@ -556,6 +573,37 @@
 .environment-data-block dd {
   float: left;
   margin-left: 0; }
+
+/**
+ * HM Points of Contact block.
+ */
+.points-of-contact {
+  justify-content: space-between; }
+  @media screen and (min-width: 500px) {
+    .points-of-contact {
+      display: flex; } }
+  @media screen and (min-width: 800px) and (max-width: 900px) {
+    .points-of-contact {
+      display: block; } }
+
+.points-of-contact__section {
+  flex-basis: 48%;
+  margin: 20px 0; }
+  @media screen and (min-width: 500px) {
+    .points-of-contact__section {
+      margin: 10px; } }
+  @media screen and (min-width: 800px) and (max-width: 900px) {
+    .points-of-contact__section {
+      margin: 20px 0; } }
+  .points-of-contact__section:last-of-type {
+    margin-bottom: 0; }
+
+#dashboard-widgets h3.points-of-contact__title {
+  font-weight: bold; }
+
+.points-of-contact__email {
+  display: block;
+  margin: 3px 0; }
 
 .toplevel_page_hm-platform #wpbody-content > .update-nag,
 .toplevel_page_hm-platform #wpbody-content > .notice {
