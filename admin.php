@@ -22,6 +22,12 @@ function bootstrap() {
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
 	add_action( 'admin_footer', __NAMESPACE__ . '\\app_root' );
 	add_action( 'rest_api_init', __NAMESPACE__ . '\\api_init' );
+
+	// Filter the optout setting so it's network wide.
+	if ( is_multisite() ) {
+		add_filter( 'pre_update_option_hm_analytics_optout', __NAMESPACE__ . '\\sync_network_optout' );
+		add_filter( 'option_hm_analytics_optout', __NAMESPACE__ . '\\get_network_optout' );
+	}
 }
 
 /**
@@ -303,6 +309,10 @@ function enqueue_assets() {
 	] );
 	wp_localize_script( 'hm-platform', 'HM', [
 		'AdminURL'      => admin_url( '/admin.php?page=hm-platform' ),
+		'REST'          => [
+			'URL'   => get_rest_url(),
+			'Nonce' => wp_create_nonce( 'wp_rest' ),
+		],
 		'EnterpriseKit' => [
 			'Version'     => \HM\Platform\version(),
 			'DocsVersion' => \HM\Platform\docs_version(),
@@ -311,6 +321,10 @@ function enqueue_assets() {
 		],
 		'Environment'   => get_environment(),
 		'User'          => get_user(),
+		'Analytics'     => [
+			'OptoutBy' => defined( 'HM_ANALYTICS_OPTOUT' ) ? 'code' : 'setting',
+			'Optout'   => defined( 'HM_ANALYTICS_OPTOUT' ) ? HM_ANALYTICS_OPTOUT : get_site_option( 'hm_analytics_optout', false ),
+		],
 	] );
 
 	// Tag manager.
@@ -339,21 +353,35 @@ function enqueue_assets() {
  * Register API settings and endpoints for the platform UI.
  */
 function api_init() {
-
 	// Allow optout to be set via the API.
 	register_setting( 'hm-platform', 'hm_analytics_optout', [
 		'type'              => 'boolean',
-		'group'             => 'hm-platform',
 		'description'       => esc_html__( 'Whether to opt out of analytics tracking for HM Platform', 'hm-platform' ),
 		'sanitize_callback' => function ( $value ) {
-			$value = defined( 'HM_ANALYTICS_OPTOUT' ) ? HM_ANALYTICS_OPTOUT : empty( $value );
-			update_site_option( 'hm_analytics_optout', $value );
-			return $value;
+			return ! empty( $value );
 		},
 		'show_in_rest'      => true,
-		'schema' => [
-			'default' => defined( 'HM_ANALYTICS_OPTOUT' ) ? HM_ANALYTICS_OPTOUT : false,
-		],
+		'default'           => defined( 'HM_ANALYTICS_OPTOUT' ) ? HM_ANALYTICS_OPTOUT : false,
 	] );
+}
 
+/**
+ * When updating the optout setting for the site, update
+ * the site option.
+ *
+ * @param $value
+ * @return bool
+ */
+function sync_network_optout( $value ) {
+	update_site_option( 'hm_analytics_optout', ! empty( $value ) );
+	return $value;
+}
+
+/**
+ * Return the network option when retrieving the optout value.
+ *
+ * @return bool
+ */
+function get_network_optout() {
+	return (bool) get_site_option( 'hm_analytics_optout', false );
 }
