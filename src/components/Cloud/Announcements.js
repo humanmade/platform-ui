@@ -20,7 +20,7 @@ const Announcements = ( { buttonText, description, link, title } ) => {
 			<h3 className="announcement-bloc__title">{ title }</h3>
 			{ description && <p className="announcement-block__description">{ description }</p> }
 			{ ( buttonText && link )
-				? <a className="button button-primary" href={ link } target="_blank"><span className="screen-reader-text">Opens in a new window</span>{ buttonText }</a>
+				? <a className="button button-primary" href={ link } target="_blank">{ buttonText } <span className="screen-reader-text">Opens in a new window</span></a>
 				: null
 			}
 		</div>
