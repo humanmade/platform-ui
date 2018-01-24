@@ -4,6 +4,7 @@ import AdminPortal from '../portal';
 import Menu from './Menu';
 import Header from './Header';
 import Documentation from './Documentation';
+import Privacy from './Privacy';
 
 class Main extends Component {
 
@@ -13,11 +14,11 @@ class Main extends Component {
 				<AdminPortal target="toplevel_page_hm-platform">
 					<Menu />
 				</AdminPortal>
-				<Header />
-				<Route exact path="/" render={() => <h2>Dashboard</h2>} />
-				<Route path="/ek" render={() => <h2>Enterprise Kit</h2>} />
-				<Route path="/cloud" render={() => <h2>Cloud</h2>} />
+				<Route exact path="/" render={() => <Header/>} />
+				<Route path="/ek" render={() => <Header title="Enterprise Kit"/>} />
+				<Route path="/cloud" render={() => <Header title="Cloud"/>} />
 				<Route path="/documentation" component={Documentation} />
+				<Route path="/privacy" component={Privacy} />
 			</div>
 		</HashRouter>;
 	}

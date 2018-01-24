@@ -22,6 +22,7 @@ class Menu extends Component {
 				<li><NavLink to="/ek" activeClassName="current">Enterprise Kit</NavLink></li>
 				<li><NavLink to="/cloud" activeClassName="current">Cloud</NavLink></li>
 				<li><NavLink to="/documentation" activeClassName="current">Documentation</NavLink></li>
+				<li><NavLink to="/privacy" activeClassName="current">Privacy</NavLink></li>
 			</ul>
 		];
 	}

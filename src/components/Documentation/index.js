@@ -21,6 +21,7 @@ class Documentation extends React.Component {
 			origin:      window.location.hostname,
 			version:     HM.EnterpriseKit.DocsVersion,
 			environment: HM.Environment,
+			user:        HM.User,
 			config:      {},
 		}, HM.EnterpriseKit.DocsURL );
 	}
