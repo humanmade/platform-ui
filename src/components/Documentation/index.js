@@ -4,16 +4,19 @@ import React from 'react';
 class Documentation extends React.Component {
 
 	componentDidMount() {
-		this.frame = document.getElementById( 'hm-docs-site' );
-		window.addEventListener( "message", this.handleEvent, false );
+		window.addEventListener( "message", this.handleFrameMessage );
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener( "message", this.handleEvent, false );
+		window.removeEventListener( "message", this.handleFrameMessage );
 	}
 
-	frameLoad() {
-		this.frame.contentWindow.postMessage( {
+	/**
+	 * Runs every time the iframe is loaded, that includes navigation
+	 * events within the frame.
+	 */
+	onFrameLoad() {
+		this.refs.iframe.contentWindow.postMessage( {
 			event:       "docs-site-embed",
 			origin:      window.location.hostname,
 			version:     HM.EnterpriseKit.DocsVersion,
@@ -22,7 +25,12 @@ class Documentation extends React.Component {
 		}, HM.EnterpriseKit.DocsURL );
 	}
 
-	handleEvent( event ) {
+	/**
+	 * Handler for postMessages sent from the iframe.
+	 *
+	 * @param {Object} event
+	 */
+	handleFrameMessage( event ) {
 		let { data, origin } = event;
 
 		if ( ! origin.match( HM.EnterpriseKit.DocsURL ) ) {
@@ -34,7 +42,7 @@ class Documentation extends React.Component {
 		}
 
 		if ( data.event && data.event === 'location' ) {
-			// Update router hash
+			// Update router hash so history reflects the current iframe URL.
 			window.history.replaceState(
 				{},
 				document.title,
@@ -55,8 +63,9 @@ class Documentation extends React.Component {
 		return <iframe
 			title="HM Platform Documentation"
 			id="hm-docs-site"
+			ref="iframe"
 			className="hm-platform-full-embed"
-			onLoad={() => this.frameLoad()}
+			onLoad={() => this.onFrameLoad()}
 			src={`${HM.EnterpriseKit.DocsURL}/${HM.EnterpriseKit.DocsVersion}${frameURL}/?admin-request=full`}
 		/>;
 	}
