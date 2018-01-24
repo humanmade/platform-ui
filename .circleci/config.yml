@@ -16,7 +16,7 @@ jobs:
 
       # Get npm cache:
       - restore_cache:
-        key: npm
+          key: npm
 
       # Build steps:
       - run: npm install
@@ -28,7 +28,7 @@ jobs:
 
       # Make fast:
       - save_cache:
-        key: npm
-        paths:
-          - ~/.npm
+          key: npm
+          paths:
+            - ~/.npm
 
