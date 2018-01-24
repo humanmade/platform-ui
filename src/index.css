@@ -412,6 +412,49 @@
   margin-left: 7.5px;
   margin-bottom: -1px; }
 
+.hm-ek-Header {
+  margin-left: -20px;
+  background: #fff;
+  padding: 20px 40px; }
+
+.hm-ek-Header h1 svg {
+  vertical-align: text-bottom;
+  margin-right: 20px;
+  height: 1.2em;
+  width: auto; }
+
+.hm-ek-Header-Version {
+  margin-left: 10px;
+  font-size: 50%;
+  color: #999; }
+
+#adminmenu .toplevel_page_hm-platform .wp-menu-image img,
+#adminmenu .toplevel_page_hm-platform .wp-menu-image svg {
+  max-width: 24px;
+  height: auto;
+  width: auto; }
+
+#adminmenu .toplevel_page_hm-platform .wp-menu-image {
+  line-height: 34px; }
+
+#adminmenu .toplevel_page_hm-platform .current {
+  font-weight: 600;
+  color: #fff; }
+
+#wpadminbar .hm-docs-indicator {
+  margin-left: 5px;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  padding-left: 10px; }
+
+#wpadminbar .ab-submenu-header {
+  margin-top: -6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+  padding: 0 10px; }
+
+#wpadminbar .ab-top-menu > #wp-admin-bar-hm-platform-toolbar-ui.menupop > .ab-sub-wrapper {
+  min-width: 150%; }
+
 /**
  * HM Cloud Alerts Pane.
  */
@@ -562,14 +605,9 @@
   display: block;
   margin: 3px 0; }
 
-#toplevel_page_hm-enterprise-kit .wp-menu-image img,
-#toplevel_page_hm-enterprise-kit .wp-menu-image svg {
-  max-width: 24px;
-  height: auto;
-  width: auto; }
-
-.wp-menu-image {
-  line-height: 34px; }
+.toplevel_page_hm-platform #wpbody-content > .update-nag,
+.toplevel_page_hm-platform #wpbody-content > .notice {
+  display: none; }
 
 .hm-logo-small {
   max-width: 24px;
@@ -578,36 +616,6 @@
   height: auto;
   display: inline-block; }
 
-#wpadminbar .hm-docs-indicator {
-  margin-left: 5px;
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
-  padding-left: 10px; }
-
-#wpadminbar .ab-submenu-header {
-  margin-top: -6px;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-  font-weight: bold;
-  padding: 0 10px; }
-
-#wpadminbar .ab-top-menu > #wp-admin-bar-hm-platform-toolbar-ui.menupop > .ab-sub-wrapper {
-  min-width: 150%; }
-
-.hm-ek-Header {
-  margin-left: -20px;
-  background: #fff;
-  padding: 20px 40px; }
-
-.hm-ek-Header h1 svg {
-  vertical-align: text-bottom;
-  margin-right: 20px;
-  height: 1.2em;
-  width: auto; }
-
-.hm-ek-Header-Version {
-  margin-left: 10px;
-  font-size: 50%;
-  color: #999; }
-
 .hm-platform-modal .hm-iframe-close {
   position: fixed;
   top: 50px;
@@ -615,7 +623,7 @@
   z-index: 9992; }
 
 .hm-platform-modal iframe {
-  position: absolute;
+  position: fixed;
   z-index: 9991;
   top: 0;
   left: 0;
@@ -630,3 +638,14 @@
 
 .hm-platform-modal .hm-iframe-loaded {
   opacity: 1; }
+
+.hm-platform-full-embed {
+  background: #fff;
+  position: fixed;
+  z-index: 9991;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 160px;
+  width: calc(100% - 160px);
+  height: 100%; }

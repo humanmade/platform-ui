@@ -87,7 +87,7 @@ function show_in_admin() {
 
 	// Add drop-ins first.
 	foreach ( get_dropins() as $name => $plugin_file ) {
-		$plugin_data = get_plugin_data( dirname( dirname( __DIR__  ) ) . '/dropins/' . $plugin_file, false, false );
+		$plugin_data = get_plugin_data( dirname( dirname( __DIR__ ) ) . '/dropins/' . $plugin_file, false, false );
 
 		if ( empty ( $plugin_data['Name'] ) ) {
 			$plugin_data['Name'] = $name;
@@ -98,7 +98,7 @@ function show_in_admin() {
 
 	// Add our own mu-plugins to the page
 	foreach ( Platform\get_available_plugins() as $name => $plugin_file ) {
-		$plugin_data = get_plugin_data( dirname( dirname( __DIR__  ) ). '/plugins/' . $plugin_file, false, false );
+		$plugin_data = get_plugin_data( dirname( dirname( __DIR__ ) ) . '/plugins/' . $plugin_file, false, false );
 
 		if ( empty ( $plugin_data['Name'] ) ) {
 			$plugin_data['Name'] = $name;
@@ -194,12 +194,12 @@ function platform_menu_order( $menu_order ) {
 	$hm_menu_order = [];
 
 	foreach ( $menu_order as $index => $item ) {
-		if ( $item !== 'hm-enterprise-kit' ) {
+		if ( $item !== 'hm-platform' ) {
 			$hm_menu_order[] = $item;
 		}
 
 		if ( $index === 0 ) {
-			$hm_menu_order[] = 'hm-enterprise-kit';
+			$hm_menu_order[] = 'hm-platform';
 		}
 	}
 
@@ -222,13 +222,15 @@ function add_menu_item() {
 		'manage_options',
 		'hm-platform',
 		$ek_page_callback,
-		WP_CONTENT_URL . '/hm-platform/src/assets/logo-small-red.svg',
+		WP_CONTENT_URL . '/hm-platform/plugins/hm-platform-ui/src/assets/logo-small-red.svg',
 		2
 	);
 
 	$sub_pages = [
-		'/'      => esc_html__( 'Dashboard', 'hm-platform' ),
-		'/ek'    => esc_html__( 'Enterprise Kit', 'hm-platform' ),
+		'/'              => esc_html__( 'Dashboard', 'hm-platform' ),
+		'/ek'            => esc_html__( 'Enterprise Kit', 'hm-platform' ),
+		'/cloud'         => esc_html__( 'Cloud', 'hm-platform' ),
+		'/documentation' => esc_html__( 'Documentation', 'hm-platform' ),
 	];
 
 	foreach ( $sub_pages as $url => $title ) {

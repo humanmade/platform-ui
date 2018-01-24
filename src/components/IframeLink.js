@@ -60,7 +60,7 @@ class IframeLink extends React.Component {
 					{ Close }
 					<iframe
 						//className={ this.state.loading ? 'hm-iframe-loading' : 'hm-iframe-loaded' }
-						src={src + '?admin-request'}
+						src={src}
 						title={ this.props.title || '' }
 						width="100%"
 						height="100%"
