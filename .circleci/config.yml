@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:9-stretch
+
+    branches:
+      only:
+        # Whitelist branches to build for.
+        - master
+    steps:
+      - checkout
+
+      # Build steps:
+      - run: npm install
+      - run: npm run build
+
+      # Run the deploy:
+      - deploy:
+          command: .circleci/deploy.sh
