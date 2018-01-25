@@ -306,10 +306,10 @@ function app_root() {
 function enqueue_assets() {
 	// React app.
 	ReactWPScripts\enqueue_assets( __DIR__, [
-		'base_url' => WP_CONTENT_URL . '/hm-platform',
-		'handle'   => 'hm-platform',
+		'base_url' => defined( 'HM_PLATFORM_UI_URL' ) ? HM_PLATFORM_UI_URL : WP_CONTENT_URL . '/hm-platform/plugins/hm-platform-ui',
+		'handle'   => 'hm-platform-ui',
 	] );
-	wp_localize_script( 'hm-platform', 'HM', [
+	wp_localize_script( 'hm-platform-ui', 'HM', [
 		'AdminURL'      => admin_url( '/admin.php?page=hm-platform' ),
 		'REST'          => [
 			'URL'   => get_rest_url(),
@@ -319,7 +319,7 @@ function enqueue_assets() {
 			'Version'     => \HM\Platform\version(),
 			'DocsVersion' => \HM\Platform\docs_version(),
 			'DocsURL'     => \HM\Platform\docs_url(),
-			'Features'    => [],
+			'Config'      => [],
 		],
 		'Environment'   => get_environment(),
 		'User'          => get_anonymous_user(),
@@ -332,7 +332,7 @@ function enqueue_assets() {
 	// Tag manager.
 	if ( ! get_site_option( 'hm_analytics_optout', false ) && ( ! defined( 'HM_ANALYTICS_OPTOUT' ) || ! HM_ANALYTICS_OPTOUT ) ) {
 		wp_add_inline_script(
-			'hm-platform',
+			'hm-platform-ui',
 			sprintf( 'var HMDataLayer = [ %s ];', wp_json_encode( [
 				'user'        => get_anonymous_user(),
 				'docsVersion' => \HM\Platform\docs_version(),
@@ -340,7 +340,7 @@ function enqueue_assets() {
 			'before'
 		);
 		wp_add_inline_script(
-			'hm-platform',
+			'hm-platform-ui',
 			'(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({\'gtm.start\':
 			new Date().getTime(),event:\'gtm.js\'});var f=d.getElementsByTagName(s)[0],
 			j=d.createElement(s),dl=l!=\'dataLayer\'?\'&l=\'+l:\'\';j.async=true;j.src=
