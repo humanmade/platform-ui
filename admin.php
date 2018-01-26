@@ -27,12 +27,23 @@ function bootstrap() {
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
 	add_action( 'admin_footer', __NAMESPACE__ . '\\app_root' );
 	add_action( 'rest_api_init', __NAMESPACE__ . '\\api_init' );
+	add_action( 'admin_init', __NAMESPACE__ . '\\color_scheme' );
+	add_filter( 'get_user_metadata', __NAMESPACE__ . '\\force_admin_theme', 10, 4 );
 
 	// Filter the optout setting so it's network wide.
 	if ( is_multisite() ) {
 		add_filter( 'pre_update_option_hm_analytics_optout', __NAMESPACE__ . '\\sync_network_optout' );
 		add_filter( 'option_hm_analytics_optout', __NAMESPACE__ . '\\get_network_optout' );
 	}
+}
+
+/**
+ * Get the platform UI plugin base URL.
+ *
+ * @return string
+ */
+function get_base_url() {
+	return defined( 'HM_PLATFORM_UI_URL' ) ? HM_PLATFORM_UI_URL : WP_CONTENT_URL . '/hm-platform/plugins/hm-platform-ui';
 }
 
 /**
@@ -193,6 +204,10 @@ function get_environment() {
 		return 'local';
 	}
 
+	if ( defined( 'HM_ENV_TYPE' ) ) {
+		return HM_ENV_TYPE;
+	}
+
 	if ( defined( 'HM_ENV' ) && HM_ENV ) {
 		return HM_ENV;
 	}
@@ -245,11 +260,11 @@ function add_menu_item() {
 
 	add_menu_page(
 		'Human Made Platform',
-		'HM Platform',
+		'Platform',
 		'manage_options',
 		'hm-platform',
 		$ek_page_callback,
-		WP_CONTENT_URL . '/hm-platform/plugins/hm-platform-ui/src/assets/logo-small-red.svg',
+		'data:image/svg+xml;base64,' . base64_encode( file_get_contents( WP_CONTENT_DIR . '/hm-platform/plugins/hm-platform-ui/src/assets/logo-small-red.svg' ) ),
 		2
 	);
 
@@ -306,7 +321,7 @@ function app_root() {
 function enqueue_assets() {
 	// React app.
 	ReactWPScripts\enqueue_assets( __DIR__, [
-		'base_url' => defined( 'HM_PLATFORM_UI_URL' ) ? HM_PLATFORM_UI_URL : WP_CONTENT_URL . '/hm-platform/plugins/hm-platform-ui',
+		'base_url' => get_base_url(),
 		'handle'   => 'hm-platform-ui',
 	] );
 	wp_localize_script( 'hm-platform-ui', 'HM', [
@@ -376,6 +391,7 @@ function api_init() {
  */
 function sync_network_optout( $value ) {
 	update_site_option( 'hm_analytics_optout', ! empty( $value ) );
+
 	return $value;
 }
 
@@ -386,4 +402,47 @@ function sync_network_optout( $value ) {
  */
 function get_network_optout() {
 	return (bool) get_site_option( 'hm_analytics_optout', false );
+}
+
+/**
+ * Add our HM custom colour scheme.
+ */
+function color_scheme() {
+	global $_wp_admin_css_colors;
+
+	// Remove all other colour schemes.
+	$_wp_admin_css_colors = [];
+
+	// Hide the colour scheme picker section.
+	remove_all_actions( 'admin_color_scheme_picker' );
+
+	// Add our colour scheme.
+	wp_admin_css_color( 'hm', 'Human Made', get_base_url() . '/src/admin.css', [
+		'base'         => '#353535', // base color
+		'icon'         => '#F4EFE6', // icon color
+		'highlight'    => '#D94E3A', // highlight color
+		'notification' => '#7DC9DA', // notification color
+	], [
+		// SVG icon colours.
+		'base'    => '#F4EFE6',
+		'focus'   => '#d9d9d9',
+		'current' => '#D94E3A',
+	] );
+}
+
+/**
+ * Force HM Platform admin theme.
+ *
+ * @param mixed  $value
+ * @param int    $user_id
+ * @param string $key
+ * @param bool   $single
+ * @return array|string
+ */
+function force_admin_theme( $value, $user_id, $key, $single ) {
+	if ( $key !== 'admin_color' ) {
+		return $value;
+	}
+
+	return $single ? 'hm' : [ 'hm' ];
 }

@@ -4,4 +4,4 @@
 # misc
 /asset-manifest.json
 /build
-/src/index.css
+/src/*.css
