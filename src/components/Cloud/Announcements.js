@@ -9,13 +9,13 @@ import { convertBytesToGigabytes } from '../../utils';
 /**
  * Display an announcement fed in from the HM Stack
  *
- * @param {String} buttonText  Text to display in a button link.
- * @param {String} description More contextual information about the announcement.
- * @param {String} link        Link for the button.
- * @param {String} title       Main title for the announcement.
+ * @param {String}  data    Announcements.
+ * @param {Boolean} loading Whether data is still fetching or not.
  */
-const Announcements = ( { buttonText, description, link, title } ) => {
-	return <DashboardBlock title="Announcement" id="announcements-block">
+const Announcements = ( { data, loading } ) => {
+	let { buttonText, description, link, title } = data;
+
+	return <DashboardBlock title="Announcement" id="announcements-block" isLoading={ loading }>
 		<div className="announcement-block-content">
 			<h3 className="announcement-bloc__title">{ title }</h3>
 			{ description && <p className="announcement-block__description">{ description }</p> }

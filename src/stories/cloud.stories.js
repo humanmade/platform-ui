@@ -28,11 +28,13 @@ storiesOf( 'Cloud', module )
 	.addDecorator( DashboardAdminDecorator )
 	.add( 'Activity Log', () => <AlertsLog data={ alerts } loading={ false } /> )
 	.add( 'Announcements', () => <Announcements
-		buttonText="Download"
-		description="To tackle the problem of serving large volumes of images for WordPress while minimising costs, we developed Tachyon, our open-source scalable image service."
-		link="https://humanmade.com/2017/04/27/scaling-wordpress-images-tachyon/"
+		data={ {
+			buttonText:  "Download",
+			description: "To tackle the problem of serving large volumes of images for WordPress while minimising costs, we developed Tachyon, our open-source scalable image service.",
+			link:        "https://humanmade.com/2017/04/27/scaling-wordpress-images-tachyon/",
+			title:       "We have released a new whitepaper about Tachyon",
+		} }
 		loading={ false }
-		title="We have released a new whitepaper about Tachyon"
 	/> )
 	.add( 'Application Data', () => <EnvironmentData
 		data={ {
@@ -43,5 +45,5 @@ storiesOf( 'Cloud', module )
 	/> )
 	.add( 'Bandwidth Usage', () => <BandwidthUsage data={ bandwidthUsage } loading={ false } /> )
 	.add( 'Page Generation Time', () => <PageGenerationTime data={ responseTimeHistory } loading={ false } /> )
-	.add( 'Points of Contact', () => <PointsOfContact contacts={ contacts } loading={ false } /> )
-	.add( 'Pull Requests', () => <PullRequests data={ pullRequests } loading={ false } /> );F
+	.add( 'Points of Contact', () => <PointsOfContact data={ contacts } loading={ false } /> )
+	.add( 'Pull Requests', () => <PullRequests data={ pullRequests } loading={ false } /> );
