@@ -9,10 +9,10 @@ import { convertBytesToGigabytes } from '../../utils';
 /**
  * Display current bandwidth usage against a site for a rolling 30-day period.
  *
- * @param {Boolean} loading Whether data is still fetching or not.
  * @param {Array}   data    An array of usage data for the current site.
+ * @param {Boolean} loading Whether data is still fetching or not.
  */
-const BandwidthUsage = ( { loading, data } ) => {
+const BandwidthUsage = ( { data, loading } ) => {
 	// Add a label to the usage history for each item.
 	data = data.map( day => {
 		const convertedUsage = convertBytesToGigabytes( day.usage );

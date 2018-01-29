@@ -6,7 +6,7 @@ import DashboardBlock from '../Dashboard-Block';
 /**
  * Display email addresses for important points of contact for the site.
  *
- * @param {Array} contacts Contacts to display.
+ * @param {Array}   data    Contacts to display.
  * @param {Boolean} loading Whether data is still fetching or not.
  */
 const PointsOfContact = ( { data, loading } ) => <DashboardBlock title="Internal Point of Contact" id="points-of-contact" isLoading={ loading }>

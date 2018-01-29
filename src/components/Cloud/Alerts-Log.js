@@ -7,8 +7,8 @@ import AlertItem from './Alert-Item';
 /**
  * List all open alerts/activity on a site's server.
  *
+ * @param {Array}   data    Alerts.
  * @param {Boolean} loading Whether data is still fetching or not.
- * @param {Array} items Alerts.
  */
 const AlertsLog = ( { data, loading } ) => <DashboardBlock title="Activity Log" isLoading={ loading }>
 	{ ( data && data.length > 0 )
