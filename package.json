@@ -2,8 +2,9 @@
   "name": "hm-platform",
   "version": "0.1.0",
   "docsVersion": "beta",
-  "description": "Core HM Platform Enterprise Kit and UI",
-  "repository": "https://github.com/humanmade/hm-platform",
+  "description": "Core HM Platform UI",
+  "repository": "https://github.com/humanmade/platform-ui",
+  "homepage": "https://github.com/humanmade/platform-ui",
   "directories": {
     "bin": "bin"
   },

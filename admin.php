@@ -2,7 +2,10 @@
 
 namespace HM\Platform\Admin;
 
-require_once 'react-loader.php';
+// Load react scripts loader.
+if ( ! function_exists( '\\ReactWPScripts\\enqueue_assets' ) ) {
+	require_once 'react-loader.php';
+}
 
 use HM\Platform;
 use WP_Admin_Bar;
@@ -23,6 +26,13 @@ function bootstrap() {
 	add_filter( 'menu_order', __NAMESPACE__ . '\\platform_menu_order', 20 );
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
 	add_action( 'admin_footer', __NAMESPACE__ . '\\app_root' );
+	add_action( 'rest_api_init', __NAMESPACE__ . '\\api_init' );
+
+	// Filter the optout setting so it's network wide.
+	if ( is_multisite() ) {
+		add_filter( 'pre_update_option_hm_analytics_optout', __NAMESPACE__ . '\\sync_network_optout' );
+		add_filter( 'option_hm_analytics_optout', __NAMESPACE__ . '\\get_network_optout' );
+	}
 }
 
 /**
@@ -87,7 +97,7 @@ function show_in_admin() {
 
 	// Add drop-ins first.
 	foreach ( get_dropins() as $name => $plugin_file ) {
-		$plugin_data = get_plugin_data( dirname( dirname( __DIR__  ) ) . '/dropins/' . $plugin_file, false, false );
+		$plugin_data = get_plugin_data( dirname( dirname( __DIR__ ) ) . '/dropins/' . $plugin_file, false, false );
 
 		if ( empty ( $plugin_data['Name'] ) ) {
 			$plugin_data['Name'] = $name;
@@ -98,7 +108,7 @@ function show_in_admin() {
 
 	// Add our own mu-plugins to the page
 	foreach ( Platform\get_available_plugins() as $name => $plugin_file ) {
-		$plugin_data = get_plugin_data( dirname( dirname( __DIR__  ) ). '/plugins/' . $plugin_file, false, false );
+		$plugin_data = get_plugin_data( dirname( dirname( __DIR__ ) ) . '/plugins/' . $plugin_file, false, false );
 
 		if ( empty ( $plugin_data['Name'] ) ) {
 			$plugin_data['Name'] = $name;
@@ -190,16 +200,33 @@ function get_environment() {
 	return $_SERVER['SERVER_NAME'];
 }
 
+/**
+ * Gets a unique user ID containing no identifiable info for use with
+ * analytics packages.
+ *
+ * Uniqueness based on
+ *  - installation URL
+ *  - environment
+ *  - user ID
+ */
+function get_anonymous_user() {
+	return md5( serialize( [
+		WP_HOME,
+		get_environment(),
+		get_current_user_id(),
+	] ) );
+}
+
 function platform_menu_order( $menu_order ) {
 	$hm_menu_order = [];
 
 	foreach ( $menu_order as $index => $item ) {
-		if ( $item !== 'hm-enterprise-kit' ) {
+		if ( $item !== 'hm-platform' ) {
 			$hm_menu_order[] = $item;
 		}
 
 		if ( $index === 0 ) {
-			$hm_menu_order[] = 'hm-enterprise-kit';
+			$hm_menu_order[] = 'hm-platform';
 		}
 	}
 
@@ -222,14 +249,16 @@ function add_menu_item() {
 		'manage_options',
 		'hm-platform',
 		$ek_page_callback,
-		WP_CONTENT_URL . '/hm-platform/src/assets/logo-small-red.svg',
+		WP_CONTENT_URL . '/hm-platform/plugins/hm-platform-ui/src/assets/logo-small-red.svg',
 		2
 	);
 
 	$sub_pages = [
-		'/'      => esc_html__( 'Dashboard', 'hm-platform' ),
-		'/ek'    => esc_html__( 'Enterprise Kit', 'hm-platform' ),
-		'/cloud' => esc_html__( 'Cloud Data', 'hm-platform' ),
+		'/'              => esc_html__( 'Dashboard', 'hm-platform' ),
+		'/ek'            => esc_html__( 'Enterprise Kit', 'hm-platform' ),
+		'/cloud'         => esc_html__( 'Cloud', 'hm-platform' ),
+		'/documentation' => esc_html__( 'Documentation', 'hm-platform' ),
+		'/privacy'       => esc_html__( 'Privacy', 'hm-platform' ),
 	];
 
 	foreach ( $sub_pages as $url => $title ) {
@@ -272,22 +301,90 @@ function app_root() {
 }
 
 /**
- * Load the React App.
+ * Load the UI scripts.
  */
 function enqueue_assets() {
+	// React app.
 	ReactWPScripts\enqueue_assets( __DIR__, [
-		'base_url' => WP_CONTENT_URL . '/hm-platform',
-		'handle'   => 'hm-platform',
+		'base_url' => defined( 'HM_PLATFORM_UI_URL' ) ? HM_PLATFORM_UI_URL : WP_CONTENT_URL . '/hm-platform/plugins/hm-platform-ui',
+		'handle'   => 'hm-platform-ui',
 	] );
-	wp_localize_script( 'hm-platform', 'HM', [
+	wp_localize_script( 'hm-platform-ui', 'HM', [
 		'AdminURL'      => admin_url( '/admin.php?page=hm-platform' ),
+		'REST'          => [
+			'URL'   => get_rest_url(),
+			'Nonce' => wp_create_nonce( 'wp_rest' ),
+		],
 		'EnterpriseKit' => [
 			'Version'     => \HM\Platform\version(),
 			'DocsVersion' => \HM\Platform\docs_version(),
 			'DocsURL'     => \HM\Platform\docs_url(),
-			'Features'    => [],
 			'restNonce'   => wp_create_nonce( 'wp_rest' ),
+			'Config'      => [],
 		],
 		'Environment'   => get_environment(),
+		'User'          => get_anonymous_user(),
+		'Analytics'     => [
+			'OptoutBy' => defined( 'HM_ANALYTICS_OPTOUT' ) ? 'code' : 'setting',
+			'Optout'   => defined( 'HM_ANALYTICS_OPTOUT' ) ? HM_ANALYTICS_OPTOUT : get_site_option( 'hm_analytics_optout', false ),
+		],
 	] );
+
+	// Tag manager.
+	if ( ! get_site_option( 'hm_analytics_optout', false ) && ( ! defined( 'HM_ANALYTICS_OPTOUT' ) || ! HM_ANALYTICS_OPTOUT ) ) {
+		wp_add_inline_script(
+			'hm-platform-ui',
+			sprintf( 'var HMDataLayer = [ %s ];', wp_json_encode( [
+				'user'        => get_anonymous_user(),
+				'docsVersion' => \HM\Platform\docs_version(),
+			] ) ),
+			'before'
+		);
+		wp_add_inline_script(
+			'hm-platform-ui',
+			'(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({\'gtm.start\':
+			new Date().getTime(),event:\'gtm.js\'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!=\'dataLayer\'?\'&l=\'+l:\'\';j.async=true;j.src=
+			\'https://www.googletagmanager.com/gtm.js?id=\'+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,\'script\',\'HMDataLayer\',\'GTM-NV5TSKX\');',
+			'after'
+		);
+	}
+}
+
+/**
+ * Register API settings and endpoints for the platform UI.
+ */
+function api_init() {
+	// Allow optout to be set via the API.
+	register_setting( 'hm-platform', 'hm_analytics_optout', [
+		'type'              => 'boolean',
+		'description'       => esc_html__( 'Whether to opt out of analytics tracking for HM Platform', 'hm-platform' ),
+		'sanitize_callback' => function ( $value ) {
+			return ! empty( $value );
+		},
+		'show_in_rest'      => true,
+		'default'           => defined( 'HM_ANALYTICS_OPTOUT' ) ? HM_ANALYTICS_OPTOUT : false,
+	] );
+}
+
+/**
+ * When updating the optout setting for the site, update
+ * the site option.
+ *
+ * @param $value
+ * @return bool
+ */
+function sync_network_optout( $value ) {
+	update_site_option( 'hm_analytics_optout', ! empty( $value ) );
+	return $value;
+}
+
+/**
+ * Return the network option when retrieving the optout value.
+ *
+ * @return bool
+ */
+function get_network_optout() {
+	return (bool) get_site_option( 'hm_analytics_optout', false );
 }

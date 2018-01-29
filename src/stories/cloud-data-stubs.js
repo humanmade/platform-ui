@@ -74,6 +74,28 @@ export const alerts = [
 ];
 
 /**
+ * Points of Contact.
+ *
+ * @type {Array}
+ */
+export const contacts = [
+	{
+		title: 'Standard Chartered',
+		emails: [
+			'Umar@standardchartered.com',
+			'Ks@standardchartered.com',
+		],
+	},
+	{
+		title: 'Standard Chartered',
+		emails: [
+			'Cloud@humanmade.com',
+			'Dee@humanmade.com',
+		],
+	},
+];
+
+/**
  *
  * @type {Array}
  */

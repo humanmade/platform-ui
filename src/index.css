@@ -454,6 +454,49 @@
   100% {
     -webkit-transform: rotate(360deg); } }
 
+.hm-ek-Header {
+  margin-left: -20px;
+  background: #fff;
+  padding: 20px 40px; }
+
+.hm-ek-Header h1 svg {
+  vertical-align: text-bottom;
+  margin-right: 20px;
+  height: 1.2em;
+  width: auto; }
+
+.hm-ek-Header-Version {
+  margin-left: 10px;
+  font-size: 50%;
+  color: #999; }
+
+#adminmenu .toplevel_page_hm-platform .wp-menu-image img,
+#adminmenu .toplevel_page_hm-platform .wp-menu-image svg {
+  max-width: 24px;
+  height: auto;
+  width: auto; }
+
+#adminmenu .toplevel_page_hm-platform .wp-menu-image {
+  line-height: 34px; }
+
+#adminmenu .toplevel_page_hm-platform .current {
+  font-weight: 600;
+  color: #fff; }
+
+#wpadminbar .hm-docs-indicator {
+  margin-left: 5px;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  padding-left: 10px; }
+
+#wpadminbar .ab-submenu-header {
+  margin-top: -6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+  padding: 0 10px; }
+
+#wpadminbar .ab-top-menu > #wp-admin-bar-hm-platform-toolbar-ui.menupop > .ab-sub-wrapper {
+  min-width: 150%; }
+
 /**
  * HM Cloud Alerts Pane.
  */
@@ -485,6 +528,23 @@
   font-size: .8em;
   color: #999;
   font-style: italic; }
+
+/**
+ * Announcements.
+ */
+#announcements-block .postbox {
+  border: 4px solid #0073aa; }
+
+#dashboard-widgets h3.announcement-bloc__title {
+  font-size: 1.5rem;
+  line-height: 1.3; }
+
+#announcements-block .button-primary {
+  height: 34px;
+  font-size: 16px;
+  line-height: 32px;
+  padding: 0 14px 2px;
+  margin: 10px 0; }
 
 /**
  * HM Cloud Pull Requests Pane.
@@ -556,14 +616,40 @@
   float: left;
   margin-left: 0; }
 
-#toplevel_page_hm-enterprise-kit .wp-menu-image img,
-#toplevel_page_hm-enterprise-kit .wp-menu-image svg {
-  max-width: 24px;
-  height: auto;
-  width: auto; }
+/**
+ * HM Points of Contact block.
+ */
+.points-of-contact {
+  justify-content: space-between; }
+  @media screen and (min-width: 500px) {
+    .points-of-contact {
+      display: flex; } }
+  @media screen and (min-width: 800px) and (max-width: 900px) {
+    .points-of-contact {
+      display: block; } }
 
-.wp-menu-image {
-  line-height: 34px; }
+.points-of-contact__section {
+  flex-basis: 48%;
+  margin: 20px 0; }
+  @media screen and (min-width: 500px) {
+    .points-of-contact__section {
+      margin: 10px; } }
+  @media screen and (min-width: 800px) and (max-width: 900px) {
+    .points-of-contact__section {
+      margin: 20px 0; } }
+  .points-of-contact__section:last-of-type {
+    margin-bottom: 0; }
+
+#dashboard-widgets h3.points-of-contact__title {
+  font-weight: bold; }
+
+.points-of-contact__email {
+  display: block;
+  margin: 3px 0; }
+
+.toplevel_page_hm-platform #wpbody-content > .update-nag,
+.toplevel_page_hm-platform #wpbody-content > .notice {
+  display: none; }
 
 .hm-logo-small {
   max-width: 24px;
@@ -572,36 +658,6 @@
   height: auto;
   display: inline-block; }
 
-#wpadminbar .hm-docs-indicator {
-  margin-left: 5px;
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
-  padding-left: 10px; }
-
-#wpadminbar .ab-submenu-header {
-  margin-top: -6px;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-  font-weight: bold;
-  padding: 0 10px; }
-
-#wpadminbar .ab-top-menu > #wp-admin-bar-hm-platform-toolbar-ui.menupop > .ab-sub-wrapper {
-  min-width: 150%; }
-
-.hm-ek-Header {
-  margin-left: -20px;
-  background: #fff;
-  padding: 20px 40px; }
-
-.hm-ek-Header h1 svg {
-  vertical-align: text-bottom;
-  margin-right: 20px;
-  height: 1.2em;
-  width: auto; }
-
-.hm-ek-Header-Version {
-  margin-left: 10px;
-  font-size: 50%;
-  color: #999; }
-
 .hm-platform-modal .hm-iframe-close {
   position: fixed;
   top: 50px;
@@ -609,7 +665,7 @@
   z-index: 9992; }
 
 .hm-platform-modal iframe {
-  position: absolute;
+  position: fixed;
   z-index: 9991;
   top: 0;
   left: 0;
@@ -624,3 +680,14 @@
 
 .hm-platform-modal .hm-iframe-loaded {
   opacity: 1; }
+
+.hm-platform-full-embed {
+  background: #fff;
+  position: fixed;
+  z-index: 9991;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 160px;
+  width: calc(100% - 160px);
+  height: 100%; }
