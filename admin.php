@@ -410,11 +410,8 @@ function get_network_optout() {
 function color_scheme() {
 	global $_wp_admin_css_colors;
 
-	// Remove all other colour schemes.
-	$_wp_admin_css_colors = [];
-
-	// Hide the colour scheme picker section.
-	remove_all_actions( 'admin_color_scheme_picker' );
+	// Remove default colour schemes.
+	unset( $_wp_admin_css_colors['fresh'] );
 
 	// Add our colour scheme.
 	wp_admin_css_color( 'hm', 'Human Made', get_base_url() . '/src/admin.css', [
@@ -444,5 +441,7 @@ function force_admin_theme( $value, $user_id, $key, $single ) {
 		return $value;
 	}
 
-	return $single ? 'hm' : [ 'hm' ];
+	if ( $value === 'fresh' ) {
+		return $single ? 'hm' : [ 'hm' ];
+	}
 }
