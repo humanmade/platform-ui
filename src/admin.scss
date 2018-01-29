@@ -6,7 +6,7 @@ $notification-color: #504c4c;
 
 $body-background: #eff1ef;
 
-$link: #d94e3a;
+$link: darken( #7dc9da, 20% );
 
 $menu-submenu-text: mix($base-color, $text-color, 10%);
 
@@ -22,9 +22,11 @@ $form-checked: $base-color;
   .add-new-h2,
   .add-new-h2:active,
   .page-title-action,
+  .tablenav .tablenav-pages a,
   .page-title-action:active {
-    color: $link;
-    border-color: darken( $text-color, 20% );
+    color: $text-color;
+    background: $highlight-color;
+    border-color: darken( $highlight-color, 10% );
   }
   .add-new-h2:hover,
   .page-title-action:hover {
@@ -34,7 +36,7 @@ $form-checked: $base-color;
   .tablenav .tablenav-pages a:hover,
   .tablenav .tablenav-pages a:focus {
     color: $text-color;
-    background-color: $link;
-    border-color: darken( $link, 20% );
+    background-color: lighten( $highlight-color, 10% );
+    border-color: darken( $highlight-color, 15% );
   }
 }
