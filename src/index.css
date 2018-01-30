@@ -430,13 +430,16 @@
 
 #adminmenu .toplevel_page_hm-platform .wp-menu-image.svg {
   background-size: 23px; }
+  #adminmenu .toplevel_page_hm-platform .wp-menu-image.svg svg {
+    color: inherit; }
 
 #adminmenu .toplevel_page_hm-platform .wp-menu-image {
   line-height: 34px; }
 
 #adminmenu .toplevel_page_hm-platform .current {
-  font-weight: 600;
-  color: #fff; }
+  font-weight: 600; }
+  #adminmenu .toplevel_page_hm-platform .current svg {
+    color: inherit; }
 
 #wpadminbar .hm-docs-indicator {
   margin-left: 5px;
