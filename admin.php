@@ -441,7 +441,7 @@ function force_admin_theme( $value, $user_id, $key, $single ) {
 		return $value;
 	}
 
-	if ( $value === 'fresh' ) {
+	if ( $value === 'fresh' || empty( $value ) ) {
 		return $single ? 'hm' : [ 'hm' ];
 	}
 }
