@@ -15,6 +15,7 @@ $images-path: "./hm-pattern-library/assets/images";
 @import "./scss/Cloud/Pull-Requests";
 @import "./scss/Cloud/Environment-Data";
 @import "./scss/Cloud/Points-Of-Contact";
+@import "./scss/Dismissable";
 
 // Hide update & admin notices, we'll move those elsewhere in the UI to avoid the fugly.
 .toplevel_page_hm-platform #wpbody-content {

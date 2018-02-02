@@ -40,7 +40,7 @@ const withFetch = url => {
 			}
 
 			fetchStore() {
-				const store = window.localStorage.getItem( 'HMDocs' );
+				const store = JSON.parse( window.localStorage.getItem( 'withFetch' ) );
 				return ( store && store[ url ] ) || null;
 			}
 
@@ -53,10 +53,10 @@ const withFetch = url => {
 				};
 
 				// Update store.
-				const store = window.localStorage.getItem( 'HMDocs' );
-				window.localStorage.setItem( 'HMDocs', Object.assign( store || {}, {
+				const store = JSON.parse( window.localStorage.getItem( 'withFetch' ) );
+				window.localStorage.setItem( 'withFetch', JSON.stringify( Object.assign( store || {}, {
 					[ url ]: update
-				} ) );
+				} ) ) );
 
 				// Update state.
 				this.setState( update );
