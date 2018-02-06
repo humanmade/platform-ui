@@ -7,15 +7,20 @@ $images-path: "./hm-pattern-library/assets/images";
 @import "./hm-pattern-library/assets/sass/components/loading";
 @import "./hm-pattern-library/assets/sass/components/buttons";
 
+// Top level components.
 @import "./scss/Header";
 @import "./scss/Menu";
 @import "./scss/Toolbar";
+@import "./scss/Dismissable";
+// Cloud.
 @import "./scss/Cloud/Alerts-Log";
 @import "./scss/Cloud/Announcements";
 @import "./scss/Cloud/Pull-Requests";
 @import "./scss/Cloud/Environment-Data";
 @import "./scss/Cloud/Points-Of-Contact";
-@import "./scss/Dismissable";
+// Enterprise Kit.
+@import "./scss/EnterpriseKit/Plugins";
+@import "./scss/EnterpriseKit/Plugin";
 
 // Hide update & admin notices, we'll move those elsewhere in the UI to avoid the fugly.
 .toplevel_page_hm-platform #wpbody-content {
@@ -46,10 +51,11 @@ $images-path: "./hm-pattern-library/assets/images";
     position: fixed;
     z-index: 9991;
     top: 0;
-    left: 0;
+    left: 160px;
     right: 0;
     bottom: 0;
     background: #fff;
+    width: calc(100% - 160px);
     transition: top .3s linear, opacity .3s linear;
   }
 

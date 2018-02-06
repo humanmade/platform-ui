@@ -42,7 +42,7 @@ export class DocsLinks extends React.Component {
 }
 
 const EnhancedDocsLinks = withFetch(
-	`${HM.EnterpriseKit.DocsURL}/wp-json/docs/v1/config`
+	`${HM.EnterpriseKit.DocsURL}/wp-json/docs/v1/guides`
 )( DocsLinks );
 
 export default EnhancedDocsLinks;
