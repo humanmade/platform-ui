@@ -85,7 +85,7 @@ class Plugins extends React.Component {
 		}
 
 		return <div className="hm-plugins">
-			<h2>Plugins</h2>
+			<h2>Features</h2>
 			<div className="hm-plugins--filters">
 				<div className="hm-plugins--filters__category">
 					<Select
@@ -102,8 +102,8 @@ class Plugins extends React.Component {
 								? []
 								: this.props.categories.data.results.map( category => ({
 									label: category.title,
-									value: category.slug,
-									icon: category.slug,
+									value: category.pageForTerm,
+									icon: category.pageForTerm,
 								}) ) )}
 					/>
 				</div>
@@ -125,7 +125,7 @@ class Plugins extends React.Component {
 					{ this.props.categories.loading
 						? ''
 						: this.props.categories.data.results
-								.filter( category => category.slug === this.state.category )
+								.filter( category => category.pageForTerm === this.state.category )
 								.map( category => ReactHtmlParse( category.excerpt ) )
 					}
 				</div>

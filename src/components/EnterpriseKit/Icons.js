@@ -10,7 +10,7 @@ const icons = {
 	all:               All,
 	editorial:         Editorial,
 	media:             Media,
-	'developer-tools': DeveloperTools,
+	'dev-tools':       DeveloperTools,
 	engagement:        Engagement,
 	seo:               SEO,
 	'user-management': UserManagement,
