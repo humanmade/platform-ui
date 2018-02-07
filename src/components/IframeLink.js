@@ -1,3 +1,4 @@
+/*global HM*/
 import React from 'react';
 import AdminPortal from '../portal';
 
@@ -9,18 +10,42 @@ class IframeLink extends React.Component {
 			show:    false,
 			loading: true,
 		};
+
+		this.handleFrameMessage = this.handleFrameMessage.bind( this );
 	}
 
 	onOpen( event ) {
 		event && event.preventDefault();
+
+		// Listen for post messages and mount the iframe.
+		window.addEventListener( "message", this.handleFrameMessage );
 		this.setState( { show: true } );
 		this.props.onOpen && this.props.onOpen();
 	}
 
 	onClose( event ) {
 		event && event.preventDefault();
+
+		// Stop listening for post messages and unmount the iframe.
+		window.removeEventListener( "message", this.handleFrameMessage );
 		this.setState( { show: false } );
 		this.props.onClose && this.props.onClose();
+	}
+
+	/**
+	 * Runs every time the iframe is loaded, that includes navigation
+	 * events within the frame.
+	 */
+	onFrameLoad() {
+		this.iframe.contentWindow.postMessage( {
+			event:       "iframe-link-embed",
+			origin:      window.location.hostname,
+			version:     HM.EnterpriseKit.DocsVersion,
+			environment: HM.Environment,
+			user:        HM.User,
+			config:      HM.Config,
+			plugins:     HM.EnterpriseKit.Config,
+		}, this.props.src );
 	}
 
 	componentDidUpdate() {
@@ -30,6 +55,30 @@ class IframeLink extends React.Component {
 
 		this.iframe.contentWindow.onload = () => this.setState( { loading: false } );
 		this.iframe.contentWindow.onunload = () => this.setState( { loading: true } );
+	}
+
+	/**
+	 * Handler for postMessages sent from the iframe.
+	 *
+	 * @param {Object} event
+	 */
+	handleFrameMessage( event ) {
+		let { data } = event;
+
+		if ( ! data || ! data.event ) {
+			return;
+		}
+
+		// Handle resize event from iframe.
+		if ( data.event && data.event === 'resize' && data.event.height ) {
+			console.log( data.event );
+			this.iframe.height = data.event.height;
+		}
+
+		// Handle close event from iframe.
+		if ( data.event && data.event === 'close' ) {
+			this.onClose();
+		}
 	}
 
 	render() {
@@ -55,16 +104,17 @@ class IframeLink extends React.Component {
 
 		return [
 			Open,
-			<AdminPortal key="iframe" id={src} onUnload={() => this.setState( { loading: true } )}>
+			<AdminPortal key="iframe" id={ src } onUnload={ () => this.setState( { loading: true } ) }>
 				<div className="hm-platform-modal">
 					{ Close }
 					<iframe
 						//className={ this.state.loading ? 'hm-iframe-loading' : 'hm-iframe-loaded' }
-						src={src}
+						src={ `${ src }?admin-request=${ this.props.type || 'basic' }` }
 						title={ this.props.title || '' }
 						width="100%"
 						height="100%"
-						ref={iframe => this.iframe = iframe}
+						ref={ iframe => this.iframe = iframe }
+						onLoad={ () => this.onFrameLoad() }
 					/>
 				</div>
 			</AdminPortal>

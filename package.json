@@ -30,9 +30,13 @@
     "react-app-rewire-svg-react-loader": "github:codebandits/react-app-rewire-svg-react-loader",
     "react-app-rewired": "^1.3.6",
     "react-dom": "^16.1.1",
+    "react-html-parser": "^2.0.2",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
+    "react-select": "^1.2.1",
     "react-wp-scripts": "github:humanmade/react-wp-scripts#react-rewire-support",
+    "recompose": "^0.26.0",
+    "shorthash": "0.0.2",
     "styled-components": "^2.2.4",
     "victory": "^0.24.3",
     "whatwg-fetch": "^2.0.3"
@@ -41,6 +45,7 @@
     "@storybook/addon-actions": "^3.2.18",
     "@storybook/addon-links": "^3.2.18",
     "@storybook/react": "^3.2.18",
+    "fuzzy": "^0.1.3",
     "husky": "^0.14.3",
     "react-storybook-addon-props-combinations": "^1.0.1"
   }

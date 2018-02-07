@@ -22,7 +22,8 @@ class Documentation extends React.Component {
 			version:     HM.EnterpriseKit.DocsVersion,
 			environment: HM.Environment,
 			user:        HM.User,
-			config:      {},
+			config:      HM.Config,
+			plugins:     HM.EnterpriseKit.Config,
 		}, HM.EnterpriseKit.DocsURL );
 	}
 

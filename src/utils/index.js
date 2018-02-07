@@ -19,14 +19,19 @@ Array.prototype.unique = function() {
 /**
  * Get an array of documents for the current URL from the docs site config.
  *
- * @param config
+ * @param guides
  * @returns {Array}
  */
-export const getDocsForURL = config => {
-	return Object.keys( config )
-		.filter( pattern => window.location.href.match( new RegExp( pattern.replace( /^\/?(.*?)\/?$/, '$1' ) ) ) )
-		.reduce( ( posts, pattern ) => posts.concat( config[ pattern ] ), [] )
-		.unique();
+export const getDocsForURL = guides => {
+	return guides
+		.filter( guide => {
+			let match = false;
+			guide.showOn.forEach( pattern => {
+				match = window.location.href.match( new RegExp( pattern.replace( /^\/?(.*?)\/?$/, '$1' ) ) );
+			} )
+
+			return match;
+		} );
 }
 
 /**
