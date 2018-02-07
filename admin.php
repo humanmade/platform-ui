@@ -101,7 +101,7 @@ function get_submenu_pages() {
 	return [
 		[ 'title' => esc_html__( 'Dashboard', 'hm-platform' ), 'path' => '/', 'exact' => true ],
 		[ 'title' => esc_html__( 'Enterprise Kit', 'hm-platform' ), 'path' => '/ek' ],
-		[ 'title' => esc_html__( 'Cloud', 'hm-platform' ), 'path' => '/cloud' ],
+		// [ 'title' => esc_html__( 'Cloud', 'hm-platform' ), 'path' => '/cloud' ],
 		[ 'title' => esc_html__( 'Documentation', 'hm-platform' ), 'path' => '/documentation' ],
 	];
 }
@@ -181,6 +181,7 @@ function enqueue_assets() {
 			'Nonce' => wp_create_nonce( 'wp_rest' ),
 		],
 		'Pages'         => get_submenu_pages(),
+		'Config'        => \HM\Platform\Config\get_config(),
 		'EnterpriseKit' => [
 			'Version'     => \HM\Platform\version(),
 			'DocsVersion' => \HM\Platform\docs_version(),

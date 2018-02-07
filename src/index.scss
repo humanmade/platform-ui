@@ -70,6 +70,13 @@ $images-path: "./hm-pattern-library/assets/images";
 
 }
 
+// @todo find a way to make the iframe fill the page & increase height via postMessage if admin is shorter
+.toplevel_page_hm-platform {
+  .hm-platform-modal iframe {
+    //top: 106px;
+  }
+}
+
 .hm-platform-full-embed {
   background: #fff;
   position: fixed;
@@ -80,4 +87,9 @@ $images-path: "./hm-pattern-library/assets/images";
   left: 160px;
   width: calc(100% - 160px);
   height: 100%;
+}
+
+// We have a close button in the docs site template so hide the one we add.
+.hm-iframe-close {
+  display: none;
 }

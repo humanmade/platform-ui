@@ -36,7 +36,7 @@ class Plugins extends React.Component {
 					ignorePunctuation: true,
 					numeric:           true,
 				} );
-			} );;
+			} );
 
 		// Apply search filter & sort by score.
 		if ( this.state.search !== '' ) {
@@ -67,12 +67,18 @@ class Plugins extends React.Component {
 			                   (this.state.active === 'off' && ! plugin.config.enabled)
 			);
 
-		// Add user guides.
-		if ( this.props.guides && ! this.props.guides.loading ) {
+		// Add user guides and docs API data.
+		if ( this.props.pluginDocs && ! this.props.pluginDocs.loading ) {
 			plugins = plugins.map( plugin => {
-				const guides = this.props.guides.data.results
-					.filter( guide => guide.tags.includes( plugin.data.docsTag ) );
-				return Object.assign( {}, plugin, { guides } );
+				const pluginDoc = this.props.pluginDocs.data.results
+					.filter( pluginDoc => pluginDoc.slug === plugin.name );
+
+				if ( ! pluginDoc.length ) {
+					return plugin;
+				}
+
+				const pluginData = Object.assign( {}, plugin.data, pluginDoc[0] );
+				return Object.assign( {}, plugin, { data: pluginData } );
 			} )
 		}
 
@@ -102,8 +108,8 @@ class Plugins extends React.Component {
 								? []
 								: this.props.categories.data.results.map( category => ({
 									label: category.title,
-									value: category.pageForTerm,
-									icon: category.pageForTerm,
+									value: category.pageForTerm || category.slug,
+									icon: category.pageForTerm || category.slug,
 								}) ) )}
 					/>
 				</div>
@@ -171,7 +177,7 @@ Plugins.propTypes = {
 };
 
 const PluginsWithData = compose(
-	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/docs/v1/guides`, {}, 'guides' ),
+	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/docs/v1/plugins`, {}, 'pluginDocs' ),
 	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/docs/v1/plugin-categories`, {}, 'categories' ),
 )(Plugins);
 
