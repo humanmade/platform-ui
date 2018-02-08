@@ -44,8 +44,8 @@ const withFetch = ( url, options = {}, name = null ) => {
 			}
 
 			fetchStore() {
-				const store = JSON.parse( window.localStorage.getItem( 'withFetch' ) );
-				return ( store && store[ key ] ) || null;
+				const store = JSON.parse( window.localStorage.getItem( `withFetch(${key})` ) );
+				return store || null;
 			}
 
 			updateStore( data, loading = false, error = false ) {
@@ -57,10 +57,8 @@ const withFetch = ( url, options = {}, name = null ) => {
 				};
 
 				// Update store.
-				const store = JSON.parse( window.localStorage.getItem( 'withFetch' ) );
-				window.localStorage.setItem( 'withFetch', JSON.stringify( Object.assign( store || {}, {
-					[ key ]: update
-				} ) ) );
+				const store = JSON.parse( window.localStorage.getItem( `withFetch(${key})` ) );
+				window.localStorage.setItem( `withFetch(${key})`, JSON.stringify( Object.assign( store || {}, update ) ) );
 
 				// Update state.
 				this.setState( update );
