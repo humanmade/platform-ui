@@ -14,21 +14,15 @@ use ReactWPScripts;
 /**
  * Bootstrap the admin.
  */
-function bootstrap() {
-	add_action( 'admin_menu', __NAMESPACE__ . '\\add_menu_item' );
-	add_action( 'admin_bar_menu', __NAMESPACE__ . '\\add_menu_bar_item' );
-	add_filter( 'custom_menu_order', '__return_true' );
-	add_filter( 'menu_order', __NAMESPACE__ . '\\platform_menu_order', 20 );
-	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
-	add_action( 'admin_footer', __NAMESPACE__ . '\\app_root' );
-	add_action( 'rest_api_init', __NAMESPACE__ . '\\api_init' );
-
-	// Filter the optout setting so it's network wide.
-	if ( is_multisite() ) {
-		add_filter( 'pre_update_option_hm_analytics_optout', __NAMESPACE__ . '\\sync_network_optout' );
-		add_filter( 'option_hm_analytics_optout', __NAMESPACE__ . '\\get_network_optout' );
-	}
-}
+add_action( 'admin_menu', __NAMESPACE__ . '\\add_menu_item' );
+add_action( 'admin_bar_menu', __NAMESPACE__ . '\\add_menu_bar_item' );
+add_filter( 'custom_menu_order', '__return_true' );
+add_filter( 'menu_order', __NAMESPACE__ . '\\platform_menu_order', 20 );
+add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
+add_action( 'admin_footer', __NAMESPACE__ . '\\app_root' );
+add_action( 'rest_api_init', __NAMESPACE__ . '\\api_init' );
+add_filter( 'pre_update_option_hm_analytics_optout', __NAMESPACE__ . '\\sync_network_optout' );
+add_filter( 'option_hm_analytics_optout', __NAMESPACE__ . '\\get_network_optout' );
 
 function get_environment() {
 	if ( defined( 'HM_DEV' ) && HM_DEV ) {
@@ -69,13 +63,16 @@ function get_anonymous_user() {
  * @return array
  */
 function get_plugin_manifest() {
-	return array_map( function ( $plugin, $name ) {
+	$config   = Platform\Config\get_config()['plugins'];
+	$manifest = Platform\get_plugin_manifest();
+	return array_values( array_map( function ( $plugin, $name ) use ( $config ) {
 		return [
-			'name'   => $name,
-			'data'   => (object) $plugin->get_data(),
-			'config' => (object) $plugin->get_config(),
+			'name'     => $name,
+			'title'    => $plugin['title'],
+			'settings' => $config[ $name ]['settings'],
+			'enabled'  => $config[ $name ]['enabled'],
 		];
-	}, Platform\Plugin::$plugins, array_keys( Platform\Plugin::$plugins ) );
+	}, $manifest, array_keys( $manifest ) ) );
 }
 
 function platform_menu_order( $menu_order ) {
