@@ -26,11 +26,9 @@ class Plugins extends React.Component {
 	render() {
 		// Remove plugins without required data.
 		let plugins = this.props.plugins
-			.filter( plugin => (
-				plugin.data && plugin.data.title && plugin.data.category && plugin.config
-			) )
+			.filter( plugin => plugin.title )
 			.sort( ( a, b ) => {
-				return a.data.title.localeCompare( b.data.title, {
+				return a.title.localeCompare( b.title, {
 					usage:             'sort',
 					sensitivity:       'base',
 					ignorePunctuation: true,
@@ -38,10 +36,24 @@ class Plugins extends React.Component {
 				} );
 			} );
 
+		// Add user guides and docs API data.
+		if ( this.props.pluginDocs && ! this.props.pluginDocs.loading ) {
+			plugins = plugins.map( plugin => {
+				const pluginDoc = this.props.pluginDocs.data.results
+					.filter( pluginDoc => pluginDoc.slug === plugin.name );
+
+				if ( ! pluginDoc.length ) {
+					return plugin;
+				}
+
+				return Object.assign( {}, plugin, pluginDoc[0] );
+			} )
+		}
+
 		// Apply search filter & sort by score.
 		if ( this.state.search !== '' ) {
 			plugins = fuzzy.filter( this.state.search, plugins, {
-					extract: plugin => `${ plugin.data.title } | ${ plugin.data.description }`
+					extract: plugin => `${ plugin.title } | ${ plugin.excerpt || '' }`
 				} )
 				.sort( ( a, b ) => {
 					if ( ! this.state.search ) {
@@ -61,26 +73,11 @@ class Plugins extends React.Component {
 
 		// Filter search results by category and active status.
 		plugins = plugins
-			.filter( plugin => this.state.category === 'all' || this.state.category === plugin.data.category )
+			.filter( plugin => this.state.category === 'all' ||
+			                   ( plugin.tags && plugin.tags.indexOf( this.state.category ) > -1 ) )
 			.filter( plugin => this.state.active === 'any' ||
-			                   (this.state.active === 'on' && plugin.config.enabled) ||
-			                   (this.state.active === 'off' && ! plugin.config.enabled)
-			);
-
-		// Add user guides and docs API data.
-		if ( this.props.pluginDocs && ! this.props.pluginDocs.loading ) {
-			plugins = plugins.map( plugin => {
-				const pluginDoc = this.props.pluginDocs.data.results
-					.filter( pluginDoc => pluginDoc.slug === plugin.name );
-
-				if ( ! pluginDoc.length ) {
-					return plugin;
-				}
-
-				const pluginData = Object.assign( {}, plugin.data, pluginDoc[0] );
-				return Object.assign( {}, plugin, { data: pluginData } );
-			} )
-		}
+			                   (this.state.active === 'on' && plugin.enabled) ||
+			                   (this.state.active === 'off' && ! plugin.enabled) );
 
 		const optionRenderer = option => {
 			const Icon = icons[option.icon] || 'span';
@@ -160,7 +157,7 @@ class Plugins extends React.Component {
 			</div>
 			<div className="hm-plugins--list">
 				{plugins.length
-					? plugins.map( plugin => <Plugin key={plugin.data.title} {...plugin} /> )
+					? plugins.map( plugin => <Plugin key={plugin.title} {...plugin} /> )
 					: <p className="notice-large">
 							No plugins found for that combination of filters,
 							try removing your search term or search all categories.
@@ -177,11 +174,7 @@ Plugins.propTypes = {
 };
 
 const PluginsWithData = compose(
-	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/docs/v1/plugins?version=${HM.EnterpriseKit.DocsVersion}`, {
-		body: {
-			version: HM.EnterpriseKit.DocsVersion,
-		}
-	}, 'pluginDocs' ),
+	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/docs/v1/plugins?version=${HM.EnterpriseKit.DocsVersion}`, {}, 'pluginDocs' ),
 	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/docs/v1/plugin-categories?version=${HM.EnterpriseKit.DocsVersion}`, {}, 'categories' ),
 )(Plugins);
 
