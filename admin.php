@@ -9,7 +9,6 @@ if ( ! function_exists( '\\ReactWPScripts\\enqueue_assets' ) ) {
 
 use HM\Platform;
 use WP_Admin_Bar;
-use ReactWPScripts;
 
 /**
  * Bootstrap the admin.
