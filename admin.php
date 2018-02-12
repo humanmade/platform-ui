@@ -68,7 +68,7 @@ function get_plugin_manifest() {
 	return array_values( array_map( function ( $plugin, $name ) use ( $config ) {
 		return [
 			'name'     => $name,
-			'title'    => $plugin['title'],
+			'title'    => isset( $plugin['title'] ) ? $plugin['title'] : false,
 			'settings' => $config[ $name ]['settings'],
 			'enabled'  => $config[ $name ]['enabled'],
 		];
