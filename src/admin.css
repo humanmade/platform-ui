@@ -410,16 +410,13 @@ div#wp-responsive-toggle a:before {
 #wpwrap .wrap .add-new-h2,
 #wpwrap .wrap .add-new-h2:active,
 #wpwrap .wrap .page-title-action,
-#wpwrap .wrap .tablenav .tablenav-pages a,
 #wpwrap .wrap .page-title-action:active {
   color: #eff1ef;
   background: #d94e3a;
   border-color: #bc3724; }
 
 #wpwrap .wrap .add-new-h2:hover,
-#wpwrap .wrap .page-title-action:hover,
-#wpwrap .wrap .tablenav .tablenav-pages a:hover,
-#wpwrap .wrap .tablenav .tablenav-pages a:focus {
+#wpwrap .wrap .page-title-action:hover {
   color: #eff1ef;
   background-color: #e17465;
   border-color: #a63120; }
