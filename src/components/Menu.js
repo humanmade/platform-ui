@@ -1,7 +1,7 @@
 /*global HM*/
 import React, { Component } from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import Logo from '../assets/logo-small-red.svg';
 
 const logoImageStyle = {
@@ -10,7 +10,36 @@ const logoImageStyle = {
 	})`
 };
 
+const isActive = (match, location) => {
+	console.log(match, location, window.location);
+	return match;
+}
+
 class Menu extends Component {
+	// constructor() {
+	// 	super();
+	//
+	// 	this.state = {
+	// 		current: window.location.hash.substr( 1 )
+	// 	};
+	//
+	// 	// this.onHashChange = this.onHashChange.bind( this );
+	// }
+
+	// onHashChange( e ) {
+	// 	console.log( e, this.state )
+	// 	this.setState( { current: window.location.hash.substr( 1 ) } );
+	// }
+	//
+	// componentWillMount() {
+	// 	this.onHashChange();
+	// 	window.addEventListener( 'hashchange', this.onHashChange, false );
+	// }
+	//
+	// componentWillUnmount() {
+	// 	window.removeEventListener( 'hashchange', this.onHashChange );
+	// }
+
 	render() {
 		return [
 			<NavLink
