@@ -1,0 +1,42 @@
+// Platform admin theme.
+$text-color: #eff1ef;
+$base-color: #353535;
+$highlight-color: #d94e3a;
+$notification-color: #504c4c;
+
+$body-background: #eff1ef;
+
+$link: darken( #7dc9da, 25% );
+
+$menu-submenu-text: mix($base-color, $text-color, 10%);
+
+$menu-submenu-focus-text: #7dc9da;
+$menu-submenu-current-text: #7dc9da;
+
+$button-color: $highlight-color;
+$form-checked: $base-color;
+
+@import "../../../../../wordpress/wp-admin/css/colors/_admin.scss";
+
+#wpwrap .wrap {
+  .add-new-h2,
+  .add-new-h2:active,
+  .page-title-action,
+  .tablenav .tablenav-pages a,
+  .page-title-action:active {
+    color: $text-color;
+    background: $highlight-color;
+    border-color: darken( $highlight-color, 10% );
+  }
+  .add-new-h2:hover,
+  .page-title-action:hover {
+  }
+  .add-new-h2:hover,
+  .page-title-action:hover,
+  .tablenav .tablenav-pages a:hover,
+  .tablenav .tablenav-pages a:focus {
+    color: $text-color;
+    background-color: lighten( $highlight-color, 10% );
+    border-color: darken( $highlight-color, 15% );
+  }
+}

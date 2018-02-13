@@ -428,18 +428,22 @@
   font-size: 50%;
   color: #999; }
 
-#adminmenu .toplevel_page_hm-platform .wp-menu-image img,
+#adminmenu .toplevel_page_hm-platform .wp-menu-image.svg {
+  background-size: 23px; }
+
 #adminmenu .toplevel_page_hm-platform .wp-menu-image svg {
-  max-width: 24px;
-  height: auto;
-  width: auto; }
+  max-width: 23px;
+  flex: 1; }
 
 #adminmenu .toplevel_page_hm-platform .wp-menu-image {
-  line-height: 34px; }
+  line-height: 34px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column; }
 
 #adminmenu .toplevel_page_hm-platform .current {
-  font-weight: 600;
-  color: #fff; }
+  font-weight: 600; }
 
 #wpadminbar .hm-docs-indicator {
   margin-left: 5px;

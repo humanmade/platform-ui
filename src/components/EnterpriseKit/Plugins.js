@@ -115,7 +115,7 @@ class Plugins extends React.Component {
 						type="text"
 						onChange={event => this.setState( { search: event.target.value } )}
 						value={this.state.search}
-						placeholder={this.state.category ? `Search category` : `Search all plugins`}
+						placeholder={this.state.category === 'all' ? `Search all plugins` : `Search category`}
 					/>
 				</div>
 			</div>
