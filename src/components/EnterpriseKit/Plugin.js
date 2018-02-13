@@ -5,7 +5,7 @@ import icons from './Icons';
 const getIcon = tags => {
 	return tags.map( tag => {
 		const Icon = icons[tag] || false;
-		return Icon ? <Icon /> : false;
+		return Icon ? <Icon key={tag} /> : false;
 	} ).filter( icon => icon )
 }
 
