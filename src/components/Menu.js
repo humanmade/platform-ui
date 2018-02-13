@@ -1,3 +1,4 @@
+/*global HM*/
 import React, { Component } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { NavLink } from 'react-router-dom';
@@ -23,11 +24,9 @@ class Menu extends Component {
 				<div className="wp-menu-name">Platform</div>
 			</NavLink>,
 			<ul key="submenu" className="wp-submenu wp-submenu-wrap">
-				<li><NavLink exact to="/" activeClassName="current">Dashboard</NavLink></li>
-				<li><NavLink to="/ek" activeClassName="current">Enterprise Kit</NavLink></li>
-				<li><NavLink to="/cloud" activeClassName="current">Cloud</NavLink></li>
-				<li><NavLink to="/documentation" activeClassName="current">Documentation</NavLink></li>
-				<li><NavLink to="/privacy" activeClassName="current">Privacy</NavLink></li>
+				{ HM.Pages.map( page => <li key={page.path}>
+					<NavLink exact={page.exact} to={page.path} activeClassName="current">{page.title}</NavLink>
+				</li> ) }
 			</ul>
 		];
 	}

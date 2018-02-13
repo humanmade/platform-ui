@@ -1,10 +1,14 @@
 import 'whatwg-fetch';
 import React from 'react';
+import sh from 'shorthash';
 
 /**
  * Fetch HoC using localStorage.
  */
-const withFetch = url => {
+const withFetch = ( url, options = {}, name = null ) => {
+	// Store key.
+	const key = `${url}:${sh.unique(JSON.stringify(options))}`;
+	// HoC.
 	return Component => {
 		class fetchComponent extends React.Component {
 			constructor() {
@@ -33,15 +37,15 @@ const withFetch = url => {
 
 				this.setState( { loading: true } );
 
-				fetch( url )
+				fetch( url, options )
 					.then( response => response.json() )
 					.then( data => this.updateStore( data, false ) )
 					.catch( error => this.updateStore( {}, false, error ) );
 			}
 
 			fetchStore() {
-				const store = window.localStorage.getItem( 'HMDocs' );
-				return ( store && store[ url ] ) || null;
+				const store = JSON.parse( window.localStorage.getItem( `withFetch(${key})` ) );
+				return store || null;
 			}
 
 			updateStore( data, loading = false, error = false ) {
@@ -53,17 +57,22 @@ const withFetch = url => {
 				};
 
 				// Update store.
-				const store = window.localStorage.getItem( 'HMDocs' );
-				window.localStorage.setItem( 'HMDocs', Object.assign( store || {}, {
-					[ url ]: update
-				} ) );
+				const store = JSON.parse( window.localStorage.getItem( `withFetch(${key})` ) );
+				window.localStorage.setItem( `withFetch(${key})`, JSON.stringify( Object.assign( store || {}, update ) ) );
 
 				// Update state.
 				this.setState( update );
 			}
 
 			render() {
-				return <Component {...this.state} {...this.props} />;
+				let state = Object.assign( {}, this.state );
+
+				// Add state under named prop if set.
+				if ( name ) {
+					state = { [name]: state };
+				}
+
+				return <Component {...state} {...this.props} />;
 			}
 		}
 

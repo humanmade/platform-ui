@@ -3,39 +3,23 @@
 namespace HM\Platform\Admin;
 
 // Load react scripts loader.
-if ( ! function_exists( '\\ReactWPScripts\\enqueue_assets' ) ) {
-	require_once 'react-loader.php';
-}
+require_once 'react-loader.php';
 
 use HM\Platform;
 use WP_Admin_Bar;
-use ReactWPScripts;
 
 /**
  * Bootstrap the admin.
  */
-function bootstrap() {
-	add_filter( 'manage_plugins_columns', __NAMESPACE__ . '\\alter_columns' );
-	add_filter( 'views_plugins', __NAMESPACE__ . '\\add_platform_link' );
-	add_action( 'pre_current_active_plugins', __NAMESPACE__ . '\\show_in_admin' );
-	add_action( 'network_admin_plugin_action_links', __NAMESPACE__ . '\\get_platform_actions', 10, 4 );
-	add_action( 'plugin_action_links', __NAMESPACE__ . '\\get_platform_actions', 10, 4 );
-	add_action( 'admin_menu', __NAMESPACE__ . '\\add_menu_item' );
-	add_action( 'admin_bar_menu', __NAMESPACE__ . '\\add_menu_bar_item' );
-	add_filter( 'custom_menu_order', '__return_true' );
-	add_filter( 'menu_order', __NAMESPACE__ . '\\platform_menu_order', 20 );
-	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
-	add_action( 'admin_footer', __NAMESPACE__ . '\\app_root' );
-	add_action( 'rest_api_init', __NAMESPACE__ . '\\api_init' );
-	add_action( 'admin_init', __NAMESPACE__ . '\\color_scheme' );
-	add_filter( 'get_user_metadata', __NAMESPACE__ . '\\force_admin_theme', 10, 4 );
-
-	// Filter the optout setting so it's network wide.
-	if ( is_multisite() ) {
-		add_filter( 'pre_update_option_hm_analytics_optout', __NAMESPACE__ . '\\sync_network_optout' );
-		add_filter( 'option_hm_analytics_optout', __NAMESPACE__ . '\\get_network_optout' );
-	}
-}
+add_action( 'admin_menu', __NAMESPACE__ . '\\add_menu_item' );
+add_action( 'admin_bar_menu', __NAMESPACE__ . '\\add_menu_bar_item' );
+add_filter( 'custom_menu_order', '__return_true' );
+add_filter( 'menu_order', __NAMESPACE__ . '\\platform_menu_order', 20 );
+add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
+add_action( 'admin_footer', __NAMESPACE__ . '\\app_root' );
+add_action( 'rest_api_init', __NAMESPACE__ . '\\api_init' );
+add_filter( 'pre_update_option_hm_analytics_optout', __NAMESPACE__ . '\\sync_network_optout' );
+add_filter( 'option_hm_analytics_optout', __NAMESPACE__ . '\\get_network_optout' );
 
 /**
  * Get the platform UI plugin base URL.
@@ -46,165 +30,12 @@ function get_base_url() {
 	return defined( 'HM_PLATFORM_UI_URL' ) ? HM_PLATFORM_UI_URL : WP_CONTENT_URL . '/hm-platform/plugins/hm-platform-ui';
 }
 
-/**
- * Alter list table columns for the platform page.
- *
- * @param array $columns Map of column ID => description.
- * @return array Altered columns.
- */
-function alter_columns( $columns ) {
-	if ( $_REQUEST['plugin_status'] !== 'platform' ) {
-		return $columns;
-	}
-
-	// Remove the checkbox.
-	unset( $columns['cb'] );
-
-	return $columns;
-}
-
-/**
- * Add platform link to the views.
- *
- * @param array $views Views for the list table.
- * @return array Views with platform added.
- */
-function add_platform_link( $views ) {
-	global $status;
-
-	$logo = '<img src="https://humanmade.github.io/hm-pattern-library/assets/images/logos/logo-small-red.svg" style="height: 12px; vertical-align: middle" />';
-
-	$views['platform'] = sprintf(
-		"<a href='%s' %s>%s %s</a>",
-		add_query_arg( 'plugin_status', 'platform', 'plugins.php' ),
-		( 'platform' === $status ) ? ' class="current"' : '',
-		$logo,
-		__( 'Platform', 'hm-platform' )
-	);
-
-	return $views;
-}
-
-/**
- * Get drop-in files.
- *
- * @return array Map of drop-in ID => drop-in file.
- */
-function get_dropins() {
-	return [
-		'batcache'    => 'batcache/batcache.php',
-		'memcached'   => 'wordpress-pecl-memcached-object-cache/object-cache.php',
-		'ludicrousdb' => 'ludicrousdb/ludicrousdb.php',
-	];
-}
-
-/**
- * Add plugin data to the plugin list table.
- */
-function show_in_admin() {
-	global $plugins, $wp_list_table;
-
-	$plugins['platform'] = [];
-
-	// Add drop-ins first.
-	foreach ( get_dropins() as $name => $plugin_file ) {
-		$plugin_data = get_plugin_data( dirname( dirname( __DIR__ ) ) . '/dropins/' . $plugin_file, false, false );
-
-		if ( empty ( $plugin_data['Name'] ) ) {
-			$plugin_data['Name'] = $name;
-		}
-
-		$plugins['platform'][ $plugin_file ] = $plugin_data;
-	}
-
-	// Add our own mu-plugins to the page
-	foreach ( Platform\get_available_plugins() as $name => $plugin_file ) {
-		$plugin_data = get_plugin_data( dirname( dirname( __DIR__ ) ) . '/plugins/' . $plugin_file, false, false );
-
-		if ( empty ( $plugin_data['Name'] ) ) {
-			$plugin_data['Name'] = $name;
-		}
-
-		$plugins['platform'][ $plugin_file ] = $plugin_data;
-	}
-
-	// Recount totals
-	$GLOBALS['totals']['platform'] = count( $plugins['platform'] );
-
-	// Only apply the rest if we're actually looking at the page
-	if ( ! isset( $_REQUEST['plugin_status'] ) || $_REQUEST['plugin_status'] !== 'platform' ) {
-		return;
-	}
-
-	// Reset the global.
-	$GLOBALS['status'] = 'platform';
-
-	// Reset the list table's data
-	$wp_list_table->items = $plugins['platform'];
-	foreach ( $wp_list_table->items as $plugin_file => $plugin_data ) {
-		$wp_list_table->items[ $plugin_file ] = _get_plugin_data_markup_translate( $plugin_file, $plugin_data, false, true );
-	}
-
-	$total_this_page = $GLOBALS['totals']['platform'];
-
-	if ( $GLOBALS['orderby'] ) {
-		uasort( $wp_list_table->items, [ $wp_list_table, '_order_callback' ] );
-	}
-
-	// Force showing all plugins
-	// See https://core.trac.wordpress.org/ticket/27110
-	$plugins_per_page = $total_this_page;
-
-	$wp_list_table->set_pagination_args( [
-		'total_items' => $total_this_page,
-		'per_page'    => $plugins_per_page,
-	] );
-}
-
-/**
- * Get platform plugin actions.
- *
- * @param array  $actions     Existing actions for the row.
- * @param string $plugin_file Filename for the plugin.
- * @param array  $plugin_data Headers from the plugin file.
- * @param string $context     Current subpage of the plugin page.
- * @return array Altered actions.
- */
-function get_platform_actions( $actions, $plugin_file, $plugin_data, $context ) {
-	$mu_plugins = Platform\get_available_plugins();
-	$config     = Platform\get_config();
-
-	if ( $context !== 'platform' ) {
-		return $actions;
-	}
-
-	$actions = [];
-	$key     = array_search( $plugin_file, $mu_plugins );
-	if ( $key ) {
-		if ( ! empty( $config[ $key ] ) ) {
-			$actions[] = '<span style="color:#333">Plugin (Active)</span>';
-		} else {
-			$actions[] = 'Plugin (Inactive)';
-		}
-	} else {
-		$dropins = get_dropins();
-		$key     = array_search( $plugin_file, $dropins );
-		if ( ! empty( $config[ $key ] ) ) {
-			$actions[] = '<span style="color:#333">Drop-In (Active)</span>';
-		} else {
-			$actions[] = 'Drop-In (Inactive)';
-		}
-	}
-
-	return $actions;
-}
-
 function get_environment() {
 	if ( defined( 'HM_DEV' ) && HM_DEV ) {
 		return 'local';
 	}
 
-	if ( defined( 'HM_ENV_TYPE' ) ) {
+	if ( defined( 'HM_ENV_TYPE' ) && HM_ENV_TYPE ) {
 		return HM_ENV_TYPE;
 	}
 
@@ -232,6 +63,24 @@ function get_anonymous_user() {
 	] ) );
 }
 
+/**
+ * Get the plugin data along with the config for each.
+ *
+ * @return array
+ */
+function get_plugin_manifest() {
+	$config   = Platform\Config\get_config()['plugins'];
+	$manifest = Platform\get_plugin_manifest();
+	return array_values( array_map( function ( $plugin, $name ) use ( $config ) {
+		return [
+			'name'     => $name,
+			'title'    => isset( $plugin['title'] ) ? $plugin['title'] : false,
+			'settings' => $config[ $name ]['settings'],
+			'enabled'  => $config[ $name ]['enabled'],
+		];
+	}, $manifest, array_keys( $manifest ) ) );
+}
+
 function platform_menu_order( $menu_order ) {
 	$hm_menu_order = [];
 
@@ -246,6 +95,18 @@ function platform_menu_order( $menu_order ) {
 	}
 
 	return $hm_menu_order;
+}
+
+/**
+ * Get an array of the sub menu items for platform.
+ */
+function get_submenu_pages() {
+	return [
+		[ 'title' => esc_html__( 'Dashboard', 'hm-platform' ), 'path' => '/', 'exact' => true ],
+		[ 'title' => esc_html__( 'Enterprise Kit', 'hm-platform' ), 'path' => '/ek' ],
+		// [ 'title' => esc_html__( 'Cloud', 'hm-platform' ), 'path' => '/cloud' ],
+		[ 'title' => esc_html__( 'Documentation', 'hm-platform' ), 'path' => '/documentation' ],
+	];
 }
 
 /**
@@ -268,21 +129,13 @@ function add_menu_item() {
 		2
 	);
 
-	$sub_pages = [
-		'/'              => esc_html__( 'Dashboard', 'hm-platform' ),
-		'/ek'            => esc_html__( 'Enterprise Kit', 'hm-platform' ),
-		'/cloud'         => esc_html__( 'Cloud', 'hm-platform' ),
-		'/documentation' => esc_html__( 'Documentation', 'hm-platform' ),
-		'/privacy'       => esc_html__( 'Privacy', 'hm-platform' ),
-	];
-
-	foreach ( $sub_pages as $url => $title ) {
+	foreach ( get_submenu_pages() as $page ) {
 		add_submenu_page(
 			'hm-platform',
-			$title,
-			$title,
+			$page['title'],
+			$page['title'],
 			'manage_options',
-			'hm-platform#' . $url,
+			'hm-platform#' . $page['path'],
 			$ek_page_callback
 		);
 	}
@@ -330,11 +183,13 @@ function enqueue_assets() {
 			'URL'   => get_rest_url(),
 			'Nonce' => wp_create_nonce( 'wp_rest' ),
 		],
+		'Pages'         => get_submenu_pages(),
+		'Config'        => \HM\Platform\Config\get_config(),
 		'EnterpriseKit' => [
 			'Version'     => \HM\Platform\version(),
 			'DocsVersion' => \HM\Platform\docs_version(),
 			'DocsURL'     => \HM\Platform\docs_url(),
-			'Config'      => [],
+			'Config'      => get_plugin_manifest(),
 		],
 		'Environment'   => get_environment(),
 		'User'          => get_anonymous_user(),
@@ -428,7 +283,7 @@ function color_scheme() {
 }
 
 /**
- * Force HM Platform admin theme.
+ * Default to HM Platform admin theme.
  *
  * @param mixed  $value
  * @param int    $user_id
@@ -441,7 +296,9 @@ function force_admin_theme( $value, $user_id, $key, $single ) {
 		return $value;
 	}
 
-	if ( $value === 'fresh' || empty( $value ) ) {
+	if ( empty( $value ) ) {
 		return $single ? 'hm' : [ 'hm' ];
 	}
+
+	return $value;
 }
