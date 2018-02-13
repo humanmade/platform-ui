@@ -20,6 +20,8 @@ add_action( 'admin_footer', __NAMESPACE__ . '\\app_root' );
 add_action( 'rest_api_init', __NAMESPACE__ . '\\api_init' );
 add_filter( 'pre_update_option_hm_analytics_optout', __NAMESPACE__ . '\\sync_network_optout' );
 add_filter( 'option_hm_analytics_optout', __NAMESPACE__ . '\\get_network_optout' );
+add_action( 'admin_init', __NAMESPACE__ . '\\color_scheme' );
+add_filter( 'get_user_metadata', __NAMESPACE__ . '\\force_admin_theme', 10, 4 );
 
 /**
  * Get the platform UI plugin base URL.
@@ -125,7 +127,7 @@ function add_menu_item() {
 		'manage_options',
 		'hm-platform',
 		$ek_page_callback,
-		'data:image/svg+xml;base64,' . base64_encode( file_get_contents( WP_CONTENT_DIR . '/hm-platform/plugins/hm-platform-ui/src/assets/logo-small-red.svg' ) ),
+		'data:image/svg+xml;base64,' . base64_encode( file_get_contents( WP_CONTENT_DIR . '/hm-platform/plugins/hm-platform-ui/src/assets/logo-small-white.svg' ) ),
 		2
 	);
 
@@ -176,6 +178,7 @@ function enqueue_assets() {
 	ReactWPScripts\enqueue_assets( __DIR__, [
 		'base_url' => get_base_url(),
 		'handle'   => 'hm-platform-ui',
+		'scripts'  => [ 'jquery' ],
 	] );
 	wp_localize_script( 'hm-platform-ui', 'HM', [
 		'AdminURL'      => admin_url( '/admin.php?page=hm-platform' ),
@@ -263,11 +266,6 @@ function get_network_optout() {
  * Add our HM custom colour scheme.
  */
 function color_scheme() {
-	global $_wp_admin_css_colors;
-
-	// Remove default colour schemes.
-	unset( $_wp_admin_css_colors['fresh'] );
-
 	// Add our colour scheme.
 	wp_admin_css_color( 'hm', 'Human Made', get_base_url() . '/src/admin.css', [
 		'base'         => '#353535', // base color
@@ -276,9 +274,9 @@ function color_scheme() {
 		'notification' => '#7DC9DA', // notification color
 	], [
 		// SVG icon colours.
-		'base'    => '#F4EFE6',
-		'focus'   => '#d9d9d9',
-		'current' => '#D94E3A',
+		'base'    => '#eff1ef',
+		'focus'   => '#F4EFE6',
+		'current' => '#eff1ef',
 	] );
 }
 

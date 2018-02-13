@@ -2,24 +2,24 @@
   // Make sure SVG logo is appropriately sized.
   .wp-menu-image.svg {
     background-size: 23px;
+  }
 
-    svg {
-      color: inherit;
-    }
+  .wp-menu-image svg {
+    max-width: 23px;
+    flex: 1;
   }
 
   // Center menu images.
   .wp-menu-image {
     line-height: 34px;
-
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
   }
 
   // Current class is applied to link in react.
   .current {
     font-weight: 600;
-
-    svg {
-      color: inherit;
-    }
   }
 }
