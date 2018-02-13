@@ -7,19 +7,23 @@ import AdminPortal from './portal';
 
 class App extends Component {
 	render() {
-		return <HashRouter>
-			<div>
-				<AdminPortal target="toplevel_page_hm-platform">
+		return [
+			<AdminPortal key="menu" target="toplevel_page_hm-platform">
+				<HashRouter>
 					<Menu/>
-				</AdminPortal>
-				<AdminPortal target="hm-platform">
+				</HashRouter>
+			</AdminPortal>,
+			<AdminPortal key="main" target="hm-platform">
+				<HashRouter>
 					<Main/>
-				</AdminPortal>
-				<AdminPortal target="wp-admin-bar-hm-platform-toolbar-ui">
+				</HashRouter>
+			</AdminPortal>,
+			<AdminPortal key="toolbar" target="wp-admin-bar-hm-platform-toolbar-ui">
+				<HashRouter>
 					<Toolbar/>
-				</AdminPortal>
-			</div>
-		</HashRouter>;
+				</HashRouter>
+			</AdminPortal>
+		];
 	}
 }
 

@@ -6,7 +6,6 @@ import Documentation from './Documentation';
 import Privacy from './Privacy';
 
 class Main extends Component {
-
 	render() {
 		return <div id="hm-enterprise-kit-ui">
 			<Route exact path="/" render={() => <Header/>} />
