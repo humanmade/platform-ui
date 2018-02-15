@@ -7,7 +7,6 @@ import withFetch from '../../utils/withFetch';
 import { compose } from 'recompose';
 import Plugin from './Plugin';
 import icons from './Icons';
-import ReactHtmlParse from 'react-html-parser';
 
 import 'react-select/dist/react-select.css';
 
@@ -129,7 +128,7 @@ class Plugins extends React.Component {
 						? ''
 						: this.props.categories.data.results
 								.filter( category => category.pageForTerm === this.state.category )
-								.map( category => ReactHtmlParse( category.excerpt ) )
+								.map( category => <p key={category.slug}>{category.excerpt}</p> )
 					}
 				</div>
 				<div className="hm-plugins--filters__status hm-radio-group">
