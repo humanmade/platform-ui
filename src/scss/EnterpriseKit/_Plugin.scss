@@ -1,12 +1,8 @@
 .hm-plugins--plugin {
-  flex: 1;
-  width: 33%;
   min-width: 280px;
-  max-width: calc(33.333333% - 20px);
   border: 1px solid darken( $color-white, 10% );
   background: $color-white;
   padding: 20px;
-  margin: 10px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

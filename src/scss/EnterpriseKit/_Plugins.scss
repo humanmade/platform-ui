@@ -105,7 +105,8 @@
 }
 
 .hm-plugins--list {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 20px -10px;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin: 20px 0;
 }
