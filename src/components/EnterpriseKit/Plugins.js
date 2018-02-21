@@ -119,7 +119,7 @@ class Plugins extends React.Component {
 				</div>
 			</div>
 			<div className="hm-plugins--filters">
-				<div className="hm-plugins--filters__category">
+				<div className="hm-plugins--filters__category" aria-live="polite">
 					{ this.state.category === 'all' && <p>
 						Below is a list of all the plugins in Enterprise Kit, along with
 						quick access to documentation and further details.
@@ -128,11 +128,11 @@ class Plugins extends React.Component {
 						? ''
 						: this.props.categories.data.results
 								.filter( category => category.pageForTerm === this.state.category )
-								.map( category => <p key={category.slug}>{category.excerpt}</p> )
+								.map( category => <p key={ category.slug }>{ category.excerpt }</p> )
 					}
 				</div>
-				<div className="hm-plugins--filters__status hm-radio-group">
-					<span className="screen-reader-text">Plugin Status</span>
+				<fieldset className="hm-plugins--filters__status hm-radio-group">
+					<legend className="screen-reader-text">Plugin Status</legend>
 					<input id="hm-plugins-status-any" checked={this.state.active === 'any'} type="radio" name="active"
 					       value="any"
 					       onChange={() => this.setState( { active: 'any' } )}/>
@@ -152,9 +152,9 @@ class Plugins extends React.Component {
 					<label htmlFor="hm-plugins-status-off">
 						Inactive
 					</label>
-				</div>
+				</fieldset>
 			</div>
-			<div className="hm-plugins--list">
+			<div className="hm-plugins--list" aria-live="polite">
 				{plugins.length
 					? plugins.map( plugin => <Plugin key={plugin.title} {...plugin} /> )
 					: <p className="notice-large">
