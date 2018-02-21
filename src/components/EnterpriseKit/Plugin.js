@@ -2,7 +2,7 @@ import React from 'react';
 import IframeLink from '../IframeLink';
 import icons from './Icons';
 
-const getIcon = tags => {
+const getIcons = tags => {
 	return tags.map( tag => {
 		const Icon = icons[tag] || false;
 		return Icon ? <Icon key={tag} /> : false;
@@ -15,7 +15,7 @@ const Plugin = props => <div className="hm-plugins--plugin">
 			? <IframeLink src={props.link}>{ props.title }</IframeLink>
 			: props.title
 		}
-		{ props.tags && getIcon( props.tags ) }
+		{ props.tags && <span className="hm-plugins--plugin__icons">{ getIcons( props.tags ) }</span> }
 	</h3>
 	<p className={ `hm-plugins--plugin__status ${ props.enabled && 'status-on' }` }>
 		<span className="screen-reader-text">Status</span>

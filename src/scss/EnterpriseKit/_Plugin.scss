@@ -16,11 +16,17 @@
     a {
       color: inherit;
     }
-    svg {
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
+  }
+}
+
+.hm-plugins--plugin__icons {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  svg {
+    display: inline-block;
+    margin-left: 5px;
   }
 }
 
