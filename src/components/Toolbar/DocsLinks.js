@@ -29,7 +29,8 @@ export class DocsLinks extends React.Component {
 			<li className="ab-submenu-header">Documentation</li>
 			{ docs.map( doc => <li key={ doc.id }>
 				<IframeLink
-					src={ doc.link } title={`${ doc.parent } ${ doc.title }`}
+					src={ doc.link }
+					title={`${ doc.parent } ${ doc.title }`}
 					show={ this.state && this.state.active === doc.id }
 					onOpen={ () => this.setState( { active: doc.id } ) }
 					onClose={ () => this.setState( { active: null } ) }

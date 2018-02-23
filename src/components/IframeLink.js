@@ -1,5 +1,6 @@
 /*global HM*/
 import React from 'react';
+import PropTypes from 'prop-types';
 import AdminPortal from '../portal';
 
 class IframeLink extends React.Component {
@@ -17,6 +18,9 @@ class IframeLink extends React.Component {
 	onOpen( event ) {
 		event && event.preventDefault();
 
+		// Store activeElement.
+		this.activeElement = document.activeElement;
+
 		// Listen for post messages and mount the iframe.
 		window.addEventListener( "message", this.handleFrameMessage );
 		this.setState( { show: true } );
@@ -30,6 +34,9 @@ class IframeLink extends React.Component {
 		window.removeEventListener( "message", this.handleFrameMessage );
 		this.setState( { show: false } );
 		this.props.onClose && this.props.onClose();
+
+		// Restore activeElement.
+		this.activeElement && this.activeElement.focus();
 	}
 
 	/**
@@ -37,6 +44,9 @@ class IframeLink extends React.Component {
 	 * events within the frame.
 	 */
 	onFrameLoad() {
+		// Set focus.
+		this.iframe.contentWindow.focus();
+		// Send data.
 		this.iframe.contentWindow.postMessage( {
 			event:       "iframe-link-embed",
 			origin:      window.location.hostname,
@@ -71,7 +81,6 @@ class IframeLink extends React.Component {
 
 		// Handle resize event from iframe.
 		if ( data.event && data.event === 'resize' && data.event.height ) {
-			console.log( data.event );
 			this.iframe.height = data.event.height;
 		}
 
@@ -88,8 +97,9 @@ class IframeLink extends React.Component {
 			return this.props.children;
 		}
 
-		const Open  = <a className="hm-iframe-open" key="open" href={src} onClick={e => this.onOpen(e)}>{ this.props.children }</a>;
-		const Close = <a className="hm-iframe-close btn" key="close" href={src} onClick={e => this.onClose(e)}>Close</a>;
+		const Open = <a className="hm-iframe-open" key="open" href={src}
+		                onClick={e => this.onOpen( e )}>{this.props.children}</a>;
+		const Close = <a className="hm-iframe-close btn" key="close" href={src} onClick={e => this.onClose( e )}>Close</a>;
 
 		// Allow a show prop to override state.
 		if ( typeof this.props.show !== 'undefined' ) {
@@ -104,17 +114,17 @@ class IframeLink extends React.Component {
 
 		return [
 			Open,
-			<AdminPortal key="iframe" id={ src } onUnload={ () => this.setState( { loading: true } ) }>
+			<AdminPortal key="iframe" id={src} onUnload={() => this.setState( { loading: true } )}>
 				<div className="hm-platform-modal">
-					{ Close }
+					{Close}
 					<iframe
 						//className={ this.state.loading ? 'hm-iframe-loading' : 'hm-iframe-loaded' }
-						src={ `${ src }?admin-request=${ this.props.type || 'basic' }` }
-						title={ this.props.title || '' }
+						src={`${ src }?admin-request=${ this.props.type || 'basic' }`}
+						title={this.props.title || ''}
 						width="100%"
 						height="100%"
-						ref={ iframe => this.iframe = iframe }
-						onLoad={ () => this.onFrameLoad() }
+						ref={iframe => this.iframe = iframe}
+						onLoad={() => this.onFrameLoad()}
 					/>
 				</div>
 			</AdminPortal>
@@ -124,5 +134,10 @@ class IframeLink extends React.Component {
 }
 
 IframeLink.instances = [];
+
+IframeLink.propTypes = {
+	src:   PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired
+};
 
 export default IframeLink;
