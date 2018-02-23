@@ -5,13 +5,14 @@ import DeveloperTools from '../../assets/icons/developer-tools.svg';
 import Engagement from '../../assets/icons/engagement.svg';
 import SEO from '../../assets/icons/seo.svg';
 import UserManagement from '../../assets/icons/user-management.svg';
-import Cloud from '../../assets/icons/cloud.svg'; // By Google Inc., CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=36334382
+// By Google Inc., CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=36334382
+import Cloud from '../../assets/icons/cloud.svg';
 
 const icons = {
 	all:               All,
 	editorial:         Editorial,
 	media:             Media,
-	'dev-tools':       DeveloperTools,
+	'developer-tools': DeveloperTools,
 	engagement:        Engagement,
 	seo:               SEO,
 	'user-management': UserManagement,
