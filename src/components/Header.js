@@ -5,7 +5,7 @@ import Logo from '../assets/logo-red.svg';
 class Header extends Component {
 
 	render() {
-		return <header className="hm-ek-Header">
+		return <div className="hm-ek-Header">
 			<h1>
 				<Logo className="hm-logo-large" title="Human Made" />
 				{ this.props.title || 'Platform' }
@@ -13,7 +13,7 @@ class Header extends Component {
 				<small className="hm-ek-Header-Version">v{ HM.EnterpriseKit.Version }</small>
 			</h1>
 			{ this.props.children }
-		</header>;
+		</div>;
 	}
 }
 

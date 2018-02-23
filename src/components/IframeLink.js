@@ -37,6 +37,9 @@ class IframeLink extends React.Component {
 	 * events within the frame.
 	 */
 	onFrameLoad() {
+		// Set focus.
+		this.iframe.contentWindow.focus();
+		// Send data.
 		this.iframe.contentWindow.postMessage( {
 			event:       "iframe-link-embed",
 			origin:      window.location.hostname,
@@ -71,7 +74,6 @@ class IframeLink extends React.Component {
 
 		// Handle resize event from iframe.
 		if ( data.event && data.event === 'resize' && data.event.height ) {
-			console.log( data.event );
 			this.iframe.height = data.event.height;
 		}
 
