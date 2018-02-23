@@ -13,6 +13,7 @@ class IframeLink extends React.Component {
 		};
 
 		this.handleFrameMessage = this.handleFrameMessage.bind( this );
+		this.onClose = this.onClose.bind( this );
 	}
 
 	onOpen( event ) {
@@ -46,6 +47,7 @@ class IframeLink extends React.Component {
 	onFrameLoad() {
 		// Set focus.
 		this.iframe.contentWindow.focus();
+
 		// Send data.
 		this.iframe.contentWindow.postMessage( {
 			event:       "iframe-link-embed",
@@ -56,6 +58,11 @@ class IframeLink extends React.Component {
 			config:      HM.Config,
 			plugins:     HM.EnterpriseKit.Config,
 		}, this.props.src );
+
+		// Listen for interaction outside of iframe & close.
+		window.addEventListener( "click", this.onClose, {
+			once: true
+		} );
 	}
 
 	componentDidUpdate() {

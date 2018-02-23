@@ -1,6 +1,7 @@
 import React from 'react';
 import IframeLink from '../IframeLink';
 import icons from './Icons';
+import ReactHtmlParser from 'react-html-parser';
 
 const getIcons = tags => {
 	return tags.map( tag => {
@@ -12,7 +13,7 @@ const getIcons = tags => {
 const Plugin = props => <div className="hm-plugins--plugin">
 	<h3>
 		{ props.link
-			? <IframeLink src={props.link} title={ `${ props.title } documentation` }>{ props.title }</IframeLink>
+			? <IframeLink src={props.link} title={ `${ props.title } documentation` }>{ ReactHtmlParser( props.title ) }</IframeLink>
 			: props.title
 		}
 		{ props.tags && <span className="hm-plugins--plugin__icons">{ getIcons( props.tags ) }</span> }
