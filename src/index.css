@@ -259,15 +259,6 @@
 .icon--download.icon--red {
   background-image: url("./hm-pattern-library/assets/images/icons/icon-download-red.svg"); }
 
-.icon--smiley-wink {
-  background-image: url("./hm-pattern-library/assets/images/icons/icon-smiley-wink-black.svg"); }
-
-.icon--smiley-wink.icon--white {
-  background-image: url("./hm-pattern-library/assets/images/icons/icon-smiley-wink-white.svg"); }
-
-.icon--smiley-wink.icon--red {
-  background-image: url("./hm-pattern-library/assets/images/icons/icon-smiley-wink-red.svg"); }
-
 .icon--arrow-left {
   transform: rotate(180deg); }
 
