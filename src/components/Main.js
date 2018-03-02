@@ -6,6 +6,7 @@ import Documentation from './Documentation';
 import Privacy from './Privacy';
 import Menu from './Menu';
 import AdminPortal from '../portal';
+import Dashboard from './Dashboard';
 
 class Main extends Component {
 	render() {
@@ -15,7 +16,7 @@ class Main extends Component {
 					<Menu/>
 				</HashRouter>
 			</AdminPortal>
-			<Route exact path="/" render={() => <Header/>} />
+			<Route exact path="/" render={() => <Dashboard/>} />
 			<Route path="/ek" component={EnterpriseKit} />
 			<Route path="/cloud" render={() => <Header title="Cloud"/>} />
 			<Route path="/documentation" component={Documentation} />
