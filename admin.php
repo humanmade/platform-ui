@@ -21,7 +21,8 @@ add_action( 'rest_api_init', __NAMESPACE__ . '\\api_init' );
 add_filter( 'pre_update_option_hm_analytics_optout', __NAMESPACE__ . '\\sync_network_optout' );
 add_filter( 'option_hm_analytics_optout', __NAMESPACE__ . '\\get_network_optout' );
 add_action( 'admin_init', __NAMESPACE__ . '\\color_scheme' );
-add_filter( 'get_user_metadata', __NAMESPACE__ . '\\force_admin_theme', 10, 4 );
+add_filter( 'get_user_option_admin_color', __NAMESPACE__ . '\\default_admin_theme' );
+add_filter( 'insert_user_meta', __NAMESPACE__ . '\\insert_user_meta', 10, 3 );
 
 /**
  * Get the platform UI plugin base URL.
@@ -73,6 +74,7 @@ function get_anonymous_user() {
 function get_plugin_manifest() {
 	$config   = Platform\Config\get_config()['plugins'];
 	$manifest = Platform\get_plugin_manifest();
+
 	return array_values( array_map( function ( $plugin, $name ) use ( $config ) {
 		return [
 			'name'     => $name,
@@ -283,20 +285,31 @@ function color_scheme() {
 /**
  * Default to HM Platform admin theme.
  *
- * @param mixed  $value
- * @param int    $user_id
- * @param string $key
- * @param bool   $single
- * @return array|string
+ * @param mixed $value
+ * @return string
  */
-function force_admin_theme( $value, $user_id, $key, $single ) {
-	if ( $key !== 'admin_color' ) {
-		return $value;
-	}
-
+function default_admin_theme( $value ) {
 	if ( empty( $value ) ) {
-		return $single ? 'hm' : [ 'hm' ];
+		return 'hm';
 	}
 
 	return $value;
+}
+
+/**
+ * Filter meta for new users to set admin_color to HM theme.
+ *
+ * @param array    $meta
+ * @param \WP_User $user
+ * @param bool     $update
+ * @return array
+ */
+function insert_user_meta( $meta, $user, $update ) {
+	if ( $update ) {
+		return $meta;
+	}
+
+	$meta['admin_color'] = 'hm';
+
+	return $meta;
 }
