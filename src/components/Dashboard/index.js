@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import Posts from  './Posts';
+import Header from '../Header';
 
 class Dashboard extends React.Component {
 	render() {
 		return (
-			<Posts title="Posts" />
+			<Fragment>
+				<Header key="header" title="Dashboard" />
+				<Posts title="Posts" />
+			</Fragment>
+
 		);
 	}
 }
