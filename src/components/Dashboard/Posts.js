@@ -5,20 +5,37 @@ import Post from './Post';
 import withFetch from '../../utils/withFetch';
 import { compose } from 'recompose';
 
-import DashboardBlock from '../Dashboard-Block';
-
 const Posts = props => {
-	return <DashboardBlock title="Posts" id="posts-block">
-		<div className="posts-block-content">
-			<table className="table">
-				<tbody>
-				{
-					Object.keys(props.posts.data).map( key => <Post key={key} index={key} post={props.posts.data[key]} /> )
-				}
-				</tbody>
-			</table>
+	return (
+		<div className="widget widget--posts">
+			<div className="widget__header">
+				<h2 className="widget__header__title">Posts</h2>
+				<div className="widget__header__actions">
+					<form action="">
+						<select name="" id="">
+							<option value="">Published</option>
+						</select>
+						<select name="" id="">
+							<option value="">Latest</option>
+						</select>
+					</form>
+				</div>
+				<div className="widget__header__settings">
+
+				</div>
+			</div>
+			<div className="widget__body">
+				<table className="table">
+					<tbody>
+					{
+						Object.keys(props.posts.data).map( key => <Post key={key} index={key} post={props.posts.data[key]} /> )
+					}
+					</tbody>
+				</table>
+			</div>
 		</div>
-	</DashboardBlock>
+
+	);
 }
 
 const PostsWithData = compose(
