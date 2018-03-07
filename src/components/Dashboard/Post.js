@@ -6,7 +6,9 @@ const Post = ({ post }) => {
 	return (
 		<tr className="post">
 			<td className="post__info">
-				<div className="post__info__title"><a href={post.link}>{post.title.rendered}</a></div>
+				<div className="post__info__title">
+					<a href={`/wp-admin/post.php?post=${post.id}&action=edit`}>{post.title.rendered}</a>
+				</div>
 				<div className="post__info__meta">
 					<span className="post__info__meta__status">{post.status === 'publish' ? 'published' : post.status}</span>
 					<span className="post__info__meta__modified">{new Date(post.modified).toLocaleDateString( 'en-GB', options )}</span>
