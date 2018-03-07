@@ -10,17 +10,19 @@ import DashboardBlock from '../Dashboard-Block';
 const Posts = props => {
 	return <DashboardBlock title="Posts" id="posts-block">
 		<div className="posts-block-content">
-			<ul>
+			<table className="table">
+				<tbody>
 				{
 					Object.keys(props.posts.data).map( key => <Post key={key} index={key} post={props.posts.data[key]} /> )
 				}
-			</ul>
+				</tbody>
+			</table>
 		</div>
 	</DashboardBlock>
 }
 
 const PostsWithData = compose(
-	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/wp/v2/posts`, {}, 'posts' )
+	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/wp/v2/posts?_embed`, {}, 'posts' )
 )(Posts);
 
 export default PostsWithData;

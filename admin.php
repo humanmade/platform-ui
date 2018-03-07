@@ -240,6 +240,24 @@ function api_init() {
 		'show_in_rest'      => true,
 		'default'           => defined( 'HM_ANALYTICS_OPTOUT' ) ? HM_ANALYTICS_OPTOUT : false,
 	] );
+
+	$post_types = get_post_types( [ 'public' => true ] );
+
+	foreach ( $post_types as $post_type ) {
+		if ( post_type_supports( $post_type, 'comments' ) ) {
+			register_rest_field( $post_type, 'comment_count', [
+				'get_callback' => function( $post_arr ) {
+					$comments = get_comment_count( $post_arr['id'] );
+					return (int) $comments['total_comments'];
+				},
+				'schema'       => [
+					'description' => __( 'Comment count.', 'hm-platform' ),
+					'type'        => 'integer',
+				],
+			] );
+		}
+	}
+
 }
 
 /**
