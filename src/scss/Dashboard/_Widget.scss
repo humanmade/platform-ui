@@ -1,0 +1,51 @@
+.widget {
+  background: white;
+  border: 1px solid #e4e4e4;
+  border-radius: 3px;
+  &__header {
+    border-bottom: 1px solid #e4e4e4;
+    padding: 1.5em;
+    display: flex;
+    align-items: center;
+    &__title {
+      text-transform: uppercase;
+    }
+  }
+
+  &__notification {
+    background-color: #ffff99;
+    color: red;
+    margin: -1.5em -1.5em 1.5em -1.5em;
+    padding: 1.5em 1.5em;
+    p {
+      margin: 0;
+    }
+  }
+
+  &__body {
+    padding: 1.5em;
+    td {
+      span {
+        margin-right: 0.3em;
+      }
+    }
+
+    .post__info__meta {
+      margin: 0.5em 0;
+      &__status {
+        color: dodgerblue;
+        text-transform: capitalize;
+        border-radius: 3px;
+        border: 1px solid dodgerblue;
+        padding: 0.2em;
+      }
+
+      &__modified {
+        color: grey;
+      }
+      &__byline {
+        color: grey;
+      }
+    }
+  }
+}

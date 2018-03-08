@@ -1,0 +1,33 @@
+.widget {
+  &--site-stats {
+    .toggle {
+      display: flex;
+    }
+
+    .dataset {
+      display: block;
+      cursor: pointer;
+      padding: 1.5em;
+      border: 1px solid grey;
+      margin: 0 .5em;
+
+      &:active {
+        border-color: blue;
+      }
+      span {
+        text-align: center;
+        display: block;
+        margin: .5em 0;
+      }
+
+      &__data {
+        font-size: 2em;
+      }
+
+      &__label {
+        color: grey;
+        text-transform: uppercase;
+      }
+    }
+  }
+}

@@ -5,11 +5,11 @@ import Post from './Post';
 import withFetch from '../../utils/withFetch';
 import { compose } from 'recompose';
 
-const Posts = props => {
+const Authors = props => {
 	return (
-		<div className="widget widget--posts two-thirds">
+		<div className="widget widget--authors one-third">
 			<div className="widget__header">
-				<h2 className="widget__header__title">Posts ❯</h2>
+				<h2 className="widget__header__title">Authors ❯</h2>
 				<div className="widget__header__actions">
 					<form action="">
 						<select name="" id="">
@@ -25,8 +25,10 @@ const Posts = props => {
 				</div>
 			</div>
 			<div className="widget__body">
-				<div className="widget__notification">
-					<p>{`You have ${props.comments.data.length} comments awaiting moderation`}</p>
+				<div className="select">
+					<select name="" id="">
+						<option value="">My posts</option>
+					</select>
 				</div>
 				<table className="table">
 					<tbody>
@@ -41,15 +43,8 @@ const Posts = props => {
 	);
 }
 
-const PostsWithData = compose(
-	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/wp/v2/posts?_embed`, {}, 'posts' ),
-	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/wp/v2/comments?status=hold`,  {
-		credentials: 'same-origin',
-		headers: {
-			'X-WP-Nonce': HM.REST.Nonce,
-			'content-type': 'application/json'
-		}
-	}, 'comments' ),
-)(Posts);
+const AuthorsWithData = compose(
+	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/wp/v2/posts?_embed`, {}, 'posts' )
+)(Authors);
 
-export default PostsWithData;
+export default AuthorsWithData;

@@ -1,0 +1,39 @@
+//@import "../../hm-pattern-library/assets/sass/juniper";
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+@import "./Widget";
+@import "./SiteStats";
+
+.dashboard {
+  padding-top: 2em;
+  max-width: 1024px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 1em;
+}
+
+.full-width {
+  grid-area: auto / span 12;
+  width: 100%;
+}
+
+.two-thirds {
+  grid-area: auto / span 8;
+  width: 100%;
+}
+
+.one-third {
+  grid-area: auto / span 4;
+  width: 100%;
+}
+
+.one-half {
+  grid-area: auto / span 6;
+  width: 100%;
+}

@@ -247,12 +247,11 @@ function api_init() {
 		if ( post_type_supports( $post_type, 'comments' ) ) {
 			register_rest_field( $post_type, 'comment_count', [
 				'get_callback' => function( $post_arr ) {
-					$comments = get_comment_count( $post_arr['id'] );
-					return (int) $comments['total_comments'];
+					return get_comment_count( $post_arr['id'] );
 				},
 				'schema'       => [
-					'description' => __( 'Comment count.', 'hm-platform' ),
-					'type'        => 'integer',
+					'description' => __( 'Comment counts.', 'hm-platform' ),
+					'type'        => 'array',
 				],
 			] );
 		}

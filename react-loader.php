@@ -133,7 +133,7 @@ function enqueue_assets( $directory, $opts = [] ) {
 
 	// There will be at most one JS and one CSS file in vanilla Create React App manifests.
 	foreach ( $assets as $asset_path ) {
-		$is_js = preg_match( '/\.js$/', $asset_path );
+		$is_js  = preg_match( '/\.js$/', $asset_path );
 		$is_css = preg_match( '/\.css$/', $asset_path );
 
 		if ( ! $is_js && ! $is_css ) {
@@ -149,7 +149,7 @@ function enqueue_assets( $directory, $opts = [] ) {
 				null,
 				true
 			);
-		} else if ( $is_css ) {
+		} elseif ( $is_css ) {
 			wp_enqueue_style(
 				$opts['handle'],
 				get_asset_uri( $asset_path, $base_url ),

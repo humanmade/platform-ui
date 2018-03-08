@@ -16,15 +16,16 @@ const withFetch = ( url, options = {}, name = null ) => {
 
 				// eslint-disable-next-line
 				this.state = {
-					loading: true,
-					expires: 0,
-					data:    {},
-					error:   false,
+					loading:  true,  // Initial load indicator.
+					fetching: false, // Refetch indicator.
+					expires:  0,
+					data:     {},
+					error:    false,
 				};
 			}
 
 			componentWillMount() {
-				const item = this.fetchStore();
+				const item = this.getStore();
 				if ( item ) {
 					this.setState( item );
 				}
@@ -36,25 +37,35 @@ const withFetch = ( url, options = {}, name = null ) => {
 				}
 
 				this.setState( { loading: true } );
-
-				fetch( url, options )
-					.then( response => response.json() )
-					.then( data => this.updateStore( data, false ) )
-					.catch( error => this.updateStore( {}, false, error ) );
+				this.doFetch();
 			}
 
-			fetchStore() {
+			doFetch( overrides = {} ) {
+				this.setState( { fetching: true } );
+				fetch( url, Object.assign( {}, options, overrides ) )
+					.then( response => response.json() )
+					.then( data => this.updateStore( data ) )
+					.catch( error => this.updateStore( {}, error ) );
+			}
+
+			getStore() {
 				const store = JSON.parse( window.localStorage.getItem( `withFetch(${key})` ) );
 				return store || null;
 			}
 
-			updateStore( data, loading = false, error = false ) {
+			updateStore( data, error = false ) {
 				const update = {
 					data,
-					loading,
 					error,
-					expires: Date.now() + ( 5 * 60 * 1000 ) // 5 minutes.
+					loading: false,
+					fetching: false,
+					expires: Date.now() + ( options.expires || ( 5 * 60 * 1000 ) ) // 5 minutes.
 				};
+
+				// Add a timeout to update the data after expiry time.
+				if ( options.expires && ! error ) {
+					setTimeout( this.doFetch, parseInt( options.expires, 10 ) )
+				}
 
 				// Update store.
 				const store = JSON.parse( window.localStorage.getItem( `withFetch(${key})` ) );
@@ -65,7 +76,9 @@ const withFetch = ( url, options = {}, name = null ) => {
 			}
 
 			render() {
-				let state = Object.assign( {}, this.state );
+				let state = Object.assign( {}, this.state, {
+					refetch: ( overrides = {} ) => this.doFetch( overrides ),
+				} );
 
 				// Add state under named prop if set.
 				if ( name ) {
