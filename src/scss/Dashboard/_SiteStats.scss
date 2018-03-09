@@ -1,33 +1,38 @@
 .widget {
   &--site-stats {
-    .toggle {
-      display: flex;
-    }
-
-    .dataset {
-      display: block;
-      cursor: pointer;
-      padding: 1.5em;
-      border: 1px solid grey;
-      margin: 0 .5em;
-
-      &:active {
-        border-color: blue;
+    .react-tabs {
+      &__tab-list {
+        display: grid;
+        grid-template-columns: repeat( 4, 1fr );
       }
-      span {
-        text-align: center;
+
+      &__tab {
         display: block;
-        margin: .5em 0;
-      }
+        cursor: pointer;
+        padding: 1.5em;
+        border: 1px solid grey;
+        margin: 0 .5em;
 
-      &__data {
-        font-size: 2em;
-      }
+        span {
+          text-align: center;
+          display: block;
+          margin: .5em 0;
+        }
 
-      &__label {
-        color: grey;
-        text-transform: uppercase;
+        &__data {
+          font-size: 2em;
+        }
+
+        &__label {
+          color: grey;
+          text-transform: uppercase;
+        }
       }
     }
+  }
+
+  // tabs
+  [aria-selected="true"] {
+    border: 2px solid royalblue;
   }
 }

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {Fragment} from 'react';
+import Popup from "reactjs-popup";
 
 const Post = ({ post }) => {
 	const commentsOpen = post.comment_status === 'open';
@@ -18,10 +19,34 @@ const Post = ({ post }) => {
 				</div>
 			</td>
 			<td className="post__comments">
-				<span className="post_comments_approved">{commentsOpen ? post.comment_count.approved : 'Comments are closed' }</span>
-				<span className="post_comments_pending">{commentsOpen ? post.comment_count.awaiting_moderation : '' }</span>
+				{ commentsOpen ? (
+					<Fragment>
+						<span className="post_comments_approved">{commentsOpen ? post.comment_count.approved : 'Comments are closed' }</span>
+						<span className="post_comments_pending">{commentsOpen ? post.comment_count.awaiting_moderation : 'Comments are closed' }</span>
+					</Fragment>
+				) : (
+					<span className="comments-closed">Comments are closed</span>
+				)
+				}
+
 			</td>
-			<td className="post__actions">&hellip;</td>
+			<td className="post__actions">
+				<Popup
+					trigger={open => (
+						<button className="button">&hellip;</button>
+					)}
+					position="right center"
+					closeOnDocumentClick
+				>
+					<ul>
+						<li><a href="">view</a></li>
+						<li><a href="">edit</a></li>
+						<li><a href="">stats</a></li>
+						<li><a href="">comments</a></li>
+						<li><a href="">duplicate</a></li>
+					</ul>
+				</Popup>
+			</td>
 		</tr>
 	);
 };

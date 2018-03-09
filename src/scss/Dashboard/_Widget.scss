@@ -1,7 +1,17 @@
 .widget {
+  width: 100%;
   background: white;
   border: 1px solid #e4e4e4;
-  border-radius: 3px;
+  border-radius: 5px;
+
+  .label {
+    color: dodgerblue;
+    text-transform: capitalize;
+    border-radius: 3px;
+    border: 1px solid dodgerblue;
+    padding: 0.2em;
+  }
+
   &__header {
     border-bottom: 1px solid #e4e4e4;
     padding: 1.5em;
@@ -33,11 +43,7 @@
     .post__info__meta {
       margin: 0.5em 0;
       &__status {
-        color: dodgerblue;
-        text-transform: capitalize;
-        border-radius: 3px;
-        border: 1px solid dodgerblue;
-        padding: 0.2em;
+
       }
 
       &__modified {
