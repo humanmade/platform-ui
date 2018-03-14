@@ -1,4 +1,17 @@
 //@import "../../hm-pattern-library/assets/sass/juniper";
+:root {
+  --yellow: #fffae2;
+  --orangey-brown: #ad5400;
+  --ocean-blue: #00739a;
+  --dark-grey: #353535;
+  --alert-red: #ff001f; // stats down
+  --hm-red: #d24632; // dropdown arrows/comments/buttons
+  --med-blue: #009ace; // stats border
+  --good-green: #458500; // labels
+  --cool-grey: #767676; // byline
+  --superlight-grey: #e1e1e1; // border
+}
+
 *,
 *:before,
 *:after {
@@ -7,6 +20,7 @@
 
 @import "./Widget";
 @import "./SiteStats";
+@import "./SupportRequests";
 
 .dashboard {
   padding-top: 2em;

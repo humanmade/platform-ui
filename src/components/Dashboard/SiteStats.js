@@ -3,12 +3,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { VictoryLine, VictoryChart, VictoryTheme } from 'victory';
+import { adminTheme } from '../../victory-theme';
 
 const SiteStats = props => {
 	return (
 		<div className="widget widget--site-stats full-width">
 			<div className="widget__header">
-				<h2 className="widget__header__title">site stats ❯</h2>
+				<h2 className="widget__header__title">site stats</h2>
 				<div className="widget__header__actions">
 					<form action="">
 						<select name="" id="">
@@ -24,30 +25,30 @@ const SiteStats = props => {
 				<Tabs>
 					<TabList>
 						<Tab>
-							<span className="dataset__data">379K</span>
-							<span className="dataset__label">users</span>
-							<span className="dataset__delta">&uarr; 2.5%</span>
+							<span className="data">379K</span>
+							<span className="type">users</span>
+							<span className="delta--up">&uarr; 2.5%</span>
 						</Tab>
 						<Tab>
-							<span className="dataset__data">3980</span>
-							<span className="dataset__label">sessions</span>
-							<span className="dataset__delta">&darr; 0.5%</span>
+							<span className="data">3980</span>
+							<span className="type">sessions</span>
+							<span className="delta--down">&darr; 0.5%</span>
 						</Tab>
 						<Tab>
-							<span className="dataset__data">00:02:58</span>
-							<span className="dataset__label">session duration</span>
-							<span className="dataset__delta">&uarr; 1.5%</span>
+							<span className="data">00:02:58</span>
+							<span className="type">session duration</span>
+							<span className="delta--up">&uarr; 1.5%</span>
 						</Tab>
 						<Tab>
-							<span className="dataset__data">39.08%</span>
-							<span className="dataset__label">bounce rate</span>
-							<span className="dataset__delta">&uarr; 2.5%</span>
+							<span className="data">39.08%</span>
+							<span className="type">bounce rate</span>
+							<span className="delta--up">&uarr; 2.5%</span>
 						</Tab>
 					</TabList>
 
 					<TabPanel>
 						<VictoryChart
-							theme={VictoryTheme.material}
+							theme={adminTheme}
 						>
 							<VictoryLine
 								style={{

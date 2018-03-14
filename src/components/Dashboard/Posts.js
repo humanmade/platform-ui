@@ -7,9 +7,9 @@ import { compose } from 'recompose';
 
 const Posts = props => {
 	return (
-		<div className="widget widget--posts two-thirds">
+		<div className="widget widget--posts full-width">
 			<div className="widget__header">
-				<h2 className="widget__header__title">Posts ❯</h2>
+				<h2 className="widget__header__title">Posts</h2>
 				<div className="widget__header__actions">
 					<form action="">
 						<select name="" id="">

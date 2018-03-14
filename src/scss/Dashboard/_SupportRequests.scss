@@ -1,0 +1,24 @@
+.support-request {
+  &__status {
+    &--in-progess {
+      .label {
+        color: var(--orangey-brown);
+        border-color: var(--orangey-brown);
+      }
+    }
+
+    &--pending-reply {
+      .label {
+        color: var(--orangey-brown);
+        border-color: var(--orangey-brown);
+      }
+    }
+
+    &--resolved {
+      .label {
+        color: var(--good-green);
+        border-color: var(--good-green);
+      }
+    }
+  }
+}

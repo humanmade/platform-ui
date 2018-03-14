@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 const SupportRequests = props => {
 	return (
-		<div className="widget widget--authors one-half">
+		<div className="widget widget--support-requests one-half">
 			<div className="widget__header">
-				<h2 className="widget__header__title">support requests ❯</h2>
+				<h2 className="widget__header__title">support requests</h2>
 				<div className="widget__header__actions">
 					<form action="">
 						<input type="submit" value="+ Add new" />
@@ -28,7 +28,7 @@ const SupportRequests = props => {
 								<span className="support-request__info__meta__byline">by [user]</span>
 							</div>
 						</td>
-						<td className="support-request__status">
+						<td className="support-request__status--pending-reply">
 							<span className="label">Awaiting reply</span>
 						</td>
 					</tr>
@@ -42,7 +42,7 @@ const SupportRequests = props => {
 								<span className="support-request__info__meta__byline">by [user]</span>
 							</div>
 						</td>
-						<td className="support-request__status">
+						<td className="support-request__status--in-progress">
 							<span className="label">Fix in progress</span>
 						</td>
 					</tr>
@@ -56,7 +56,7 @@ const SupportRequests = props => {
 								<span className="support-request__info__meta__byline">by [user]</span>
 							</div>
 						</td>
-						<td className="support-request__status">
+						<td className="support-request__status--pending-reply">
 							<span className="label">Awaiting reply</span>
 						</td>
 					</tr>
@@ -70,7 +70,7 @@ const SupportRequests = props => {
 								<span className="support-request__info__meta__byline">by [user]</span>
 							</div>
 						</td>
-						<td className="support-request__status">
+						<td className="support-request__status--resolved">
 							<span className="label">resolved</span>
 						</td>
 					</tr>
@@ -84,7 +84,7 @@ const SupportRequests = props => {
 								<span className="support-request__info__meta__byline">by [user]</span>
 							</div>
 						</td>
-						<td className="support-request__status">
+						<td className="support-request__status--resolved">
 							<span className="label">resolved</span>
 						</td>
 					</tr>

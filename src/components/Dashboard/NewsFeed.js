@@ -10,7 +10,7 @@ const NewsFeed = props => {
 	return (
 		<div className="widget widget--newsfeed one-half">
 			<div className="widget__header">
-				<h2 className="widget__header__title">News Feed ❯</h2>
+				<h2 className="widget__header__title">News Feed</h2>
 				<div className="widget__header__actions">
 				</div>
 				<div className="widget__header__settings">

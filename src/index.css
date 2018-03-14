@@ -259,15 +259,6 @@
 .icon--download.icon--red {
   background-image: url("./hm-pattern-library/assets/images/icons/icon-download-red.svg"); }
 
-.icon--smiley-wink {
-  background-image: url("./hm-pattern-library/assets/images/icons/icon-smiley-wink-black.svg"); }
-
-.icon--smiley-wink.icon--white {
-  background-image: url("./hm-pattern-library/assets/images/icons/icon-smiley-wink-white.svg"); }
-
-.icon--smiley-wink.icon--red {
-  background-image: url("./hm-pattern-library/assets/images/icons/icon-smiley-wink-red.svg"); }
-
 .icon--arrow-left {
   transform: rotate(180deg); }
 
@@ -778,6 +769,151 @@
   .hm-plugins--plugin__guides li + li:before {
     content: "\00B7";
     margin: 0 10px; }
+
+:root {
+  --yellow: #fffae2;
+  --orangey-brown: #ad5400;
+  --ocean-blue: #00739a;
+  --dark-grey: #353535;
+  --alert-red: #ff001f;
+  --hm-red: #d24632;
+  --med-blue: #009ace;
+  --good-green: #458500;
+  --cool-grey: #767676;
+  --superlight-grey: #e1e1e1; }
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit; }
+
+.widget {
+  width: 100%;
+  background: white;
+  border: 1px solid var(--superlight-grey);
+  border-radius: 4px; }
+  .widget a {
+    color: var(--ocean-blue); }
+  .widget input[type="submit"] {
+    background-color: var(--hm-red);
+    color: white;
+    border: 0;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 8px 5px; }
+  .widget .label {
+    font-size: 13px;
+    color: var(--ocean-blue);
+    text-transform: capitalize;
+    border-radius: 3px;
+    border: 1px solid var(--ocean-blue);
+    padding: 0.2em; }
+  .widget__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--superlight-grey);
+    padding: 1.5em; }
+    .widget__header__title {
+      text-transform: uppercase;
+      font-size: 14px;
+      color: var(--dark-grey);
+      font-weight: 500; }
+      .widget__header__title:after {
+        content: "\00276F";
+        color: var(--hm-red);
+        margin-left: 15px; }
+    .widget__header__actions {
+      margin-left: auto; }
+  .widget__notification {
+    background-color: var(--yellow);
+    color: var(--orangey-brown);
+    margin: -1.5em -1.5em 1.5em -1.5em;
+    padding: 1.5em 1.5em; }
+    .widget__notification p {
+      margin: 0; }
+  .widget__body {
+    padding: 1.5em; }
+    .widget__body .VictoryContainer svg {
+      margin: 0 auto;
+      width: auto !important;
+      max-height: 300px !important;
+      max-width: 100%; }
+    .widget__body td span {
+      margin-right: 0.3em; }
+    .widget__body .post__info__meta {
+      margin: 0.5em 0;
+      color: var(--cool-grey);
+      font-size: 13px; }
+
+.widget--site-stats .react-tabs__tab-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); }
+
+.widget--site-stats .react-tabs__tab {
+  display: block;
+  cursor: pointer;
+  padding: 1em;
+  border: 1px solid var(--superlight-grey);
+  margin: 0 .5em;
+  font-weight: 100;
+  color: var(--dark-grey); }
+  .widget--site-stats .react-tabs__tab span {
+    text-align: center;
+    display: block;
+    margin: .5em 0; }
+  .widget--site-stats .react-tabs__tab .data {
+    font-size: 40px; }
+  .widget--site-stats .react-tabs__tab .type {
+    color: grey;
+    text-transform: uppercase;
+    font-size: 12px; }
+  .widget--site-stats .react-tabs__tab .delta {
+    font-size: 12px; }
+    .widget--site-stats .react-tabs__tab .delta--up {
+      color: var(--good-green); }
+    .widget--site-stats .react-tabs__tab .delta--down {
+      color: var(--alert-red); }
+  .widget--site-stats .react-tabs__tab--selected {
+    border: 2px solid var(--med-blue);
+    font-weight: 300; }
+
+.support-request__status--in-progess .label {
+  color: var(--orangey-brown);
+  border-color: var(--orangey-brown); }
+
+.support-request__status--pending-reply .label {
+  color: var(--orangey-brown);
+  border-color: var(--orangey-brown); }
+
+.support-request__status--resolved .label {
+  color: var(--good-green);
+  border-color: var(--good-green); }
+
+.dashboard {
+  padding-top: 2em;
+  max-width: 1024px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 1em; }
+
+.full-width {
+  grid-area: auto / span 12;
+  width: 100%; }
+
+.two-thirds {
+  grid-area: auto / span 8;
+  width: 100%; }
+
+.one-third {
+  grid-area: auto / span 4;
+  width: 100%; }
+
+.one-half {
+  grid-area: auto / span 6;
+  width: 100%; }
 
 .toplevel_page_hm-platform #wpbody-content > .update-nag,
 .toplevel_page_hm-platform #wpbody-content > .notice {

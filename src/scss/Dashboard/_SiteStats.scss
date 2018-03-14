@@ -9,30 +9,42 @@
       &__tab {
         display: block;
         cursor: pointer;
-        padding: 1.5em;
-        border: 1px solid grey;
+        padding: 1em;
+        border: 1px solid var(--superlight-grey);
         margin: 0 .5em;
-
+        font-weight: 100;
+        color: var(--dark-grey);
         span {
           text-align: center;
           display: block;
           margin: .5em 0;
         }
 
-        &__data {
-          font-size: 2em;
+        .data {
+          font-size: 40px;
         }
 
-        &__label {
+        .type {
           color: grey;
           text-transform: uppercase;
+          font-size: 12px;
+        }
+
+        .delta {
+          font-size: 12px;
+          &--up {
+            color: var(--good-green);
+          }
+          &--down {
+            color: var(--alert-red);
+          }
+        }
+
+        &--selected {
+          border: 2px solid var(--med-blue);
+          font-weight: 300;
         }
       }
     }
-  }
-
-  // tabs
-  [aria-selected="true"] {
-    border: 2px solid royalblue;
   }
 }

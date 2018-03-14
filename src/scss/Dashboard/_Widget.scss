@@ -1,30 +1,57 @@
 .widget {
   width: 100%;
   background: white;
-  border: 1px solid #e4e4e4;
-  border-radius: 5px;
+  border: 1px solid var(--superlight-grey);
+  border-radius: 4px;
+
+  a {
+    color: var(--ocean-blue);
+  }
+
+  input[type="submit"] {
+    background-color: var(--hm-red);
+    color: white;
+    border: 0;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 8px 5px;
+  }
 
   .label {
-    color: dodgerblue;
+    font-size: 13px;
+    color: var(--ocean-blue);
     text-transform: capitalize;
     border-radius: 3px;
-    border: 1px solid dodgerblue;
+    border: 1px solid var(--ocean-blue);
     padding: 0.2em;
   }
 
   &__header {
-    border-bottom: 1px solid #e4e4e4;
-    padding: 1.5em;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--superlight-grey);
+    padding: 1.5em;
     &__title {
       text-transform: uppercase;
+      font-size: 14px;
+      color: var(--dark-grey);
+      font-weight: 500;
+      &:after {
+        content: "\00276F";
+        color: var(--hm-red);
+        margin-left: 15px;
+      }
+    }
+
+    &__actions {
+      margin-left: auto;
     }
   }
 
   &__notification {
-    background-color: #ffff99;
-    color: red;
+    background-color: var(--yellow);
+    color: var(--orangey-brown);
     margin: -1.5em -1.5em 1.5em -1.5em;
     padding: 1.5em 1.5em;
     p {
@@ -34,6 +61,16 @@
 
   &__body {
     padding: 1.5em;
+
+    .VictoryContainer {
+      svg {
+        margin: 0 auto;
+        width: auto !important;
+        max-height: 300px !important;
+        max-width: 100%;
+      }
+    }
+
     td {
       span {
         margin-right: 0.3em;
@@ -42,16 +79,8 @@
 
     .post__info__meta {
       margin: 0.5em 0;
-      &__status {
-
-      }
-
-      &__modified {
-        color: grey;
-      }
-      &__byline {
-        color: grey;
-      }
+      color: var(--cool-grey);
+      font-size: 13px;
     }
   }
 }
