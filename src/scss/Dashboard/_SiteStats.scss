@@ -1,49 +1,47 @@
-.widget {
-  &--site-stats {
-    .react-tabs {
-      &__tab-list {
-        display: grid;
-        grid-template-columns: repeat( 4, 1fr );
+.widget--site-stats {
+  .react-tabs {
+    &__tab-list {
+      display: grid;
+      grid-template-columns: repeat( 4, 1fr );
+    }
+
+    &__tab {
+      display: block;
+      cursor: pointer;
+      padding: 1em;
+      border: 1px solid var(--superlight-grey);
+      margin: 0 .5em;
+      font-weight: 100;
+      color: var(--dark-grey);
+      span {
+        text-align: center;
+        display: block;
+        margin: .5em 0;
       }
 
-      &__tab {
-        display: block;
-        cursor: pointer;
-        padding: 1em;
-        border: 1px solid var(--superlight-grey);
-        margin: 0 .5em;
-        font-weight: 100;
-        color: var(--dark-grey);
-        span {
-          text-align: center;
-          display: block;
-          margin: .5em 0;
-        }
+      .data {
+        font-size: 40px;
+      }
 
-        .data {
-          font-size: 40px;
-        }
+      .type {
+        color: grey;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
 
-        .type {
-          color: grey;
-          text-transform: uppercase;
-          font-size: 12px;
+      .delta {
+        font-size: 12px;
+        &--up {
+          color: var(--good-green);
         }
+        &--down {
+          color: var(--alert-red);
+        }
+      }
 
-        .delta {
-          font-size: 12px;
-          &--up {
-            color: var(--good-green);
-          }
-          &--down {
-            color: var(--alert-red);
-          }
-        }
-
-        &--selected {
-          border: 2px solid var(--med-blue);
-          font-weight: 300;
-        }
+      &--selected {
+        border: 2px solid var(--med-blue);
+        font-weight: 300;
       }
     }
   }

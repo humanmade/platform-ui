@@ -4,7 +4,7 @@ class WidgetSettings extends React.Component {
 	render() {
 		return (
 			<div className="widget__header__settings">
-				Widget Settings
+				{this.props.children}
 			</div>
 		);
 	}

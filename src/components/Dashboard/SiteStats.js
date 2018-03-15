@@ -4,24 +4,21 @@ import PropTypes from 'prop-types';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { VictoryLine, VictoryChart, VictoryTheme } from 'victory';
 import { adminTheme } from '../../victory-theme';
+import { WidgetContainer, WidgetHeader, WidgetBody, WidgetControls } from './Widget';
 
 const SiteStats = props => {
 	return (
-		<div className="widget widget--site-stats full-width">
-			<div className="widget__header">
-				<h2 className="widget__header__title">site stats</h2>
-				<div className="widget__header__actions">
+		<WidgetContainer width="full-width" name="site-stats">
+			<WidgetHeader title="site stats">
+				<WidgetControls>
 					<form action="">
 						<select name="" id="">
 							<option value="">Last 7 days</option>
 						</select>
 					</form>
-				</div>
-				<div className="widget__header__settings">
-
-				</div>
-			</div>
-			<div className="widget__body">
+				</WidgetControls>
+			</WidgetHeader>
+			<WidgetBody>
 				<Tabs>
 					<TabList>
 						<Tab>
@@ -123,9 +120,8 @@ const SiteStats = props => {
 						</VictoryChart>
 					</TabPanel>
 				</Tabs>
-			</div>
-		</div>
-
+			</WidgetBody>
+		</WidgetContainer>
 	);
 }
 

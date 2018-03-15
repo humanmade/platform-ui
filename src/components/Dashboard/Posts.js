@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import Post from './Post';
 import withFetch from '../../utils/withFetch';
 import { compose } from 'recompose';
+import Dismissable from '../Dismissable';
+import { WidgetContainer, WidgetHeader, WidgetBody, WidgetControls } from './Widget';
 
 const Posts = props => {
 	return (
-		<div className="widget widget--posts full-width">
-			<div className="widget__header">
-				<h2 className="widget__header__title">Posts</h2>
-				<div className="widget__header__actions">
+		<WidgetContainer width="full-width" name="posts">
+			<WidgetHeader title="posts">
+				<WidgetControls>
 					<form action="">
 						<select name="" id="">
 							<option value="">Published</option>
@@ -19,15 +20,13 @@ const Posts = props => {
 							<option value="">Latest</option>
 						</select>
 					</form>
-				</div>
-				<div className="widget__header__settings">
-
-				</div>
-			</div>
-			<div className="widget__body">
-				<div className="widget__notification">
+				</WidgetControls>
+			</WidgetHeader>
+			<WidgetBody>
+				<Dismissable name="notification" key="notification">
 					<p>{`You have ${props.comments.data.length} comments awaiting moderation`}</p>
-				</div>
+				</Dismissable>
+
 				<table className="table">
 					<tbody>
 					{
@@ -35,9 +34,8 @@ const Posts = props => {
 					}
 					</tbody>
 				</table>
-			</div>
-		</div>
-
+			</WidgetBody>
+		</WidgetContainer>
 	);
 }
 

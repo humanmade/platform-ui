@@ -1,20 +1,13 @@
-.widget {
+.widget__container {
   width: 100%;
   background: white;
   border: 1px solid var(--superlight-grey);
   border-radius: 4px;
+}
 
+.widget {
   a {
     color: var(--ocean-blue);
-  }
-
-  input[type="submit"] {
-    background-color: var(--hm-red);
-    color: white;
-    border: 0;
-    border-radius: 4px;
-    font-size: 14px;
-    padding: 8px 5px;
   }
 
   .label {
@@ -44,18 +37,17 @@
       }
     }
 
-    &__actions {
-      margin-left: auto;
+    input[type="submit"] {
+      background-color: var(--hm-red);
+      color: white;
+      border: 0;
+      border-radius: 4px;
+      font-size: 14px;
+      padding: 8px 5px;
     }
-  }
 
-  &__notification {
-    background-color: var(--yellow);
-    color: var(--orangey-brown);
-    margin: -1.5em -1.5em 1.5em -1.5em;
-    padding: 1.5em 1.5em;
-    p {
-      margin: 0;
+    &__controls {
+      margin-left: auto;
     }
   }
 
@@ -71,6 +63,9 @@
       }
     }
 
+    table {
+      width: 100%;
+    }
     td {
       span {
         margin-right: 0.3em;
@@ -81,6 +76,17 @@
       margin: 0.5em 0;
       color: var(--cool-grey);
       font-size: 13px;
+    }
+
+    .hm-dismissable {
+      border: 0;
+      background-color: var(--yellow);
+      margin: -1.5em -1.5em 1.5em -1.5em;
+      padding: 1.5em 1.5em;
+      p {
+        color: var(--orangey-brown);
+        margin: 0;
+      }
     }
   }
 }
