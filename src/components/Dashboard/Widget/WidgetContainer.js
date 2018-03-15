@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class WidgetContainer extends React.Component {
 	render() {
@@ -11,4 +12,12 @@ class WidgetContainer extends React.Component {
 	}
 }
 
+WidgetContainer.defaultProps = {
+	width: 'full-width'
+}
+
+WidgetContainer.propTypes = {
+	name: PropTypes.string.isRequired,
+	width: PropTypes.string
+}
 export default WidgetContainer;

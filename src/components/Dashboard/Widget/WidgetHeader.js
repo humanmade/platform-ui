@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class WidgetHeader extends React.Component {
 	render() {
@@ -9,6 +10,10 @@ class WidgetHeader extends React.Component {
 			</div>
 		);
 	}
+}
+
+WidgetHeader.propTypes = {
+	title: PropTypes.string.isRequired
 }
 
 export default WidgetHeader;

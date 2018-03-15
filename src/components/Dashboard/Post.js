@@ -39,11 +39,11 @@ const Post = ({ post }) => {
 					closeOnDocumentClick
 				>
 					<ul>
-						<li><a href="">view</a></li>
-						<li><a href="">edit</a></li>
-						<li><a href="">stats</a></li>
-						<li><a href="">comments</a></li>
-						<li><a href="">duplicate</a></li>
+						<li><a href={post.link}>view</a></li>
+						<li><a href={editPostLink}>edit</a></li>
+						<li><a href="#">stats</a></li>
+						<li><a href="#">comments</a></li>
+						<li><a href="#">duplicate</a></li>
 					</ul>
 				</Popup>
 			</td>

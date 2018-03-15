@@ -1,6 +1,5 @@
 /*global HM*/
 import React from 'react';
-import PropTypes from 'prop-types';
 import Post from './Post';
 import withFetch from '../../utils/withFetch';
 import { compose } from 'recompose';
@@ -9,7 +8,7 @@ import { WidgetContainer, WidgetHeader, WidgetBody, WidgetControls } from './Wid
 
 const Posts = props => {
 	return (
-		<WidgetContainer width="full-width" name="posts">
+		<WidgetContainer name="posts">
 			<WidgetHeader title="posts">
 				<WidgetControls>
 					<form action="">

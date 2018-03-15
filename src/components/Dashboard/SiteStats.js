@@ -1,6 +1,4 @@
-/*global HM*/
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { VictoryLine, VictoryChart, VictoryTheme } from 'victory';
 import { adminTheme } from '../../victory-theme';
@@ -8,7 +6,7 @@ import { WidgetContainer, WidgetHeader, WidgetBody, WidgetControls } from './Wid
 
 const SiteStats = props => {
 	return (
-		<WidgetContainer width="full-width" name="site-stats">
+		<WidgetContainer name="site-stats">
 			<WidgetHeader title="site stats">
 				<WidgetControls>
 					<form action="">

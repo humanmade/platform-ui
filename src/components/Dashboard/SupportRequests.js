@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { WidgetContainer, WidgetHeader, WidgetBody, WidgetControls } from './Widget';
 
 const SupportRequests = props => {

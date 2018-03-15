@@ -1,6 +1,4 @@
-/*global HM*/
 import React from 'react';
-import PropTypes from 'prop-types';
 import withFetch from '../../utils/withFetch';
 import { compose } from 'recompose';
 import NewsItem from './NewsItem';
@@ -14,7 +12,6 @@ const NewsFeed = props => {
 				<table className="table">
 					<tbody>
 					{
-						props.news.loading ? 'Loading' :
 							Object.keys(props.news.data).map( key => <NewsItem key={key} index={key} post={props.news.data[key]} /> )
 					}
 					</tbody>
