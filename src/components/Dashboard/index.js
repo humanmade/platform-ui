@@ -1,9 +1,9 @@
 import React, {Fragment} from 'react';
-import Posts from  './Posts';
+import PostsContainer from  './PostsContainer';
 import Header from '../Header';
 import SiteStats from "./SiteStats";
 import SupportRequests from "./SupportRequests";
-import NewsFeed from "./NewsFeed";
+import NewsContainer from "./NewsContainer";
 
 const DashboardContext = React.createContext();
 
@@ -29,9 +29,9 @@ class Dashboard extends React.Component {
 					<Header key="header" title="Dashboard" />
 					<div className="dashboard">
 						<SiteStats />
-						<Posts />
+						<PostsContainer />
 						<SupportRequests />
-						<NewsFeed />
+						<NewsContainer />
 					</div>
 				</Fragment>
 			</DashboardProvider>

@@ -12,10 +12,10 @@ const Posts = props => {
 			<WidgetHeader title="posts">
 				<WidgetControls>
 					<form action="">
-						<select name="" id="">
+						<select className="Select" name="" id="">
 							<option value="">Published</option>
 						</select>
-						<select name="" id="">
+						<select className="Select" name="" id="">
 							<option value="">Latest</option>
 						</select>
 					</form>

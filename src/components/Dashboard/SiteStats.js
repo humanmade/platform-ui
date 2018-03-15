@@ -10,7 +10,7 @@ const SiteStats = props => {
 			<WidgetHeader title="site stats">
 				<WidgetControls>
 					<form action="">
-						<select name="" id="">
+						<select className="Select" name="" id="">
 							<option value="">Last 7 days</option>
 						</select>
 					</form>
