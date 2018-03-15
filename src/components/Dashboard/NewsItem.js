@@ -1,7 +1,7 @@
 import React from 'react';
 import Popup from "reactjs-popup";
 
-const Post = ({ post }) => {
+const NewsItem = ({ post }) => {
 	const options = { year: 'numeric', month: 'long', day: 'numeric' };
 	return (
 		<tr className="row news-item">
@@ -31,4 +31,4 @@ const Post = ({ post }) => {
 	);
 };
 
-export default Post;
+export default NewsItem;
