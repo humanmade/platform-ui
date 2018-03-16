@@ -39,11 +39,11 @@ const Posts = props => {
 }
 
 const PostsWithData = compose(
-	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/wp/v2/posts?_embed`, {}, 'posts' ),
-	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/wp/v2/comments?status=hold`,  {
+	withFetch( `${HM.UI.EnterpriseKit.DocsURL}/wp-json/wp/v2/posts?_embed`, {}, 'posts' ),
+	withFetch( `${HM.UI.EnterpriseKit.DocsURL}/wp-json/wp/v2/comments?status=hold`,  {
 		credentials: 'same-origin',
 		headers: {
-			'X-WP-Nonce': HM.REST.Nonce,
+			'X-WP-Nonce': HM.UI.REST.Nonce,
 			'content-type': 'application/json'
 		}
 	}, 'comments' ),

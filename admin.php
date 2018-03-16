@@ -201,8 +201,6 @@ function enqueue_assets() {
 		return;
 	}
 
-	add_filter( 'reactwpscripts.is_development', '__return_false' );
-
 	// React app.
 	ReactWPScripts\enqueue_assets( __DIR__, [
 		'base_url' => get_base_url(),
@@ -288,6 +286,9 @@ function api_init() {
 				'schema'       => [
 					'description' => __( 'Comment counts.', 'hm-platform' ),
 					'type'        => 'array',
+					'items'       => [
+						'type' => 'integer',
+					],
 				],
 			] );
 		}
