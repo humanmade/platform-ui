@@ -904,6 +904,13 @@
   color: var(--good-green);
   border-color: var(--good-green); }
 
+.widget--posts .post__comments__pending sup {
+  background-color: var(--hm-red);
+  color: white;
+  padding: 1px 3px;
+  border-radius: 2px;
+  font-size: 10px; }
+
 .dashboard {
   padding-top: 2em;
   max-width: 1024px;

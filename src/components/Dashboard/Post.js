@@ -18,14 +18,19 @@ const Post = ({ post }) => {
 					<span className="post__info__meta__byline">by {post._embedded.author[0].name}</span>
 				</div>
 			</td>
+			<td className="post__views">
+				<span className="post__views__count">54</span>
+			</td>
 			<td className="post__comments">
 				{ commentsOpen ? (
 					<Fragment>
-						<span className="post_comments_approved">{commentsOpen ? post.comment_count.approved : 'Comments are closed' }</span>
-						<span className="post_comments_pending">{commentsOpen ? post.comment_count.awaiting_moderation : 'Comments are closed' }</span>
+						<span className="post__comments__approved">{commentsOpen ? post.comment_count.approved : 'Comments are closed' }</span>
+						<span className="post__comments__pending">
+							<sup>{commentsOpen ? post.comment_count.awaiting_moderation : 'Comments are closed' }</sup>
+							</span>
 					</Fragment>
 				) : (
-					<span className="comments-closed">Comments are closed</span>
+					<span className="comments--closed">Comments are closed</span>
 				)
 				}
 
