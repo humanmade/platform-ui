@@ -5,6 +5,7 @@ import Loadable from 'react-loadable';
 import Loading from './components/Loading';
 import Toolbar from './components/Toolbar';
 import AdminPortal from './portal';
+// import Main from './components/Main';
 
 /**
  * Split the Main component so we only load that code when necessary.
@@ -33,21 +34,16 @@ const getComponent = Component => {
 
 class App extends Component {
 	render() {
-		const items = [
+		return [
 			<AdminPortal key="toolbar" target="wp-admin-bar-hm-platform-toolbar-ui">
 				{ getComponent( Toolbar ) }
-			</AdminPortal>
-		];
-
-		if ( document.getElementById('hm-platform') ) {
-			items.push( <AdminPortal key="main" target="hm-platform">
+			</AdminPortal>,
+			<AdminPortal key="main" target="hm-platform">
 				<HashRouter>
 					<AsyncMain/>
 				</HashRouter>
-			</AdminPortal> );
-		}
-
-		return items;
+			</AdminPortal>
+		];
 	}
 }
 

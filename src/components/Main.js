@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import Loading from './Loading';
-import '../index.css';
 import AdminPortal from '../portal';
 import Header from './Header';
 import Menu from './Menu';
+import '../index.css';
 
 // Pages.
 const AsyncEnterpriseKit = Loadable( {

@@ -725,6 +725,18 @@
     .hm-plugins--plugin h3 a {
       color: inherit; }
 
+.hm-plugins--plugin-enter,
+.hm-plugins--plugin-exit.hm-plugins--plugin-exit-active {
+  transform-origin: center;
+  transform: scale(0, 0);
+  transition: transform 0.3s ease-out; }
+
+.hm-plugins--plugin-exit,
+.hm-plugins--plugin-enter.hm-plugins--plugin-enter-active {
+  transform-origin: center;
+  transform: scale(1, 1);
+  transition: transform 0.3s ease-in; }
+
 .hm-plugins--plugin__icons {
   position: absolute;
   top: 0;
