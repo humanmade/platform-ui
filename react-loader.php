@@ -28,6 +28,7 @@ function load_asset_file( $path ) {
 	if ( empty( $path ) ) {
 		return null;
 	}
+
 	return json_decode( $contents, true );
 }
 
@@ -53,7 +54,9 @@ function get_assets_list( string $directory ) {
 	if ( ! empty( $production_assets ) ) {
 		// Prepend "build/" to all build-directory array paths.
 		return array_map(
-			function( $asset_path ) { return 'build/' . $asset_path; },
+			function ( $asset_path ) {
+				return 'build/' . $asset_path;
+			},
 			array_values( $production_assets )
 		);
 	}
@@ -78,7 +81,7 @@ function infer_base_url( string $path ) {
 
 	// Any path not known to exist within a theme is treated as a plugin path.
 	$plugin_path = plugin_dir_path( __FILE__ );
-	if ( strpos( $path, $plugin_path ) === 0 ) {
+	if ( strpos( $path, untrailingslashit( $plugin_path ) ) === 0 ) {
 		return plugin_dir_url( __FILE__ ) . substr( $path, strlen( $plugin_path ) );
 	}
 
@@ -102,12 +105,12 @@ function get_asset_uri( string $asset_path, string $base_url ) {
 
 /**
  * @param string $directory Root directory containing `src` and `build` directory.
- * @param array $opts {
- *     @type string $base_url Root URL containing `src` and `build` directory. Only needed for production.
- *     @type string $handle   Style/script handle. (Default is last part of directory name.)
- *     @type array  $scripts  Script dependencies.
- *     @type array  $styles   Style dependencies.
- * }
+ * @param array  $opts      {
+ * @type string  $base_url  Root URL containing `src` and `build` directory. Only needed for production.
+ * @type string  $handle    Style/script handle. (Default is last part of directory name.)
+ * @type array   $scripts   Script dependencies.
+ * @type array   $styles    Style dependencies.
+ *                          }
  */
 function enqueue_assets( $directory, $opts = [] ) {
 	$defaults = [
@@ -133,10 +136,11 @@ function enqueue_assets( $directory, $opts = [] ) {
 
 	// There will be at most one JS and one CSS file in vanilla Create React App manifests.
 	foreach ( $assets as $asset_path ) {
-		$is_js  = preg_match( '/\.js$/', $asset_path );
-		$is_css = preg_match( '/\.css$/', $asset_path );
+		$is_js    = preg_match( '/\.js$/', $asset_path );
+		$is_css   = preg_match( '/\.css$/', $asset_path );
+		$is_chunk = preg_match( '/\.chunk\./', $asset_path );
 
-		if ( ! $is_js && ! $is_css ) {
+		if ( ( ! $is_js && ! $is_css ) || $is_chunk ) {
 			// Assets such as source maps and images are also listed; ignore these.
 			continue;
 		}

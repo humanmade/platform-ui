@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import fuzzy from 'fuzzy';
 import Select from 'react-select';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import withFetch from '../../utils/withFetch';
 import { compose } from 'recompose';
 import Plugin from './Plugin';
@@ -154,15 +155,21 @@ class Plugins extends React.Component {
 					</label>
 				</fieldset>
 			</div>
-			<div className="hm-plugins--list" aria-live="polite">
+			<TransitionGroup className="hm-plugins--list" aria-live="polite">
 				{plugins.length
-					? plugins.map( plugin => <Plugin key={plugin.title} {...plugin} /> )
+					? plugins.map( plugin => <CSSTransition
+								key={plugin.title}
+								timeout={300}
+								classNames="hm-plugins--plugin"
+							>
+								<Plugin {...plugin} />
+							</CSSTransition> )
 					: <p className="notice-large">
 							No plugins found for that combination of filters,
 							try removing your search term or search all categories.
 						</p>
 				}
-			</div>
+			</TransitionGroup>
 		</div>;
 	}
 
@@ -173,8 +180,8 @@ Plugins.propTypes = {
 };
 
 const PluginsWithData = compose(
-	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/docs/v1/plugins?version=${HM.EnterpriseKit.DocsVersion}`, {}, 'pluginDocs' ),
-	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/docs/v1/plugin-categories?version=${HM.EnterpriseKit.DocsVersion}`, {}, 'categories' ),
+	withFetch( `${HM.UI.EnterpriseKit.DocsURL}/wp-json/docs/v1/plugins?version=${HM.UI.EnterpriseKit.DocsVersion}`, {}, 'pluginDocs' ),
+	withFetch( `${HM.UI.EnterpriseKit.DocsURL}/wp-json/docs/v1/plugin-categories?version=${HM.UI.EnterpriseKit.DocsVersion}`, {}, 'categories' ),
 )(Plugins);
 
 export default PluginsWithData;

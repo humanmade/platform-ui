@@ -27,7 +27,7 @@ class Menu extends Component {
 				<div className="wp-menu-name">Platform</div>
 			</NavLink>,
 			<ul key="submenu" className="wp-submenu wp-submenu-wrap">
-				{HM.Pages.map( page => <li key={page.path}>
+				{HM.UI.Pages.map( page => <li key={page.path}>
 					<NavLink exact={page.exact} to={page.path} activeClassName="current">{page.title}</NavLink>
 				</li> )}
 			</ul>
