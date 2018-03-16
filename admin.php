@@ -209,23 +209,25 @@ function enqueue_assets() {
 	] );
 
 	$ui_data = [
-		'BuildURL'      => ReactWPScripts\infer_base_url( __DIR__ . '/build' ),
-		'AdminURL'      => admin_url( '/admin.php?page=hm-platform' ),
-		'REST'          => [
+		'Locale'         => str_replace( '_', '-', get_user_locale() ),
+		'CurrentSiteURL' => home_url(),
+		'BuildURL'       => ReactWPScripts\infer_base_url( __DIR__ . '/build' ),
+		'AdminURL'       => admin_url( '/admin.php?page=hm-platform' ),
+		'REST'           => [
 			'URL'   => get_rest_url(),
 			'Nonce' => wp_create_nonce( 'wp_rest' ),
 		],
-		'Pages'         => get_submenu_pages(),
-		'Config'        => \HM\Platform\Config\get_config(),
-		'EnterpriseKit' => [
+		'Pages'          => get_submenu_pages(),
+		'Config'         => \HM\Platform\Config\get_config(),
+		'EnterpriseKit'  => [
 			'Version'     => \HM\Platform\version(),
 			'DocsVersion' => \HM\Platform\docs_version(),
 			'DocsURL'     => \HM\Platform\docs_url(),
 			'Config'      => get_plugin_manifest(),
 		],
-		'Environment'   => get_environment(),
-		'User'          => get_anonymous_user(),
-		'Analytics'     => [
+		'Environment'    => get_environment(),
+		'User'           => get_anonymous_user(),
+		'Analytics'      => [
 			'OptoutBy' => defined( 'HM_ANALYTICS_OPTOUT' ) ? 'code' : 'setting',
 			'Optout'   => defined( 'HM_ANALYTICS_OPTOUT' ) ? HM_ANALYTICS_OPTOUT : get_site_option( 'hm_analytics_optout', false ),
 		],
