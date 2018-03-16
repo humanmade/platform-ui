@@ -445,20 +445,6 @@
 #adminmenu .toplevel_page_hm-platform .current {
   font-weight: 600; }
 
-#wpadminbar .hm-docs-indicator {
-  margin-left: 5px;
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
-  padding-left: 10px; }
-
-#wpadminbar .ab-submenu-header {
-  margin-top: -6px;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-  font-weight: bold;
-  padding: 0 10px; }
-
-#wpadminbar .ab-top-menu > #wp-admin-bar-hm-platform-toolbar-ui.menupop > .ab-sub-wrapper {
-  min-width: 150%; }
-
 .hm-dismissable {
   background: #fff;
   border: 1px solid #d9d9d9;

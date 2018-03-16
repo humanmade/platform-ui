@@ -16,7 +16,9 @@ add_action( 'admin_bar_menu', __NAMESPACE__ . '\\add_menu_bar_item' );
 add_filter( 'custom_menu_order', '__return_true' );
 add_filter( 'menu_order', __NAMESPACE__ . '\\platform_menu_order', 20 );
 add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\enqueue_assets' );
+add_action( 'wp_footer', __NAMESPACE__ . '\\enqueue_assets', 2001 );
 add_action( 'admin_footer', __NAMESPACE__ . '\\app_root' );
+add_action( 'wp_footer', __NAMESPACE__ . '\\app_root', 2000 );
 add_action( 'rest_api_init', __NAMESPACE__ . '\\api_init' );
 add_filter( 'pre_update_option_hm_analytics_optout', __NAMESPACE__ . '\\sync_network_optout' );
 add_filter( 'option_hm_analytics_optout', __NAMESPACE__ . '\\get_network_optout' );
@@ -159,7 +161,7 @@ function add_menu_bar_item( WP_Admin_Bar $wp_admin_bar ) {
 	] );
 	$wp_admin_bar->add_node( [
 		'id'     => 'hm-platform-toolbar-ui',
-		'title'  => 'HM Platform',
+		'title'  => '',
 		'parent' => 'hm-platform-toolbar',
 		'meta'   => [
 			'class' => 'menupop',
@@ -167,7 +169,26 @@ function add_menu_bar_item( WP_Admin_Bar $wp_admin_bar ) {
 	] );
 }
 
+function should_load() {
+	if ( ! is_user_logged_in() ) {
+		return false;
+	}
+
+	if ( ! is_admin() && ! is_admin_bar_showing() ) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Only provide target
+ */
 function app_root() {
+	if ( ! should_load() ) {
+		return;
+	}
+
 	echo '<div id="hm-platform-root"></div>';
 	echo '<div id="hm-platform-iframe-modal"></div>';
 }
@@ -176,13 +197,19 @@ function app_root() {
  * Load the UI scripts.
  */
 function enqueue_assets() {
+	if ( ! should_load() ) {
+		return;
+	}
+
 	// React app.
 	ReactWPScripts\enqueue_assets( __DIR__, [
 		'base_url' => get_base_url(),
 		'handle'   => 'hm-platform-ui',
 		'scripts'  => [ 'jquery' ],
 	] );
-	wp_localize_script( 'hm-platform-ui', 'HM', [
+
+	$ui_data = [
+		'BuildURL'      => ReactWPScripts\infer_base_url( __DIR__ . '/build' ),
 		'AdminURL'      => admin_url( '/admin.php?page=hm-platform' ),
 		'REST'          => [
 			'URL'   => get_rest_url(),
@@ -202,7 +229,9 @@ function enqueue_assets() {
 			'OptoutBy' => defined( 'HM_ANALYTICS_OPTOUT' ) ? 'code' : 'setting',
 			'Optout'   => defined( 'HM_ANALYTICS_OPTOUT' ) ? HM_ANALYTICS_OPTOUT : get_site_option( 'hm_analytics_optout', false ),
 		],
-	] );
+	];
+
+	wp_add_inline_script( 'hm-platform-ui', sprintf( 'var HM = HM || {}; HM.UI = %s;', wp_json_encode( $ui_data ) ), 'before' );
 
 	// Tag manager.
 	if ( ! get_site_option( 'hm_analytics_optout', false ) && ( ! defined( 'HM_ANALYTICS_OPTOUT' ) || ! HM_ANALYTICS_OPTOUT ) ) {
@@ -223,6 +252,11 @@ function enqueue_assets() {
 			})(window,document,\'script\',\'HMDataLayer\',\'GTM-NV5TSKX\');',
 			'after'
 		);
+	}
+
+	// We need to load really late on the front end after the admin bar.
+	if ( current_action() === 'wp_footer' ) {
+		wp_print_footer_scripts();
 	}
 }
 

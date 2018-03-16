@@ -173,8 +173,8 @@ Plugins.propTypes = {
 };
 
 const PluginsWithData = compose(
-	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/docs/v1/plugins?version=${HM.EnterpriseKit.DocsVersion}`, {}, 'pluginDocs' ),
-	withFetch( `${HM.EnterpriseKit.DocsURL}/wp-json/docs/v1/plugin-categories?version=${HM.EnterpriseKit.DocsVersion}`, {}, 'categories' ),
+	withFetch( `${HM.UI.EnterpriseKit.DocsURL}/wp-json/docs/v1/plugins?version=${HM.UI.EnterpriseKit.DocsVersion}`, {}, 'pluginDocs' ),
+	withFetch( `${HM.UI.EnterpriseKit.DocsURL}/wp-json/docs/v1/plugin-categories?version=${HM.UI.EnterpriseKit.DocsVersion}`, {}, 'categories' ),
 )(Plugins);
 
 export default PluginsWithData;
