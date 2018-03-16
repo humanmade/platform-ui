@@ -1,3 +1,4 @@
+/*global HM*/
 import React from 'react';
 import Popup from "reactjs-popup";
 
@@ -10,7 +11,7 @@ const NewsItem = ({ post }) => {
 					<a href={post.link}>{post.title.rendered}</a>
 				</div>
 				<div className="news-item__info__meta">
-					<span className="news-item__info__meta__modified">{new Date(post.modified).toLocaleDateString( 'en-GB', options )}</span>
+					<span className="news-item__info__meta__modified">{new Date(post.modified).toLocaleDateString( HM.UI.Locale, options )}</span>
 					<span className="news-item__info__meta__byline">by {post._embedded.author[0].name}</span>
 				</div>
 			</td>
@@ -23,7 +24,7 @@ const NewsItem = ({ post }) => {
 					closeOnDocumentClick
 				>
 					<ul>
-						<li><a href="">view</a></li>
+						<li><a href={post.link}>view</a></li>
 					</ul>
 				</Popup>
 			</td>
