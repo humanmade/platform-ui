@@ -52,11 +52,11 @@ class IframeLink extends React.Component {
 		this.iframe.contentWindow.postMessage( {
 			event:       "iframe-link-embed",
 			origin:      window.location.hostname,
-			version:     HM.EnterpriseKit.DocsVersion,
-			environment: HM.Environment,
-			user:        HM.User,
-			config:      HM.Config,
-			plugins:     HM.EnterpriseKit.Config,
+			version:     HM.UI.EnterpriseKit.DocsVersion,
+			environment: HM.UI.Environment,
+			user:        HM.UI.User,
+			config:      HM.UI.Config,
+			plugins:     HM.UI.EnterpriseKit.Config,
 		}, this.props.src );
 
 		// Listen for interaction outside of iframe & close.

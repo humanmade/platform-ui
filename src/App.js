@@ -1,9 +1,19 @@
 /*global HM*/
 import React, { Component } from 'react';
 import { StaticRouter as Router, HashRouter } from 'react-router-dom';
-import Main from './components/Main';
+import Loadable from 'react-loadable';
+import Loading from './components/Loading';
 import Toolbar from './components/Toolbar';
 import AdminPortal from './portal';
+// import Main from './components/Main';
+
+/**
+ * Split the Main component so we only load that code when necessary.
+ */
+const AsyncMain = Loadable( {
+	loader: () => import('./components/Main'),
+	loading: Loading
+} );
 
 /**
  * Wraps a component in a router so we can add links but only
@@ -15,7 +25,7 @@ import AdminPortal from './portal';
  * @returns Component
  */
 const getComponent = Component => {
-	if ( window.location.href.indexOf( HM.AdminURL ) === 0 ) {
+	if ( window.location.href.indexOf( HM.UI.AdminURL ) === 0 ) {
 		return <HashRouter><Component/></HashRouter>;
 	}
 
@@ -25,13 +35,13 @@ const getComponent = Component => {
 class App extends Component {
 	render() {
 		return [
-			<AdminPortal key="main" target="hm-platform">
-				<HashRouter>
-					<Main/>
-				</HashRouter>
-			</AdminPortal>,
 			<AdminPortal key="toolbar" target="wp-admin-bar-hm-platform-toolbar-ui">
 				{ getComponent( Toolbar ) }
+			</AdminPortal>,
+			<AdminPortal key="main" target="hm-platform">
+				<HashRouter>
+					<AsyncMain/>
+				</HashRouter>
 			</AdminPortal>
 		];
 	}

@@ -19,12 +19,12 @@ class Documentation extends React.Component {
 		this.refs.iframe.contentWindow.postMessage( {
 			event:       "docs-site-embed",
 			origin:      window.location.hostname,
-			version:     HM.EnterpriseKit.DocsVersion,
-			environment: HM.Environment,
-			user:        HM.User,
-			config:      HM.Config,
-			plugins:     HM.EnterpriseKit.Config,
-		}, HM.EnterpriseKit.DocsURL );
+			version:     HM.UI.EnterpriseKit.DocsVersion,
+			environment: HM.UI.Environment,
+			user:        HM.UI.User,
+			config:      HM.UI.Config,
+			plugins:     HM.UI.EnterpriseKit.Config,
+		}, HM.UI.EnterpriseKit.DocsURL );
 	}
 
 	/**
@@ -35,7 +35,7 @@ class Documentation extends React.Component {
 	handleFrameMessage( event ) {
 		let { data, origin } = event;
 
-		if ( ! origin.match( HM.EnterpriseKit.DocsURL ) ) {
+		if ( ! origin.match( HM.UI.EnterpriseKit.DocsURL ) ) {
 			return;
 		}
 
@@ -68,7 +68,7 @@ class Documentation extends React.Component {
 			ref="iframe"
 			className="hm-platform-full-embed"
 			onLoad={() => this.onFrameLoad()}
-			src={`${HM.EnterpriseKit.DocsURL}/${HM.EnterpriseKit.DocsVersion}${frameURL}/?admin-request=full`}
+			src={`${HM.UI.EnterpriseKit.DocsURL}/${HM.UI.EnterpriseKit.DocsVersion}${frameURL}/?admin-request=full`}
 		/>;
 	}
 }

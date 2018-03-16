@@ -15,7 +15,7 @@ class EnterpriseKit extends React.Component {
 					reinventing the wheel. Explore the features available to
 					you below and find out how to make them work for you.</p>
 			</Dismissable>,
-			<Plugins key="plugins" plugins={ HM.EnterpriseKit.Config } />
+			<Plugins key="plugins" plugins={ HM.UI.EnterpriseKit.Config } />
 		];
 	}
 }

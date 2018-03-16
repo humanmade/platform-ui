@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
 import { HashRouter, Route } from 'react-router-dom';
-import Header from './Header';
-import EnterpriseKit from './EnterpriseKit';
-import Documentation from './Documentation';
-import Privacy from './Privacy';
-import Menu from './Menu';
+import Loadable from 'react-loadable';
+import Loading from './Loading';
 import AdminPortal from '../portal';
+import Header from './Header';
+import Menu from './Menu';
+import '../index.css';
+
+// Pages.
+const AsyncEnterpriseKit = Loadable( {
+	loader: () => import('./EnterpriseKit'),
+	loading: Loading
+} );
+
+const AsyncDocumentation = Loadable( {
+	loader: () => import('./Documentation'),
+	loading: Loading
+} );
 
 class Main extends Component {
 	render() {
@@ -16,10 +27,8 @@ class Main extends Component {
 				</HashRouter>
 			</AdminPortal>
 			<Route exact path="/" render={() => <Header/>} />
-			<Route path="/ek" component={EnterpriseKit} />
-			<Route path="/cloud" render={() => <Header title="Cloud"/>} />
-			<Route path="/documentation" component={Documentation} />
-			<Route path="/privacy" component={Privacy} />
+			<Route path="/ek" component={AsyncEnterpriseKit} />
+			<Route path="/documentation" component={AsyncDocumentation} />
 		</div>;
 	}
 }

@@ -259,6 +259,15 @@
 .icon--download.icon--red {
   background-image: url("./hm-pattern-library/assets/images/icons/icon-download-red.svg"); }
 
+.icon--smiley-wink {
+  background-image: url("./hm-pattern-library/assets/images/icons/icon-smiley-wink-black.svg"); }
+
+.icon--smiley-wink.icon--white {
+  background-image: url("./hm-pattern-library/assets/images/icons/icon-smiley-wink-white.svg"); }
+
+.icon--smiley-wink.icon--red {
+  background-image: url("./hm-pattern-library/assets/images/icons/icon-smiley-wink-red.svg"); }
+
 .icon--arrow-left {
   transform: rotate(180deg); }
 
@@ -435,20 +444,6 @@
 
 #adminmenu .toplevel_page_hm-platform .current {
   font-weight: 600; }
-
-#wpadminbar .hm-docs-indicator {
-  margin-left: 5px;
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
-  padding-left: 10px; }
-
-#wpadminbar .ab-submenu-header {
-  margin-top: -6px;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-  font-weight: bold;
-  padding: 0 10px; }
-
-#wpadminbar .ab-top-menu > #wp-admin-bar-hm-platform-toolbar-ui.menupop > .ab-sub-wrapper {
-  min-width: 150%; }
 
 .hm-dismissable {
   background: #fff;
@@ -729,6 +724,18 @@
     padding-right: 30px; }
     .hm-plugins--plugin h3 a {
       color: inherit; }
+
+.hm-plugins--plugin-enter,
+.hm-plugins--plugin-exit.hm-plugins--plugin-exit-active {
+  transform-origin: center;
+  transform: scale(0, 0);
+  transition: transform 0.3s ease-out; }
+
+.hm-plugins--plugin-exit,
+.hm-plugins--plugin-enter.hm-plugins--plugin-enter-active {
+  transform-origin: center;
+  transform: scale(1, 1);
+  transition: transform 0.3s ease-in; }
 
 .hm-plugins--plugin__icons {
   position: absolute;
