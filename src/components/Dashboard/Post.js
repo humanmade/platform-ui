@@ -8,7 +8,8 @@ const Post = ({ post }) => {
 	const options = { year: 'numeric', month: 'long', day: 'numeric' };
 	const editPostLink = `/wp-admin/post.php?post=${post.id}&action=edit`;
 	const previewPostLink = `/?p=${post.id}&preview=true`;
-	const ViewsIcon = icons.views;
+	const Icon = icons.views;
+	const CommentsClosedIcon = icons.commentsdisabled;
 	return (
 		<tr className="row post">
 			<td className="post__info">
@@ -22,18 +23,18 @@ const Post = ({ post }) => {
 				</div>
 			</td>
 			<td className="post__views">
-				<span className="post__views__count"><ViewsIcon /> 54</span>
+				<span className="post__views__count"><Icon /> 54</span>
 			</td>
 			<td className="post__comments">
 				{ commentsOpen ? (
 					<Fragment>
-						<span className="post__comments__approved">{commentsOpen ? post.comment_count.approved : 'Comments are closed' }</span>
+						<span className="post__comments__approved">{commentsOpen ? post.comment_count.approved : <CommentsClosedIcon /> }</span>
 						<span className="post__comments__pending">
-							<sup>{commentsOpen ? post.comment_count.awaiting_moderation : 'Comments are closed' }</sup>
+							<sup>{commentsOpen ? post.comment_count.awaiting_moderation : <CommentsClosedIcon /> }</sup>
 							</span>
 					</Fragment>
 				) : (
-					<span className="comments--closed">Comments are closed</span>
+					<span className="comments--closed"><CommentsClosedIcon /></span>
 				)
 				}
 
@@ -46,13 +47,18 @@ const Post = ({ post }) => {
 					position="right center"
 					closeOnDocumentClick
 				>
+				<Fragment>
 					<ul>
-						<li><a href={post.link}>view</a></li>
+						<li><a href={post.link}>view </a></li>
 						<li><a href={editPostLink}>edit</a></li>
 						<li><a href="#">stats</a></li>
 						<li><a href="#">comments</a></li>
 						<li><a href="#">duplicate</a></li>
 					</ul>
+					<ul className="DangerousActions">
+						<li><a className="danger" href="#">delete</a></li>
+					</ul>
+				</Fragment>
 				</Popup>
 			</td>
 		</tr>

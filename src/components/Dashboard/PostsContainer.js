@@ -5,11 +5,12 @@ import withFetch from '../../utils/withFetch';
 import { compose } from 'recompose';
 import Dismissable from '../Dismissable';
 import { WidgetContainer, WidgetHeader, WidgetBody, WidgetControls } from './Widget';
+import WidgetSettings from "./Widget/WidgetSettings";
 
 class PostsContainer extends Component {
 	state = {
 		status: 'publish',
-		'perPage': 10,
+		perPage: 10,
 	};
 
 	handleStatusChange = event => {
@@ -39,7 +40,13 @@ class PostsContainer extends Component {
 								})
 							}
 						</select>
+						<select className="Select">
+							<option value="">Latest</option>
+						</select>
 					</WidgetControls>
+					<WidgetSettings>
+						<span>Show 10 posts</span>
+					</WidgetSettings>
 				</WidgetHeader>
 				<WidgetBody>
 					<Dismissable name="notification" key="notification">

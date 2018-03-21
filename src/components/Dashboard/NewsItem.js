@@ -1,5 +1,5 @@
 /*global HM*/
-import React from 'react';
+import React, {Fragment} from 'react';
 import Popup from "reactjs-popup";
 
 const NewsItem = ({ post }) => {
@@ -23,9 +23,11 @@ const NewsItem = ({ post }) => {
 					position="right center"
 					closeOnDocumentClick
 				>
-					<ul>
-						<li><a href={post.link}>view</a></li>
-					</ul>
+					<Fragment>
+						<ul>
+							<li><a href={post.link}>view</a></li>
+						</ul>
+					</Fragment>
 				</Popup>
 			</td>
 		</tr>

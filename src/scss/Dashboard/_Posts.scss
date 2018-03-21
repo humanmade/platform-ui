@@ -23,5 +23,16 @@
         }
       }
     }
+
+    &__actions {
+      a {
+        text-decoration: none;
+        text-transform: capitalize;
+      }
+
+      .danger {
+        color: var(--alert-red);
+      }
+    }
   }
 }

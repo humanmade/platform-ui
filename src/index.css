@@ -834,7 +834,9 @@
     font-size: 14px;
     padding: 8px 5px; }
   .widget__header__controls {
-    margin-left: auto; }
+    margin-left: auto;
+    display: flex;
+    align-items: center; }
 
 .widget__body {
   padding: 1.5em; }
@@ -916,6 +918,13 @@
     padding: 1px 3px;
     border-radius: 2px;
     font-size: 10px; }
+
+.widget--posts .post__actions a {
+  text-decoration: none;
+  text-transform: capitalize; }
+
+.widget--posts .post__actions .danger {
+  color: var(--alert-red); }
 
 .dashboard {
   padding-top: 2em;
