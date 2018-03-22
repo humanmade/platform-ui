@@ -10,6 +10,7 @@ const Post = ({ post }) => {
 	const previewPostLink = `/?p=${post.id}&preview=true`;
 	const Icon = icons.views;
 	const CommentsClosedIcon = icons.commentsdisabled;
+	const CommentNormalIcon = icons.commentnormal;
 	return (
 		<tr className="row post">
 			<td className="post__info">
@@ -28,9 +29,9 @@ const Post = ({ post }) => {
 			<td className="post__comments">
 				{ commentsOpen ? (
 					<Fragment>
-						<span className="post__comments__approved">{commentsOpen ? post.comment_count.approved : <CommentsClosedIcon /> }</span>
+						<span className="post__comments__approved"><CommentNormalIcon /> {post.comment_count.approved}</span>
 						<span className="post__comments__pending">
-							<sup>{commentsOpen ? post.comment_count.awaiting_moderation : <CommentsClosedIcon /> }</sup>
+							<sup>{commentsOpen ? post.comment_count.awaiting_moderation : '' }</sup>
 							</span>
 					</Fragment>
 				) : (
@@ -42,10 +43,10 @@ const Post = ({ post }) => {
 			<td className="post__actions">
 				<Popup
 					trigger={open => (
-						<button className="button">&hellip;</button>
+						<button className="button--popup">&hellip;</button>
 					)}
-					position="right center"
-					closeOnDocumentClick
+					position="left bottom"
+					on="hover"
 				>
 				<Fragment>
 					<ul>

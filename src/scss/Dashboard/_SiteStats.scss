@@ -11,12 +11,13 @@
       padding: 1em;
       border: 1px solid var(--superlight-grey);
       margin: 0 .5em;
+      line-height: 1;
       font-weight: 100;
       color: var(--dark-grey);
       span {
         text-align: center;
         display: block;
-        margin: .5em 0;
+        margin: 5px 0;
       }
 
       .data {

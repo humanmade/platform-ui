@@ -16,7 +16,8 @@
     text-transform: capitalize;
     border-radius: 3px;
     border: 1px solid var(--ocean-blue);
-    padding: 0.2em;
+    padding: 0.2em 0.4em;
+    margin-right: 8px;
   }
 
   &__header {
@@ -24,7 +25,7 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--superlight-grey);
-    padding: 1.5em;
+    padding: 0.3em 1.5em;
     &__title {
       text-transform: uppercase;
       font-size: 14px;
@@ -43,13 +44,17 @@
       border: 0;
       border-radius: 4px;
       font-size: 14px;
-      padding: 8px 5px;
+      padding: 4px 6px;
     }
 
     &__controls {
       margin-left: auto;
       display: flex;
       align-items: center;
+    }
+
+    &__settings {
+      margin: 0 10px;
     }
   }
 
@@ -59,7 +64,6 @@
     .VictoryContainer {
       svg {
         margin: 0 auto;
-        width: auto !important;
         max-height: 300px !important;
         max-width: 100%;
       }
@@ -83,6 +87,20 @@
         color: var(--orangey-brown);
         margin: 0;
       }
+
+      a {
+        color: var(--orangey-brown);
+        font-weight: bold;
+      }
+    }
+
+    .button--popup {
+      color: var(--ocean-blue);
+      font-weight: bold;
+      font-size: 16px;
+      border: none;
+      background-color: transparent;
+      box-shadow: none;
     }
   }
 }

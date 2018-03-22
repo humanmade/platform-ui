@@ -11,8 +11,8 @@ class WidgetSettings extends React.Component {
 					trigger={open => (
 						<SettingsIcon />
 					)}
-					position="right center"
-					closeOnDocumentClick
+					position="left bottom"
+					on="hover"
 				>
 					{this.props.children}
 				</Popup>

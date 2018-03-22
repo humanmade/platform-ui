@@ -1,5 +1,5 @@
 import React from 'react';
-import { WidgetContainer, WidgetHeader, WidgetBody, WidgetControls } from './Widget';
+import { WidgetContainer, WidgetHeader, WidgetBody, WidgetControls, WidgetSettings } from './Widget';
 
 const SupportRequests = props => {
 	return <WidgetContainer width="one-half" name="support-requests">
@@ -9,6 +9,9 @@ const SupportRequests = props => {
 					<input type="submit" value="+ Add new" />
 				</form>
 			</WidgetControls>
+			<WidgetSettings>
+				<span>Settings</span>
+			</WidgetSettings>
 		</WidgetHeader>
 		<WidgetBody>
 			<table>

@@ -50,7 +50,7 @@ class PostsContainer extends Component {
 				</WidgetHeader>
 				<WidgetBody>
 					<Dismissable name="notification" key="notification">
-						<p>{`You have ${this.props.comments.data.length} comments awaiting moderation`}</p>
+						<p>You have <a target="_blank" href="/wp-admin/edit-comments.php?comment_status=moderated">{this.props.comments.data.length} comments</a> awaiting moderation</p>
 					</Dismissable>
 
 					<table className="table">

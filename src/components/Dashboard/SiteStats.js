@@ -2,7 +2,7 @@ import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { VictoryLine, VictoryChart, VictoryTheme } from 'victory';
 import { adminTheme } from '../../victory-theme';
-import { WidgetContainer, WidgetHeader, WidgetBody, WidgetControls } from './Widget';
+import { WidgetContainer, WidgetHeader, WidgetBody, WidgetControls, WidgetSettings } from './Widget';
 
 const SiteStats = props => {
 	return (
@@ -15,6 +15,9 @@ const SiteStats = props => {
 						</select>
 					</form>
 				</WidgetControls>
+				<WidgetSettings>
+					<span>Settings</span>
+				</WidgetSettings>
 			</WidgetHeader>
 			<WidgetBody>
 				<Tabs>

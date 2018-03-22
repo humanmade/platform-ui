@@ -18,10 +18,10 @@ const NewsItem = ({ post }) => {
 			<td className="post__actions">
 				<Popup
 					trigger={open => (
-						<button className="button">&hellip;</button>
+						<button className="button--popup">&hellip;</button>
 					)}
-					position="right center"
-					closeOnDocumentClick
+					position="left bottom"
+					on="hover"
 				>
 					<Fragment>
 						<ul>
