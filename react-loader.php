@@ -153,15 +153,13 @@ function enqueue_assets( $directory, $opts = [] ) {
 				null,
 				true
 			);
-		} else {
-			if ( $is_css ) {
-				wp_enqueue_style(
-					$opts['handle'],
-					get_asset_uri( $asset_path, $base_url ),
-					$opts['styles'],
-					null
-				);
-			}
+		} elseif ( $is_css ) {
+			wp_enqueue_style(
+				$opts['handle'],
+				get_asset_uri( $asset_path, $base_url ),
+				$opts['styles'],
+				null
+			);
 		}
 	}
 }

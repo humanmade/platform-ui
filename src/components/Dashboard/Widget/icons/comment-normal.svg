@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <path d="M10.475934,17.1433187 L0.951868085,17.1433187 C0.57281026,17.1433187 0.229943886,16.9185508 0.0794636437,16.5718748 C-0.071969005,16.2242464 -0.0033957301,15.820426 0.254706457,15.5432756 L2.45095607,13.1774977 C1.46712005,11.8022225 0.951868085,10.2240848 0.951868085,8.57165936 C0.951868085,3.84486543 5.22436407,0 10.475934,0 C15.727504,0 20,3.84486543 20,8.57165936 C20,13.2984533 15.727504,17.1433187 10.475934,17.1433187 Z M3.13573641,15.2385055 L10.475934,15.2385055 C14.6769995,15.2385055 18.0951868,12.2479488 18.0951868,8.57165936 C18.0951868,4.89632231 14.6769995,1.90481319 10.475934,1.90481319 C6.27486855,1.90481319 2.85668128,4.89632231 2.85668128,8.57165936 C2.85668128,10.0355083 3.39764822,11.4288791 4.42053291,12.6022441 C4.74054152,12.969873 4.73196986,13.5194116 4.40053237,13.8765641 L3.13573641,15.2385055 Z" id="path-commentsnormal"></path>
+    </defs>
+    <g id="SymbolsCommentsNormal" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons/Comment">
+            <g id="comment" transform="translate(0.000000, 1.000000)">
+                <mask id="mask-commentsnormal" fill="white">
+                    <use xlink:href="#path-commentsnormal"></use>
+                </mask>
+                <use id="Shapecommentsnormal" fill="#757575" fill-rule="nonzero" xlink:href="#path-commentsnormal"></use>
+                <g id="Tints/Grey-med" mask="url(#mask-commentsnormal)" fill="#797979">
+                    <g transform="translate(0.000000, -1.000000)" id="Rectangle-commentsnormal">
+                        <rect x="0" y="0" width="20" height="20"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <path d="M14.2222222,14.2222222 L1.77777778,14.2222222 L1.77777778,1.77777778 L8,1.77777778 L8,0 L1.77777778,0 C0.795555556,0 0,0.795555556 0,1.77777778 L0,14.2222222 C0,15.2044444 0.795555556,16 1.77777778,16 L14.2222222,16 C15.2044444,16 16,15.2044444 16,14.2222222 L16,8 L14.2222222,8 L14.2222222,14.2222222 Z M9.77777778,0 L9.77777778,1.77777778 L12.9644444,1.77777778 L4.22666667,10.5155556 L5.48444444,11.7733333 L14.2222222,3.03555556 L14.2222222,6.22222222 L16,6.22222222 L16,0 L9.77777778,0 Z" id="path-urlopen"></path>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons/url-open">
+            <g id="url-open" transform="translate(2.000000, 2.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-urlopen"></use>
+                </mask>
+                <use id="Mask" fill="#767676" fill-rule="nonzero" xlink:href="#path-urlopen"></use>
+                <g id="Tints/Grey-med" mask="url(#mask-2)" fill="#797979">
+                    <g transform="translate(-2.000000, -2.000000)" id="Rectangle-5">
+                        <rect x="0" y="0" width="20" height="20"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
