@@ -3,7 +3,6 @@ import { HashRouter, Route } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import Loading from './Loading';
 import AdminPortal from '../portal';
-import Header from './Header';
 import Menu from './Menu';
 import '../index.css';
 
@@ -18,6 +17,11 @@ const AsyncDocumentation = Loadable( {
 	loading: Loading
 } );
 
+const AsyncDashboard = Loadable( {
+	loader: () => import('./Dashboard'),
+	loading: Loading
+} );
+
 class Main extends Component {
 	render() {
 		return <div id="hm-enterprise-kit-ui">
@@ -26,7 +30,7 @@ class Main extends Component {
 					<Menu/>
 				</HashRouter>
 			</AdminPortal>
-			<Route exact path="/" render={() => <Header/>} />
+			<Route exact path="/" component={AsyncDashboard} />
 			<Route path="/ek" component={AsyncEnterpriseKit} />
 			<Route path="/documentation" component={AsyncDocumentation} />
 		</div>;

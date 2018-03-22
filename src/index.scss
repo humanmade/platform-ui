@@ -21,6 +21,9 @@ $images-path: "./hm-pattern-library/assets/images";
 @import "./scss/EnterpriseKit/Plugins";
 @import "./scss/EnterpriseKit/Plugin";
 
+// Dashboard
+@import "./scss/Dashboard/Dashboard";
+
 // Hide update & admin notices, we'll move those elsewhere in the UI to avoid the fugly.
 .toplevel_page_hm-platform #wpbody-content {
   > .update-nag,
