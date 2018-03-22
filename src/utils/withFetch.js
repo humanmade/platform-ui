@@ -40,7 +40,7 @@ const withFetch = ( url, options = {}, name = null ) => {
 				this.doFetch();
 			}
 
-			doFetch( overrides = {} ) {
+			doFetch = overrides => {
 				this.setState( { fetching: true } );
 				fetch( url, Object.assign( {}, options, overrides ) )
 					.then( response => response.json() )
