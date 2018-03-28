@@ -818,6 +818,8 @@
   justify-content: space-between;
   border-bottom: 1px solid var(--superlight-grey);
   padding: 0.3em 1.5em; }
+  .widget__header svg {
+    margin: -5px 0; }
   .widget__header__title {
     text-transform: uppercase;
     font-size: 14px;
@@ -922,9 +924,13 @@
 
 .widget--posts .post__views {
   color: var(--dark-grey); }
+  .widget--posts .post__views__count svg {
+    margin: -4px 0; }
 
 .widget--posts .post__comments {
   color: var(--dark-grey); }
+  .widget--posts .post__comments__approved svg {
+    margin: -4px 0; }
   .widget--posts .post__comments__pending sup {
     background-color: var(--hm-red);
     color: white;
