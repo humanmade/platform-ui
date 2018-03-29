@@ -11,8 +11,8 @@ import GridLayout from 'react-grid-layout';
 class Dashboard extends React.Component {
 	render() {
 		const layout = [
-			{i: 'a', x: 0, y: 0, w: 12, h: 14, minW: 12, maxW: 12},
-			{i: 'b', x: 0, y: 0, w: 12, h: 18, minW: 12, maxW: 12},
+			{i: 'a', x: 0, y: 0, w: 12, h: 14, minW: 6, maxW: 12},
+			{i: 'b', x: 0, y: 0, w: 12, h: 18, minW: 6, maxW: 12},
 			{i: 'c', x: 0, y: 0, w: 6, h: 14, minW: 6, maxW: 12},
 			{i: 'd', x: 6, y: 6, w: 6, h: 14, minW: 6, maxW: 12}
 		];
