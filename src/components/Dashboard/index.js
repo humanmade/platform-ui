@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {Fragment} from 'react';
+import Header from '../Header';
 import PostsContainer from  './PostsContainer';
 import SiteStats from "./SiteStats";
 import SupportRequests from "./SupportRequests";
@@ -16,12 +17,15 @@ class Dashboard extends React.Component {
 			{i: 'd', x: 6, y: 6, w: 6, h: 14, minW: 6, maxW: 12}
 		];
 		return (
-			<GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={1200}>
-				<div key="a"><SiteStats /></div>
-				<div key="b"><PostsContainer /></div>
-				<div key="c"><SupportRequests /></div>
-				<div key="d"><NewsContainer /></div>
-			</GridLayout>
+			<Fragment>
+				<Header key="header" title="Dashboard" />
+				<GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={1200}>
+					<div key="a"><SiteStats /></div>
+					<div key="b"><PostsContainer /></div>
+					<div key="c"><SupportRequests /></div>
+					<div key="d"><NewsContainer /></div>
+				</GridLayout>
+			</Fragment>
 		);
 	}
 }
