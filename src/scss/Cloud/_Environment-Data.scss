@@ -35,3 +35,26 @@
 	float: left;
 	margin-left: 0;
 }
+
+.environment-data-block {
+	.commit-hash {
+		font-size: 11px;
+		margin-right: .5em;
+	}
+
+	.commit-avatar {
+		width: 19px;
+		height: 19px;
+		vertical-align: top;
+		margin-right: 4px;
+	}
+
+	.commit-user {
+		font-weight: bold;
+	}
+
+	.commit-message {
+		clear: both;
+		padding: 0 21px 7px;
+	}
+}

@@ -8,20 +8,18 @@ import PropTypes from 'prop-types';
  * @param {Array}  children React children.
  * @param {String} id       Unique ID to display for the block.
  */
-const DashboardBlock = ( { title, children, id } ) => {
-	return <div className="postbox-container" id={ id }>
-		<div className="postbox">
-			<button type="button" className="handlediv" aria-expanded="true">
-				<span className="screen-reader-text">Toggle panel: { title }</span>
-				<span className="toggle-indicator" aria-hidden="true" />
-			</button>
-			<h2 className="hndle"><span>{title}</span></h2>
-			<div className="inside">
-				{children}
-			</div>
+const DashboardBlock = ( { title, children, id } ) => (
+	<div className="postbox" id={ id } >
+		<button type="button" className="handlediv" aria-expanded="true">
+			<span className="screen-reader-text">Toggle panel: { title }</span>
+			<span className="toggle-indicator" aria-hidden="true" />
+		</button>
+		<h2 className="hndle"><span>{title}</span></h2>
+		<div className="inside">
+			{children}
 		</div>
 	</div>
-}
+);
 
 DashboardBlock.propTypes = {
 	id:    PropTypes.string,
