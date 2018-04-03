@@ -59,13 +59,15 @@ const EnvironmentData = ( { data: { git_data, environment_data } } ) => {
 
 
 EnvironmentData.propTypes = {
-	git_data: PropTypes.shape( {
-		branch: PropTypes.string,
-		commit: PropTypes.shape( {
-			date:        PropTypes.string,
-			description: PropTypes.string,
-			rev:         PropTypes.string,
-			status:      PropTypes.string,
+	data: PropTypes.shape( {
+		git_data: PropTypes.shape( {
+			branch: PropTypes.string,
+			commit: PropTypes.shape( {
+				date:        PropTypes.string,
+				description: PropTypes.string,
+				rev:         PropTypes.string,
+				status:      PropTypes.string,
+			} ),
 		} ),
 		environment_data: PropTypes.shape( {
 			php:           PropTypes.string,
@@ -78,6 +80,6 @@ EnvironmentData.propTypes = {
 
 const EnvironmentDataWithData = compose(
 	withApiFetch( 'hm-stack/v1/environment-data/' )
-)(EnvironmentData);
+)( EnvironmentData );
 
 export default EnvironmentDataWithData;
