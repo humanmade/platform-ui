@@ -25,14 +25,16 @@ const PullRequests = ( { data } ) => (
 PullRequests.defaultTypes = { items: [] }
 
 PullRequests.propTypes = {
-	data: PropTypes.shape( {
-		date:       PropTypes.string,
-		id:         PropTypes.number,
-		link:       PropTypes.string,
-		status:     PropTypes.string,
-		statusText: PropTypes.string,
-		title:      PropTypes.string,
-	} ),
+	data: PropTypes.arrayOf(
+		PropTypes.shape( {
+			date:       PropTypes.string,
+			id:         PropTypes.number,
+			link:       PropTypes.string,
+			status:     PropTypes.string,
+			statusText: PropTypes.string,
+			title:      PropTypes.string,
+		} ),
+	),
 	loading: PropTypes.bool,
 }
 
