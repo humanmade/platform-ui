@@ -3,6 +3,7 @@ import Header from '../Header';
 import DashboardWrapper from '../Dashboard-Wrapper';
 import PullRequests from './Pull-Requests';
 import EnvironmentData from './Environment-Data';
+import AlertsLog from './Alerts-Log';
 
 class Cloud extends React.Component {
 	render() {
@@ -12,6 +13,7 @@ class Cloud extends React.Component {
 				<DashboardWrapper>
 					<EnvironmentData />
 					<PullRequests />
+					<AlertsLog />
 				</DashboardWrapper>
 			</Fragment>
 		);
