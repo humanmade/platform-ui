@@ -22,7 +22,7 @@ const PullRequests = ( { data } ) => (
 	</DashboardBlock>
 );
 
-PullRequests.defaultTypes = { items: [] }
+PullRequests.defaultProps = { data: [] }
 
 PullRequests.propTypes = {
 	data: PropTypes.arrayOf(
