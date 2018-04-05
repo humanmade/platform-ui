@@ -19,7 +19,7 @@ const AlertsLog = ( { data, loading } ) => <DashboardBlock title="Activity Log" 
 	}
 </DashboardBlock>
 
-AlertsLog.defaultTypes = { data: [] }
+AlertsLog.defaultProps = { data: [] }
 
 AlertsLog.propTypes = {
 	data: PropTypes.shape( {

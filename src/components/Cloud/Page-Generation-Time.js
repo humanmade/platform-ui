@@ -14,7 +14,7 @@ import { adminTheme } from '../../victory-theme';
 const PageGenerationTime = ( { loading, data } ) => {
 	const highestTime = data.reduce( ( carry, item ) => { return item.time > carry ? item.time : carry }, 0 );
 
-	return <DashboardBlock title="Page Generation Time"  isLoading={ loading }>
+	return <DashboardBlock title="Page Generation Time" isLoading={ loading }>
 		<VictoryChart
 			theme={ adminTheme }
 			domainPadding={ 10 }
@@ -50,7 +50,7 @@ const PageGenerationTime = ( { loading, data } ) => {
 	</DashboardBlock>
 }
 
-PageGenerationTime.defaultTypes = { usageHistory: [] }
+PageGenerationTime.defaultProps = { data: [] }
 
 PageGenerationTime.propTypes = {
 	data: PropTypes.arrayOf( PropTypes.shape( {
