@@ -110,7 +110,7 @@ function get_submenu_pages() {
 	return [
 		[ 'title' => esc_html__( 'Dashboard', 'hm-platform' ), 'path' => '/', 'exact' => true ],
 		[ 'title' => esc_html__( 'Enterprise Kit', 'hm-platform' ), 'path' => '/ek' ],
-		// [ 'title' => esc_html__( 'Cloud', 'hm-platform' ), 'path' => '/cloud' ],
+		[ 'title' => esc_html__( 'Cloud', 'hm-platform' ), 'path' => '/cloud' ],
 		[ 'title' => esc_html__( 'Documentation', 'hm-platform' ), 'path' => '/documentation' ],
 	];
 }

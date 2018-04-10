@@ -3,16 +3,16 @@
  * To be used in projects that do not use SASS, for example.
  */
 :root {
-  --hm-red: #D24632;
-  --hm-blue: #7DC9DA;
-  --hm-warm-grey: #504C4C;
-  --hm-dark-grey: #353535;
-  --hm-beige: #F4EFE6;
-  --hm-medium-grey: #737373;
-  --hm-light-grey: #f7f7f7;
-  --hm-brown: #4F4641;
-  --hm-red-light: #e06857;
-  --hm-red-dark: #b34332; }
+  --hm-red:         $hm-red;
+  --hm-blue:        $hm-blue;
+  --hm-warm-grey:   $hm-warm-grey;
+  --hm-dark-grey:   $hm-dark-grey;
+  --hm-beige:       $hm-beige;
+  --hm-medium-grey: $hm-medium-grey;
+  --hm-light-grey:  $hm-light-grey;
+  --hm-brown:       $hm-brown;
+  --hm-red-light:   $hm-red-light;
+  --hm-red-dark:    $hm-red-dark; }
 
 /*
  * Base Settings
@@ -587,6 +587,23 @@
 .environment-data-block dd {
   float: left;
   margin-left: 0; }
+
+.environment-data-block .commit-hash {
+  font-size: 11px;
+  margin-right: .5em; }
+
+.environment-data-block .commit-avatar {
+  width: 19px;
+  height: 19px;
+  vertical-align: top;
+  margin-right: 4px; }
+
+.environment-data-block .commit-user {
+  font-weight: bold; }
+
+.environment-data-block .commit-message {
+  clear: both;
+  padding: 0 21px 7px; }
 
 /**
  * HM Points of Contact block.

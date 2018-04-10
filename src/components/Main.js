@@ -17,6 +17,11 @@ const AsyncDocumentation = Loadable( {
 	loading: Loading
 } );
 
+const AsyncCloud = Loadable( {
+	loader: () => import('./Cloud'),
+	loading: Loading
+} );
+
 const AsyncDashboard = Loadable( {
 	loader: () => import('./Dashboard'),
 	loading: Loading
@@ -32,6 +37,7 @@ class Main extends Component {
 			</AdminPortal>
 			<Route exact path="/" component={AsyncDashboard} />
 			<Route path="/ek" component={AsyncEnterpriseKit} />
+			<Route path="/cloud" component={AsyncCloud} />
 			<Route path="/documentation" component={AsyncDocumentation} />
 		</div>;
 	}
