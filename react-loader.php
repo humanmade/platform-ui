@@ -105,14 +105,14 @@ function get_asset_uri( string $asset_path, string $base_url ) {
 
 /**
  * @param string $directory Root directory containing `src` and `build` directory.
- * @param array  $opts      {
- * @type string  $base_url  Root URL containing `src` and `build` directory. Only needed for production.
- * @type string  $handle    Style/script handle. (Default is last part of directory name.)
- * @type array   $scripts   Script dependencies.
- * @type array   $styles    Style dependencies.
- *                          }
+ * @param array  $opts {
+ *     @type string $base_url Root URL containing `src` and `build` directory. Only needed for production.
+ *     @type string $handle   Style/script handle. (Default is last part of directory name.)
+ *     @type array  $scripts  Script dependencies.
+ *     @type array  $styles   Style dependencies.
+ * }
  */
-function enqueue_assets( $directory, $opts = [] ) {
+function enqueue_assets( $directory, array $opts = [] ) {
 	$defaults = [
 		'base_url' => '',
 		'handle'   => basename( $directory ),
