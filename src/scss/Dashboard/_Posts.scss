@@ -1,0 +1,47 @@
+.widget--posts {
+  .post {
+
+    &__info__meta {
+      margin: 0.5em 0;
+      color: var(--cool-grey);
+      font-size: 13px;
+    }
+
+    &__views {
+      color: var(--dark-grey);
+
+      &__count svg {
+        margin: -4px 0;
+      }
+    }
+
+    &__comments {
+      color: var(--dark-grey);
+
+      &__approved svg {
+        margin: -4px 0;
+      }
+
+      &__pending {
+        sup {
+          background-color: var(--hm-red);
+          color: white;
+          padding: 1px 3px;
+          border-radius: 2px;
+          font-size: 10px;
+        }
+      }
+    }
+
+    &__actions {
+      a {
+        text-decoration: none;
+        text-transform: capitalize;
+      }
+
+      .danger {
+        color: var(--alert-red);
+      }
+    }
+  }
+}

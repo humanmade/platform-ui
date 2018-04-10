@@ -16,10 +16,10 @@ class Privacy extends React.Component {
 	 * Fetches the current optout setting.
 	 */
 	componentWillMount() {
-		fetch( `${HM.REST.URL}wp/v2/settings`, {
+		fetch( `${HM.UI.REST.URL}wp/v2/settings`, {
 			credentials: "same-origin",
 			headers: {
-				'X-WP-Nonce': HM.REST.Nonce,
+				'X-WP-Nonce': HM.UI.REST.Nonce,
 			}
 		} )
 			.then( response => response.json() )
@@ -36,11 +36,11 @@ class Privacy extends React.Component {
 		this.setState( { optout: event.target.checked } );
 
 		// Update optout setting.
-		fetch( `${HM.REST.URL}wp/v2/settings`, {
+		fetch( `${HM.UI.REST.URL}wp/v2/settings`, {
 			credentials: "same-origin",
 			method: 'PATCH',
 			headers: {
-				'X-WP-Nonce': HM.REST.Nonce,
+				'X-WP-Nonce': HM.UI.REST.Nonce,
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify( {
@@ -61,15 +61,15 @@ class Privacy extends React.Component {
 				<ol>
 					<li>
 						<label>
-							<input disabled={HM.Analytics.OptoutBy === 'code'} checked={this.state.optout} type="checkbox" name="hm-optout" id="hm-optout" onChange={event => this.toggleOptout( event )} />
+							<input disabled={HM.UI.Analytics.OptoutBy === 'code'} checked={this.state.optout} type="checkbox" name="hm-optout" id="hm-optout" onChange={event => this.toggleOptout( event )} />
 							Check this box to opt out
 						</label>
 					</li>
 					<li>
 						Add <code>define( 'HM_ANALYTICS_OPTOUT', true );</code> to your config
 						file.
-						{ HM.Analytics.OptoutBy === 'code' && <span>
-							Currently defined as {JSON.stringify(HM.Analytics.Optout)}.
+						{ HM.UI.Analytics.OptoutBy === 'code' && <span>
+							Currently defined as {JSON.stringify(HM.UI.Analytics.Optout)}.
 						</span> }
 					</li>
 				</ol>

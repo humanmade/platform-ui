@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 /**
@@ -8,19 +8,38 @@ import PropTypes from 'prop-types';
  * @param {Array}  children React children.
  * @param {String} id       Unique ID to display for the block.
  */
-const DashboardBlock = ( { title, children, id } ) => {
-	return <div className="postbox-container" id={ id }>
-		<div className="postbox">
-			<button type="button" className="handlediv" aria-expanded="true">
-				<span className="screen-reader-text">Toggle panel: { title }</span>
-				<span className="toggle-indicator" aria-hidden="true" />
-			</button>
-			<h2 className="hndle"><span>{title}</span></h2>
-			<div className="inside">
-				{children}
+class DashboardBlock extends Component {
+	constructor( props ) {
+		super( props );
+
+		this.state = {
+			isExpanded: true
+		}
+	}
+
+	onToggleExpanded() {
+		this.setState( { isExpanded: ! this.state.isExpanded } );
+	}
+
+	render() {
+		const { title, children, id } = this.props;
+		const { isExpanded } = this.state
+
+		return (
+			<div className={ 'postbox ' + ( isExpanded ? 'expanded' : 'closed' ) } id={ id } >
+				<button type="button" className="handlediv" aria-expanded="true" onClick={ () => this.setState( { isExpanded: ! isExpanded } ) }>
+					<span className="screen-reader-text">Toggle panel: { title }</span>
+					<span className="toggle-indicator" aria-hidden="true" />
+				</button>
+				<h2 className="hndle"><span>{title}</span></h2>
+				{ isExpanded && (
+					<div className="inside">
+						{children}
+					</div>
+				) }
 			</div>
-		</div>
-	</div>
+		);
+	}
 }
 
 DashboardBlock.propTypes = {

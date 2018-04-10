@@ -10,7 +10,6 @@ $images-path: "./hm-pattern-library/assets/images";
 // Top level components.
 @import "./scss/Header";
 @import "./scss/Menu";
-@import "./scss/Toolbar";
 @import "./scss/Dismissable";
 // Cloud.
 @import "./scss/Cloud/Alerts-Log";
@@ -21,6 +20,9 @@ $images-path: "./hm-pattern-library/assets/images";
 // Enterprise Kit.
 @import "./scss/EnterpriseKit/Plugins";
 @import "./scss/EnterpriseKit/Plugin";
+
+// Dashboard
+@import "./scss/Dashboard/Dashboard";
 
 // Hide update & admin notices, we'll move those elsewhere in the UI to avoid the fugly.
 .toplevel_page_hm-platform #wpbody-content {
