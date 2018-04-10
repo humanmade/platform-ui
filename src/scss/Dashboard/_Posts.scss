@@ -9,10 +9,19 @@
 
     &__views {
       color: var(--dark-grey);
+
+      &__count svg {
+        margin: -4px 0;
+      }
     }
 
     &__comments {
       color: var(--dark-grey);
+
+      &__approved svg {
+        margin: -4px 0;
+      }
+
       &__pending {
         sup {
           background-color: var(--hm-red);
