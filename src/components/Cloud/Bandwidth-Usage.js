@@ -1,5 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import withApiFetch from '../../utils/withApiFetch';
+import { compose } from 'recompose';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTooltip, VictoryLabel } from 'victory';
 
 import DashboardBlock from '../Dashboard-Block';
@@ -13,6 +15,8 @@ import { convertBytesToGigabytes } from '../../utils';
  * @param {Array}   data    An array of usage data for the current site.
  */
 const BandwidthUsage = ( { loading, data } ) => {
+	if ( loading ) return '';
+	console.log( data );
 	// Add a label to the usage history for each item.
 	data = data.map( day => {
 		const convertedUsage = convertBytesToGigabytes( day.usage );
@@ -63,12 +67,16 @@ const BandwidthUsage = ( { loading, data } ) => {
 
 BandwidthUsage.defaultProps = { usageHistory: [] }
 
-BandwidthUsage.propTypes = {
-	data: PropTypes.arrayOf( PropTypes.shape( {
-		usage: PropTypes.number,
-		date:  PropTypes.string,
-	} ) ),
-	loading: PropTypes.boolean,
-}
+//BandwidthUsage.propTypes = {
+	//data: PropTypes.arrayOf( PropTypes.shape( {
+		//usage: PropTypes.number,
+		//date:  PropTypes.string,
+	//} ) ),
+	//loading: PropTypes.bool,
+//}
 
-export default BandwidthUsage;
+const BandwidthUsageWithData = compose(
+	withApiFetch( 'hm-stack/v1/bandwidth-usage/' )
+)( BandwidthUsage );
+
+export default BandwidthUsageWithData;

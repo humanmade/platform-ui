@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import withApiFetch from '../../utils/withApiFetch';
+import { compose } from 'recompose';
 import { VictoryLine, VictoryChart, VictoryAxis, VictoryTooltip } from 'victory';
 
 import DashboardBlock from '../Dashboard-Block';
@@ -12,6 +14,10 @@ import { adminTheme } from '../../victory-theme';
  * @param {Array}   data    An array of server response data for the current site.
  */
 const PageGenerationTime = ( { loading, data } ) => {
+
+	console.log( data );
+
+	if ( loading || ! Array.isArray( data ) ) return '';
 	const highestTime = data.reduce( ( carry, item ) => { return item.time > carry ? item.time : carry }, 0 );
 
 	return <DashboardBlock title="Page Generation Time" isLoading={ loading }>
@@ -27,7 +33,7 @@ const PageGenerationTime = ( { loading, data } ) => {
 			<VictoryAxis
 				label="(Date)"
 				tickCount={ 7 }
-				tickFormat={ x => new Date( x ).getDate() }
+				tickFormat={ x => { console.log( x); return new Date( x ).getDate(); } }
 				style={ { grid: {
 						fill: "none",
 						stroke: "none",
@@ -53,11 +59,21 @@ const PageGenerationTime = ( { loading, data } ) => {
 PageGenerationTime.defaultProps = { data: [] }
 
 PageGenerationTime.propTypes = {
-	data: PropTypes.arrayOf( PropTypes.shape( {
-		time: PropTypes.number,
-		date: PropTypes.string,
-	} ) ),
-	loading: PropTypes.boolean,
+	data: PropTypes.oneOfType([
+		PropTypes.arrayOf( PropTypes.shape( {
+			time: PropTypes.number,
+			date: PropTypes.string,
+		} ) ),
+		PropTypes.shape( {
+			code: PropTypes.string,
+			message: PropTypes.string
+		} )
+	] ),
+	loading: PropTypes.bool
 }
 
-export default PageGenerationTime;
+const PageGenerationTimeWithData = compose(
+	withApiFetch( 'hm-stack/v1/page-generation/' )
+)( PageGenerationTime );
+
+export default PageGenerationTimeWithData;
