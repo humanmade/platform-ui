@@ -26,7 +26,7 @@ const EnvironmentData = ( { data: { git_data, environment_data } } ) => {
 							{ git_data.commit && (
 								<dd>
 									<code className="commit-hash">{ git_data.commit.rev.substring( 0, 7 ) }</code>
-									<img className="commit-avatar" src={ git_data.commit.user.avatar_urls['96'] } title={ git_data.commit.user.name } />
+									<img className="commit-avatar" src={ git_data.commit.user.avatar_urls['96'] } alt={ git_data.commit.user.name } />
 									<span className="commit-user">{ git_data.commit.user.name }</span>
 								</dd>
 							) }

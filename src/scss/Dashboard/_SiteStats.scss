@@ -9,11 +9,11 @@
       display: block;
       cursor: pointer;
       padding: 1em;
-      border: 1px solid var(--superlight-grey);
+      border: 1px solid var(--hm-platform-ui-superlight-grey);
       margin: 0 .5em;
       line-height: 1;
       font-weight: 100;
-      color: var(--dark-grey);
+      color: var(--hm-platform-ui-dark-grey);
       span {
         text-align: center;
         display: block;
@@ -33,15 +33,15 @@
       .delta {
         font-size: 12px;
         &--up {
-          color: var(--good-green);
+          color: var(--hm-platform-ui-good-green);
         }
         &--down {
-          color: var(--alert-red);
+          color: var(--hm-platform-ui-alert-red);
         }
       }
 
       &--selected {
-        border: 2px solid var(--med-blue);
+        border: 2px solid var(--hm-platform-ui-med-blue);
         font-weight: 300;
       }
     }

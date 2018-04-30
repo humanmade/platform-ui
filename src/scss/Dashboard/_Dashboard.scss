@@ -1,21 +1,14 @@
-//@import "../../hm-pattern-library/assets/sass/juniper";
 :root {
-  --yellow: #fffae2;
-  --orangey-brown: #ad5400;
-  --ocean-blue: #00739a;
-  --dark-grey: #353535;
-  --alert-red: #ff001f; // stats down
-  --hm-red: #d24632; // dropdown arrows/comments/buttons
-  --med-blue: #009ace; // stats border
-  --good-green: #458500; // labels
-  --cool-grey: #767676; // byline
-  --superlight-grey: #e1e1e1; // border
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
+  --hm-platform-ui-yellow: #fffae2;
+  --hm-platform-ui-orangey-brown: #ad5400;
+  --hm-platform-ui-ocean-blue: #00739a;
+  --hm-platform-ui-dark-grey: #353535;
+  --hm-platform-ui-alert-red: #ff001f; // stats down
+  --hm-platform-ui-hm-red: #d24632; // dropdown arrows/comments/buttons
+  --hm-platform-ui-med-blue: #009ace; // stats border
+  --hm-platform-ui-good-green: #458500; // labels
+  --hm-platform-ui-cool-grey: #767676; // byline
+  --hm-platform-ui-superlight-grey: #e1e1e1; // border
 }
 
 @import "./Widget";
@@ -23,7 +16,13 @@
 @import "./SupportRequests";
 @import "./Posts";
 
-.dashboard {
+.hm-platform-ui__Dashboard {
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
   padding-top: 2em;
   max-width: 1024px;
   margin: 0 auto;

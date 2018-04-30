@@ -3,12 +3,12 @@
 
     &__info__meta {
       margin: 0.5em 0;
-      color: var(--cool-grey);
+      color: var(--hm-platform-ui-cool-grey);
       font-size: 13px;
     }
 
     &__views {
-      color: var(--dark-grey);
+      color: var(--hm-platform-ui-dark-grey);
 
       &__count svg {
         margin: -4px 0;
@@ -16,7 +16,7 @@
     }
 
     &__comments {
-      color: var(--dark-grey);
+      color: var(--hm-platform-ui-dark-grey);
 
       &__approved svg {
         margin: -4px 0;
@@ -24,7 +24,7 @@
 
       &__pending {
         sup {
-          background-color: var(--hm-red);
+          background-color: var(--hm-platform-ui-hm-red);
           color: white;
           padding: 1px 3px;
           border-radius: 2px;
@@ -40,7 +40,7 @@
       }
 
       .danger {
-        color: var(--alert-red);
+        color: var(--hm-platform-ui-alert-red);
       }
     }
   }
