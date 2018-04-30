@@ -52,9 +52,7 @@ const Post = ({ post }) => {
 						<ul>
 							<li><a href={post.link}>view</a></li>
 							<li><a href={editPostLink}>edit</a></li>
-							<li><a href="">stats</a></li>
 							<li><a href="">comments</a></li>
-							<li><a href="">duplicate</a></li>
 						</ul>
 						<ul className="DangerousActions">
 							<li><a className="danger" href="">delete</a></li>
