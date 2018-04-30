@@ -7,25 +7,27 @@ import DocsLinks from './Toolbar/DocsLinks';
 
 injectGlobal`
 #wpadminbar {
-	.hm-docs-indicator {
-	  margin-left:  5px;
-	  border-left:  1px solid rgba(255, 255, 255, .3);
-	  padding-left: 10px;
-	}
-
-	.hm-logo-small {
-	  max-width:      24px;
-	  width:          auto;
-	  vertical-align: text-bottom;
-	  height:         auto;
-	  display:        inline-block;
-	}
-
-  .ab-submenu-header {
-    margin-top: -6px;
-    border-top:  1px solid rgba(255, 255, 255, .3);
-    font-weight: bold;
-    padding:     0 10px;
+	#wp-admin-bar-hm-platform-toolbar-ui {
+		.hm-platform-ui-toolbar-docs-indicator {
+		  margin-left:  5px;
+		  border-left:  1px solid rgba(255, 255, 255, .3);
+		  padding-left: 10px;
+		}
+	
+		.hm-platform-ui-toolbar-logo-small {
+		  max-width:      24px;
+		  width:          auto;
+		  vertical-align: text-bottom;
+		  height:         auto;
+		  display:        inline-block;
+		}
+	
+	  .ab-submenu-header {
+	    margin-top: -6px;
+	    border-top:  1px solid rgba(255, 255, 255, .3);
+	    font-weight: bold;
+	    padding:     0 10px;
+	  }
   }
 
   .ab-top-menu > #wp-admin-bar-hm-platform-toolbar-ui.menupop > .ab-sub-wrapper {
@@ -38,7 +40,7 @@ class Toolbar extends Component {
 	render() {
 		return [
 			<a key="link" className="ab-item" href={ HM.UI.AdminURL + '#/' }>
-				<Logo className="hm-logo-small" title="Human Made" />
+				<Logo className="hm-platform-ui-toolbar-logo-small" title="Human Made" />
 				{ ' ' }
 				Quick links
 				{ ' ' }

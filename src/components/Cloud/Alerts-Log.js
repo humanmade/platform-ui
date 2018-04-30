@@ -7,25 +7,27 @@ import AlertItem from './Alert-Item';
 /**
  * List all open alerts/activity on a site's server.
  *
+ * @param {Boolean} loading Whether data is still fetching or not.
  * @param {Array} items Alerts.
  */
-const AlertsLog = ( { items } ) => <DashboardBlock title="Activity Log">
-	{ ( items && items.length > 0 )
+const AlertsLog = ( { data, loading } ) => <DashboardBlock title="Activity Log" isLoading={ loading }>
+	{ ( data && data.length > 0 )
 		? <ul className="alert-listing">
-			{ items.map( alert => <AlertItem key={ alert.id } {...alert} /> ) }
+			{ data.map( alert => <AlertItem key={ alert.id } {...alert} /> ) }
 		</ul>
 		: <p>No Activity to Report</p>
 	}
 </DashboardBlock>
 
-AlertsLog.defaultTypes = { items: [] }
+AlertsLog.defaultProps = { data: [] }
 
 AlertsLog.propTypes = {
-	items: PropTypes.shape( {
+	data: PropTypes.shape( {
 		date:       PropTypes.string,
 		level:      PropTypes.number,
 		message:    PropTypes.string,
 	} ),
+	loading: PropTypes.boolean,
 }
 
 export default AlertsLog;

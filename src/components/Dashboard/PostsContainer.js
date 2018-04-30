@@ -49,10 +49,12 @@ class PostsContainer extends Component {
 					</WidgetSettings>
 				</WidgetHeader>
 				<WidgetBody>
-					<Dismissable name="notification" key="notification">
-						<p>You have <a target="_blank" href="/wp-admin/edit-comments.php?comment_status=moderated">{this.props.comments.data.length} comments</a> awaiting moderation</p>
-					</Dismissable>
-
+					{
+						this.props.comments.data.length > 0 &&
+						<Dismissable name={`comments-notification-${Date.now()}`} key="notification">
+							<p>You have <a target="_blank" href="/wp-admin/edit-comments.php?comment_status=moderated">{this.props.comments.data.length} comments</a> awaiting moderation</p>
+						</Dismissable>
+					}
 					<table className="table">
 						<tbody>
 						<PostsListWithData />

@@ -3,7 +3,7 @@
 namespace HM\Platform\Admin;
 
 // Load react scripts loader.
-require_once 'react-loader.php';
+require_once __DIR__ . '/react-loader.php';
 
 use HM\Platform;
 use WP_Admin_Bar;
@@ -80,13 +80,18 @@ function get_plugin_manifest() {
 	return array_values( array_map( function ( $plugin, $name ) use ( $config ) {
 		return [
 			'name'     => $name,
-			'title'    => isset( $plugin['title'] ) ? $plugin['title'] : false,
+			'title'    => $plugin['title'] ?? false,
 			'settings' => $config[ $name ]['settings'],
 			'enabled'  => $config[ $name ]['enabled'],
 		];
 	}, $manifest, array_keys( $manifest ) ) );
 }
 
+/**
+ * @param array $menu_order
+ *
+ * @return array
+ */
 function platform_menu_order( $menu_order ) {
 	$hm_menu_order = [];
 
@@ -110,7 +115,7 @@ function get_submenu_pages() {
 	return [
 		[ 'title' => esc_html__( 'Dashboard', 'hm-platform' ), 'path' => '/', 'exact' => true ],
 		[ 'title' => esc_html__( 'Enterprise Kit', 'hm-platform' ), 'path' => '/ek' ],
-		// [ 'title' => esc_html__( 'Cloud', 'hm-platform' ), 'path' => '/cloud' ],
+		[ 'title' => esc_html__( 'Cloud', 'hm-platform' ), 'path' => '/cloud' ],
 		[ 'title' => esc_html__( 'Documentation', 'hm-platform' ), 'path' => '/documentation' ],
 	];
 }
