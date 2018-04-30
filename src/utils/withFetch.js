@@ -22,16 +22,21 @@ const withFetch = ( url, options = {}, name = null ) => {
 					data:     {},
 					error:    false,
 				};
+
+				this.timer = null;
+
+				// Cludge until fetch supports cancellation.
+				this.cancelUpdates = true;
 			}
 
-			componentWillMount() {
+			componentDidMount() {
+				this.cancelUpdates = false;
+
 				const item = this.getStore();
 				if ( item ) {
 					this.setState( item );
 				}
-			}
 
-			componentDidMount() {
 				if ( this.state.expires > Date.now() ) {
 					return;
 				}
@@ -40,7 +45,16 @@ const withFetch = ( url, options = {}, name = null ) => {
 				this.doFetch();
 			}
 
-			doFetch = overrides => {
+			componentWillUnmount() {
+				this.cancelUpdates = true;
+				this.timer && clearTimeout( this.timer );
+			}
+
+			doFetch( overrides ) {
+				if ( this.cancelUpdates ) {
+					return;
+				}
+
 				this.setState( { fetching: true } );
 				fetch( url, Object.assign( {}, options, overrides ) )
 					.then( response => response.json() )
@@ -54,6 +68,10 @@ const withFetch = ( url, options = {}, name = null ) => {
 			}
 
 			updateStore( data, error = false ) {
+				if ( this.cancelUpdates ) {
+					return;
+				}
+
 				const update = {
 					data,
 					error,
@@ -64,7 +82,7 @@ const withFetch = ( url, options = {}, name = null ) => {
 
 				// Add a timeout to update the data after expiry time.
 				if ( options.expires && ! error ) {
-					setTimeout( this.doFetch, parseInt( options.expires, 10 ) )
+					this.timer = setTimeout( this.doFetch, parseInt( options.expires, 10 ) )
 				}
 
 				// Update store.

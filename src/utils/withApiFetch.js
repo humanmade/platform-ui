@@ -11,7 +11,10 @@ const withApiFetch = ( endpoint, options = {}, name = null ) => {
 
 	const url = `${HM.UI.REST.URL}${endpoint}`;
 	options.credentials = 'same-origin';
-	options.headers = { 'X-WP-Nonce': HM.UI.REST.Nonce }
+	options.headers = {
+		'X-WP-Nonce': HM.UI.REST.Nonce,
+		'content-type': 'application/json'
+	};
 
 	return withFetch( url, options, name );
 }

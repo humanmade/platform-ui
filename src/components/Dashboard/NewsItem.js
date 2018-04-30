@@ -17,8 +17,8 @@ const NewsItem = ({ post }) => {
 			</td>
 			<td className="post__actions">
 				<Popup
-					trigger={open => (
-						<button className="button--popup" onClick={open}>&hellip;</button>
+					trigger={() => (
+						<button className="button--popup">&hellip;</button>
 					)}
 					position="left bottom"
 					on="hover"
