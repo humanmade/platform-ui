@@ -21,5 +21,8 @@ module.exports = function ( config, env ) {
 		} );
 	} );
 
+	// Normalise public path for chunks & SW.
+	//config.output.publicPath = '/content/hm-platform/plugins/hm-platform-ui/build/';
+
 	return rewires( config, env );
 }
