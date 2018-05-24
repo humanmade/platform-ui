@@ -216,7 +216,7 @@ function enqueue_assets() {
 	$ui_data = [
 		'Locale'         => str_replace( '_', '-', get_user_locale() ),
 		'CurrentSiteURL' => home_url(),
-		'BuildURL'       => ReactWPScripts\infer_base_url( __DIR__ . '/build' ),
+		'BuildURL'       => ReactWPScripts\infer_base_url( __DIR__ . '/build/' ),
 		'AdminURL'       => admin_url( '/admin.php?page=hm-platform' ),
 		'REST'           => [
 			'URL'   => get_rest_url(),
