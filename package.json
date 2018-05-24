@@ -12,7 +12,7 @@
     "build-css": "node-sass-chokidar src/index.scss -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-app-rewired start --scripts-version react-wp-scripts",
-    "build-js": "NODE_ENV=production react-app-rewired build",
+    "build-js": "NODE_ENV=production SC_ATTR=hm-platform-ui react-app-rewired build",
     "postbuild-js": "replace-in-file /\\\"\\/humanmade\\/platform-ui\\//g 'self.registration.scope + \"' build/service-worker.js --isRegex",
     "start": "npm-run-all -p watch-css start-js",
     "build": "NODE_ENV=production npm-run-all build-css build-js",
