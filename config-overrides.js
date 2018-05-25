@@ -29,8 +29,11 @@ module.exports = function ( config, env ) {
 
 	config.entry = { 'hm-ui': config.entry };
 
-	// Normalise public path for chunks & SW.
-	//config.output.publicPath = '/content/hm-platform/plugins/hm-platform-ui/build/';
+	// Namespace JSONP.
+	config.output.jsonpFunction = 'hmPlatformUIJSONP';
+
+	// Isolate styled components.
+	process.env.SC_ATTR = 'hm-ui';
 
 	return rewires( config, env );
 }
