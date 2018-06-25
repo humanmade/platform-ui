@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import withApiFetch from '../../utils/withApiFetch';
+import orWpError from '../../utils/wp-error';
 import { compose } from 'recompose';
 
 import DashboardBlock from '../Dashboard-Block';
@@ -25,15 +26,17 @@ const PullRequests = ( { data } ) => (
 PullRequests.defaultProps = { data: [] }
 
 PullRequests.propTypes = {
-	data: PropTypes.arrayOf(
-		PropTypes.shape( {
-			date:       PropTypes.string,
-			id:         PropTypes.number,
-			link:       PropTypes.string,
-			status:     PropTypes.string,
-			statusText: PropTypes.string,
-			title:      PropTypes.string,
-		} ),
+	data: orWpError(
+		PropTypes.arrayOf(
+			PropTypes.shape( {
+				date:       PropTypes.string,
+				id:         PropTypes.number,
+				link:       PropTypes.string,
+				status:     PropTypes.string,
+				statusText: PropTypes.string,
+				title:      PropTypes.string,
+			} ),
+		),
 	),
 	loading: PropTypes.bool,
 }

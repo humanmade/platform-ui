@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React  from 'react';
 import withApiFetch from '../../utils/withApiFetch';
+import orWpError from '../../utils/wp-error';
 import { compose } from 'recompose';
 
 import DashboardBlock from '../Dashboard-Block';
@@ -39,12 +40,14 @@ const ContactDetails = ( { data: { contact_data } } ) => {
 
 
 ContactDetails.propTypes = {
-	data: PropTypes.shape( {
-		contact_data: PropTypes.shape( {
-			client:   PropTypes.string,
-			provider: PropTypes.string,
-		} )
-	} ),
+	data: orWpError(
+		PropTypes.shape( {
+			contact_data: PropTypes.shape( {
+				client:   PropTypes.string,
+				provider: PropTypes.string,
+			} )
+		} ),
+	),
 	loading: PropTypes.bool,
 }
 
