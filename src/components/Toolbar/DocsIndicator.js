@@ -21,7 +21,7 @@ export class DocsIndicator extends React.Component {
 			return null;
 		}
 
-		return <span className="hm-docs-indicator">
+		return <span className="hm-platform-ui-toolbar-docs-indicator">
 			<span>{ docs.length }</span> Guides
 		</span>;
 	}

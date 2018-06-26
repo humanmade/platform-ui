@@ -9,11 +9,12 @@ import { convertBytesToGigabytes } from '../../utils';
 /**
  * Display current bandwidth usage against a site for a rolling 30-day period.
  *
- * @param {Array} usageHistory An array of usage data for the current site.
+ * @param {Boolean} loading Whether data is still fetching or not.
+ * @param {Array}   data    An array of usage data for the current site.
  */
-const BandwidthUsage = ( { usageHistory } ) => {
+const BandwidthUsage = ( { loading, data } ) => {
 	// Add a label to the usage history for each item.
-	usageHistory = usageHistory.map( day => {
+	data = data.map( day => {
 		const convertedUsage = convertBytesToGigabytes( day.usage );
 		day.label = `${ new Date( day.date ).toLocaleDateString() } \r\n ${ convertedUsage } GB`
 
@@ -21,9 +22,9 @@ const BandwidthUsage = ( { usageHistory } ) => {
 	} );
 
 	// Compile all of the rolling usage data into one value.
-	const totalBytes = usageHistory.reduce( ( carry, day ) => ( carry + day.usage ), 0 );
+	const totalBytes = data.reduce( ( carry, day ) => ( carry + day.usage ), 0 );
 
-	return <DashboardBlock title="Bandwidth Usage">
+	return <DashboardBlock title="Bandwidth Usage" isLoading={ loading }>
 		<VictoryChart
 			theme={ adminTheme }
 			domainPadding={ 10 }
@@ -51,7 +52,7 @@ const BandwidthUsage = ( { usageHistory } ) => {
 				}
 			/>
 			<VictoryBar
-				data={ usageHistory }
+				data={ data }
 				labelComponent={<VictoryTooltip/>}
 				x="date"
 				y="usage"
@@ -63,10 +64,11 @@ const BandwidthUsage = ( { usageHistory } ) => {
 BandwidthUsage.defaultProps = { usageHistory: [] }
 
 BandwidthUsage.propTypes = {
-	usageHistory: PropTypes.arrayOf( PropTypes.shape( {
+	data: PropTypes.arrayOf( PropTypes.shape( {
 		usage: PropTypes.number,
 		date:  PropTypes.string,
 	} ) ),
+	loading: PropTypes.boolean,
 }
 
 export default BandwidthUsage;

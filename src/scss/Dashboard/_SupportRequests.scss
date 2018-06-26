@@ -2,22 +2,22 @@
   &__status {
     &--in-progess {
       .label {
-        color: var(--orangey-brown);
-        border-color: var(--orangey-brown);
+        color: var(--hm-platform-ui-orangey-brown);
+        border-color: var(--hm-platform-ui-orangey-brown);
       }
     }
 
     &--pending-reply {
       .label {
-        color: var(--orangey-brown);
-        border-color: var(--orangey-brown);
+        color: var(--hm-platform-ui-orangey-brown);
+        border-color: var(--hm-platform-ui-orangey-brown);
       }
     }
 
     &--resolved {
       .label {
-        color: var(--good-green);
-        border-color: var(--good-green);
+        color: var(--hm-platform-ui-good-green);
+        border-color: var(--hm-platform-ui-good-green);
       }
     }
   }

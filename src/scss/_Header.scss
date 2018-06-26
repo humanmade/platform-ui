@@ -1,18 +1,27 @@
-
-.hm-ek-Header {
+.hm-platform-ui__Header {
   margin-left: -20px;
   background:  #fff;
-  padding:     20px 40px;
+  padding:     30px 40px 20px;
 }
 
-.hm-ek-Header h1 svg {
-  vertical-align: text-bottom;
-  margin-right:   20px;
-  height:         1.2em;
-  width:          auto;
+.hm-platform-ui__Header h1 {
+  display:        flex;
+  flex-direction: row;
+  align-items:    center;
+  margin:         0 0 10px;
 }
 
-.hm-ek-Header-Version {
+.hm-platform-ui__Header__Logo {
+  margin-right: 20px;
+  height:       1.2em;
+  width:        auto;
+}
+
+.hm-platform-ui__Header__Title {
+  flex: 1;
+}
+
+.hm-platform-ui__Header__Version {
   margin-left: 10px;
   font-size:   50%;
   color:       #999;

@@ -66,7 +66,7 @@ class Documentation extends React.Component {
 			title="HM Platform Documentation"
 			id="hm-docs-site"
 			ref="iframe"
-			className="hm-platform-full-embed"
+			className="hm-platform-ui-full-embed"
 			onLoad={() => this.onFrameLoad()}
 			src={`${HM.UI.EnterpriseKit.DocsURL}/${HM.UI.EnterpriseKit.DocsVersion}${frameURL}/?admin-request=full`}
 		/>;

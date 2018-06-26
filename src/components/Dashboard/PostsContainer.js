@@ -1,7 +1,6 @@
-/*global HM*/
 import React, { Component } from 'react';
 import Post from './Post';
-import withFetch from '../../utils/withFetch';
+import withApiFetch from '../../utils/withApiFetch';
 import { compose } from 'recompose';
 import Dismissable from '../Dismissable';
 import { WidgetContainer, WidgetHeader, WidgetBody, WidgetControls } from './Widget';
@@ -18,15 +17,10 @@ class PostsContainer extends Component {
 			status: event.target.value
 		})
 	}
+
 	render() {
-		const PostsList = props => { return props.loading ? (<tr><td>Loading</td></tr>) : Object.keys(props.data).map( key => <Post key={key} index={key} post={props.data[key]} /> ) };
-		const PostsListWithData = withFetch( `${HM.UI.CurrentSiteURL}/wp-json/wp/v2/posts?per_page=${this.state.perPage}&_embed=true&status=${this.state.status}`, {
-			credentials: 'same-origin',
-			headers: {
-				'X-WP-Nonce': HM.UI.REST.Nonce,
-				'content-type': 'application/json'
-			}
-		})(PostsList);
+		const PostsList = props => { return props.loading ? (<tr><td><span className="spinner is-active"/> Loading</td></tr>) : Object.keys(props.data).map( key => <Post key={key} index={key} post={props.data[key]} /> ) };
+		const PostsListWithData = withApiFetch( `wp/v2/posts?per_page=${this.state.perPage}&_embed=true&status=${this.state.status}`)(PostsList);
 		return (
 			<WidgetContainer name="posts">
 				<WidgetHeader title="posts">
@@ -49,13 +43,15 @@ class PostsContainer extends Component {
 					</WidgetSettings>
 				</WidgetHeader>
 				<WidgetBody>
-					<Dismissable name="notification" key="notification">
-						<p>You have <a target="_blank" href="/wp-admin/edit-comments.php?comment_status=moderated">{this.props.comments.data.length} comments</a> awaiting moderation</p>
-					</Dismissable>
-
+					{
+						this.props.comments.data.length > 0 &&
+						<Dismissable name={`comments-notification-${Date.now()}`} key="notification">
+							<p>You have <a target="_blank" href="/wp-admin/edit-comments.php?comment_status=moderated">{this.props.comments.data.length} comments</a> awaiting moderation</p>
+						</Dismissable>
+					}
 					<table className="table">
 						<tbody>
-						<PostsListWithData />
+							<PostsListWithData />
 						</tbody>
 					</table>
 				</WidgetBody>
@@ -65,20 +61,8 @@ class PostsContainer extends Component {
 }
 
 const PostsWithData = compose(
-	withFetch( `${HM.UI.CurrentSiteURL}/wp-json/wp/v2/statuses`, {
-		credentials: 'same-origin',
-		headers: {
-			'X-WP-Nonce': HM.UI.REST.Nonce,
-			'content-type': 'application/json'
-		}
-	}, 'statuses' ),
-	withFetch( `${HM.UI.CurrentSiteURL}/wp-json/wp/v2/comments?status=hold`,  {
-		credentials: 'same-origin',
-		headers: {
-			'X-WP-Nonce': HM.UI.REST.Nonce,
-			'content-type': 'application/json'
-		}
-	}, 'comments' ),
+	withApiFetch( `wp/v2/statuses`, {}, 'statuses' ),
+	withApiFetch( `wp/v2/comments?status=hold`,  {}, 'comments' ),
 )(PostsContainer);
 
 export default PostsWithData;

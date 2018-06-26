@@ -1,21 +1,43 @@
 .widget__container {
   width: 100%;
   background: white;
-  border: 1px solid var(--superlight-grey);
+  border: 1px solid var(--hm-platform-ui-superlight-grey);
   border-radius: 4px;
+
+  @media screen and (min-width: 1024px ) {
+    &.full-width {
+      grid-area: auto / span 12;
+      width: 100%;
+    }
+
+    &.two-thirds {
+      grid-area: auto / span 8;
+      width: 100%;
+    }
+
+    &.one-third {
+      grid-area: auto / span 4;
+      width: 100%;
+    }
+
+    &.one-half {
+      grid-area: auto / span 6;
+      width: 100%;
+    }
+  }
 }
 
 .widget {
   a {
-    color: var(--ocean-blue);
+    color: var(--hm-platform-ui-ocean-blue);
   }
 
   .label {
     font-size: 13px;
-    color: var(--ocean-blue);
+    color: var(--hm-platform-ui-ocean-blue);
     text-transform: capitalize;
     border-radius: 3px;
-    border: 1px solid var(--ocean-blue);
+    border: 1px solid var(--hm-platform-ui-ocean-blue);
     padding: 0.2em 0.4em;
     margin-right: 8px;
   }
@@ -24,22 +46,27 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid var(--superlight-grey);
+    border-bottom: 1px solid var(--hm-platform-ui-superlight-grey);
     padding: 0.3em 1.5em;
+
+    svg {
+      margin: -5px 0;
+    }
+
     &__title {
       text-transform: uppercase;
       font-size: 14px;
-      color: var(--dark-grey);
+      color: var(--hm-platform-ui-dark-grey);
       font-weight: 500;
       &:after {
         content: "\00276F";
-        color: var(--hm-red);
+        color: var(--hm-platform-ui-hm-red);
         margin-left: 15px;
       }
     }
 
     input[type="submit"] {
-      background-color: var(--hm-red);
+      background-color: var(--hm-platform-ui-hm-red);
       color: white;
       border: 0;
       border-radius: 4px;
@@ -80,22 +107,22 @@
 
     .hm-dismissable {
       border: 0;
-      background-color: var(--yellow);
+      background-color: var(--hm-platform-ui-yellow);
       margin: -1.5em -1.5em 1.5em -1.5em;
       padding: 1.5em 1.5em;
       p {
-        color: var(--orangey-brown);
+        color: var(--hm-platform-ui-orangey-brown);
         margin: 0;
       }
 
       a {
-        color: var(--orangey-brown);
+        color: var(--hm-platform-ui-orangey-brown);
         font-weight: bold;
       }
     }
 
     .button--popup {
-      color: var(--ocean-blue);
+      color: var(--hm-platform-ui-ocean-blue);
       font-weight: bold;
       font-size: 16px;
       border: none;

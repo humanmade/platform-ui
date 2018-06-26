@@ -37,7 +37,7 @@ class Plugins extends React.Component {
 			} );
 
 		// Add user guides and docs API data.
-		if ( this.props.pluginDocs && ! this.props.pluginDocs.loading ) {
+		if ( this.props.pluginDocs && ! this.props.pluginDocs.loading && ! this.props.pluginDocs.error ) {
 			plugins = plugins.map( plugin => {
 				const pluginDoc = this.props.pluginDocs.data.results
 					.filter( pluginDoc => pluginDoc.slug === plugin.name );
@@ -101,7 +101,7 @@ class Plugins extends React.Component {
 						options={[
 							{ label: 'All', value: 'all', icon: 'all' }
 						].concat(
-							this.props.categories.loading
+							this.props.categories.loading || this.props.categories.error
 								? []
 								: this.props.categories.data.results.map( category => ({
 									label: category.title,
@@ -125,7 +125,7 @@ class Plugins extends React.Component {
 						Below is a list of all the plugins in Enterprise Kit, along with
 						quick access to documentation and further details.
 					</p> }
-					{ this.props.categories.loading
+					{ this.props.categories.loading || this.props.categories.error
 						? ''
 						: this.props.categories.data.results
 								.filter( category => category.pageForTerm === this.state.category )

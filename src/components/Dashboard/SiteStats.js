@@ -1,12 +1,13 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { VictoryLine, VictoryChart, VictoryTheme } from 'victory';
+import FluidChart from '../FluidChart';
+import { VictoryLine } from 'victory';
 import { adminTheme } from '../../victory-theme';
 import { WidgetContainer, WidgetHeader, WidgetBody, WidgetControls, WidgetSettings } from './Widget';
 
-const SiteStats = props => {
-	return (
-		<WidgetContainer name="site-stats">
+class SiteStats extends React.Component {
+	render() {
+		return <WidgetContainer name="site-stats">
 			<WidgetHeader title="site stats">
 				<WidgetControls>
 					<form action="">
@@ -45,13 +46,13 @@ const SiteStats = props => {
 					</TabList>
 
 					<TabPanel>
-						<VictoryChart
+						<FluidChart
 							theme={adminTheme}
 						>
 							<VictoryLine
 								style={{
-									data: { stroke: "#c43a31" },
-									parent: { border: "1px solid #ccc"}
+									data:   { stroke: "#c43a31" },
+									parent: { border: "1px solid #ccc" }
 								}}
 								data={[
 									{ x: "Feb 8", y: 200 },
@@ -61,16 +62,16 @@ const SiteStats = props => {
 									{ x: "Feb 12", y: 1000 }
 								]}
 							/>
-						</VictoryChart>
+						</FluidChart>
 					</TabPanel>
 					<TabPanel>
-						<VictoryChart
-							theme={VictoryTheme.material}
+						<FluidChart
+							theme={adminTheme}
 						>
 							<VictoryLine
 								style={{
-									data: { stroke: "#c43a31" },
-									parent: { border: "1px solid #ccc"}
+									data:   { stroke: "#c43a31" },
+									parent: { border: "1px solid #ccc" }
 								}}
 								data={[
 									{ x: 1, y: 2 },
@@ -80,16 +81,16 @@ const SiteStats = props => {
 									{ x: 5, y: 7 }
 								]}
 							/>
-						</VictoryChart>
+						</FluidChart>
 					</TabPanel>
 					<TabPanel>
-						<VictoryChart
-							theme={VictoryTheme.material}
+						<FluidChart
+							theme={adminTheme}
 						>
 							<VictoryLine
 								style={{
-									data: { stroke: "#c43a31" },
-									parent: { border: "1px solid #ccc"}
+									data:   { stroke: "#c43a31" },
+									parent: { border: "1px solid #ccc" }
 								}}
 								data={[
 									{ x: 1, y: 2 },
@@ -99,16 +100,16 @@ const SiteStats = props => {
 									{ x: 5, y: 7 }
 								]}
 							/>
-						</VictoryChart>
+						</FluidChart>
 					</TabPanel>
 					<TabPanel>
-						<VictoryChart
-							theme={VictoryTheme.material}
+						<FluidChart
+							theme={adminTheme}
 						>
 							<VictoryLine
 								style={{
-									data: { stroke: "#c43a31" },
-									parent: { border: "1px solid #ccc"}
+									data:   { stroke: "#c43a31" },
+									parent: { border: "1px solid #ccc" }
 								}}
 								data={[
 									{ x: 1, y: 2 },
@@ -118,12 +119,12 @@ const SiteStats = props => {
 									{ x: 5, y: 7 }
 								]}
 							/>
-						</VictoryChart>
+						</FluidChart>
 					</TabPanel>
 				</Tabs>
 			</WidgetBody>
 		</WidgetContainer>
-	);
+	};
 }
 
 export default SiteStats;
