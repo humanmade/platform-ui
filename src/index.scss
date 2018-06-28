@@ -1,11 +1,4 @@
-$images-path: "./hm-pattern-library/assets/images";
-
-@import "./hm-pattern-library/assets/sass/brand-colors";
-@import "./hm-pattern-library/assets/sass/variables";
-@import "./hm-pattern-library/assets/sass/base/typography-mixins";
-@import "./hm-pattern-library/assets/sass/utilities/icons";
-@import "./hm-pattern-library/assets/sass/components/loading";
-@import "./hm-pattern-library/assets/sass/components/buttons";
+@import './scss/variables';
 
 // Top level components.
 @import "./scss/Header";
@@ -40,9 +33,9 @@ $images-path: "./hm-pattern-library/assets/images";
   display:        inline-block;
 }
 
-.hm-platform-modal {
+.hm-platform-ui-modal {
 
-  .hm-iframe-close {
+  .hm-platform-ui-iframe-close {
     position: fixed;
     top: 50px;
     right: 50px;
@@ -61,25 +54,25 @@ $images-path: "./hm-pattern-library/assets/images";
     transition: top .3s linear, opacity .3s linear;
   }
 
-  .hm-iframe-loading {
+  .hm-platform-ui-iframe-loading {
     opacity: 0;
     top: 200px;
   }
 
-  .hm-iframe-loaded {
+  .hm-platform-ui-iframe-loaded {
     opacity: 1;
   }
 
 }
 
 // @todo find a way to make the iframe fill the page & increase height via postMessage if admin is shorter
-.toplevel_page_hm-platform {
-  .hm-platform-modal iframe {
-    //top: 106px;
-  }
-}
+//.toplevel_page_hm-platform {
+//  .hm-platform-modal iframe {
+//    top: 106px;
+//  }
+//}
 
-.hm-platform-full-embed {
+.hm-platform-ui-full-embed {
   background: #fff;
   position: fixed;
   z-index: 9991;
@@ -92,6 +85,6 @@ $images-path: "./hm-pattern-library/assets/images";
 }
 
 // We have a close button in the docs site template so hide the one we add.
-.hm-iframe-close {
+.hm-platform-ui-iframe-close {
   display: none;
 }

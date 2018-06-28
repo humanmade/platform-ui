@@ -104,9 +104,9 @@ class IframeLink extends React.Component {
 			return this.props.children;
 		}
 
-		const Open = <a className="hm-iframe-open" key="open" href={src}
+		const Open = <a className="hm-platform-ui-iframe-open" key="open" href={src}
 		                onClick={e => this.onOpen( e )}>{this.props.children}</a>;
-		const Close = <a className="hm-iframe-close btn" key="close" href={src} onClick={e => this.onClose( e )}>Close</a>;
+		const Close = <a className="hm-platform-ui-iframe-close btn" key="close" href={src} onClick={e => this.onClose( e )}>Close</a>;
 
 		// Allow a show prop to override state.
 		if ( typeof this.props.show !== 'undefined' ) {
@@ -122,10 +122,10 @@ class IframeLink extends React.Component {
 		return [
 			Open,
 			<AdminPortal key="iframe" id={src} onUnload={() => this.setState( { loading: true } )}>
-				<div className="hm-platform-modal">
+				<div className="hm-platform-ui-modal">
 					{Close}
 					<iframe
-						//className={ this.state.loading ? 'hm-iframe-loading' : 'hm-iframe-loaded' }
+						//className={ this.state.loading ? 'hm-platform-ui-iframe-loading' : 'hm-platform-ui-iframe-loaded' }
 						src={`${ src }?admin-request=${ this.props.type || 'basic' }`}
 						title={this.props.title || ''}
 						width="100%"

@@ -5,7 +5,6 @@ import Loadable from 'react-loadable';
 import Loading from './components/Loading';
 import Toolbar from './components/Toolbar';
 import AdminPortal from './portal';
-// import Main from './components/Main';
 
 /**
  * Split the Main component so we only load that code when necessary.
@@ -17,7 +16,7 @@ const AsyncMain = Loadable( {
 
 /**
  * Wraps a component in a router so we can add links but only
- * use has routing on the main app pages.
+ * use routing on the main app pages.
  *
  * @todo try a custom navlink component that checks for router context and returns standard link if not hashrouter
  *
