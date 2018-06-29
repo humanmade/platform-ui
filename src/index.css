@@ -122,44 +122,36 @@
   margin: 10px 0; }
 
 /**
- * HM Cloud Pull Requests Pane.
+ * HM Contact Details block.
  */
-.pull-request-item {
-  display: flex;
-  list-style-type: none;
-  margin: 15px; }
+.contact-details {
+  justify-content: space-between; }
+  @media screen and (min-width: 500px) {
+    .contact-details {
+      display: flex; } }
+  @media screen and (min-width: 800px) and (max-width: 900px) {
+    .contact-details {
+      display: block; } }
 
-.pull-request-item__info {
-  flex-basis: 75%; }
+.contact-details__section {
+  flex-basis: 48%;
+  margin: 20px 0; }
+  @media screen and (min-width: 500px) {
+    .contact-details__section {
+      margin: 10px; } }
+  @media screen and (min-width: 800px) and (max-width: 900px) {
+    .contact-details__section {
+      margin: 20px 0; } }
+  .contact-details__section:last-of-type {
+    margin-bottom: 0; }
 
-#dashboard-widgets h3.pull-request-item__title {
-  margin: 0 0 3px;
-  font-size: 13px; }
+#dashboard-widgets h3.contact-details__title {
+  font-weight: bold; }
 
-.pull-request-item__date {
-  margin: 0;
-  color: #999;
-  font-style: italic; }
-
-.pull-request-item__status {
-  color: #999;
-  flex: 0 1 23%; }
-
-.pull-request-item__status-indicator {
-  float: left;
-  margin-right: 7px;
-  height: 1.3em;
-  width: 1.3em;
-  border-radius: 50%;
-  background-color: transparent; }
-  .pull-request-item__status-indicator.pr-status--APPROVED {
-    background-color: green; }
-  .pull-request-item__status-indicator.pr-status--COMMENTED, .pull-request-item__status-indicator.pr-status--CHANGES_REQUESTED {
-    background-color: red; }
-  .pull-request-item__status-indicator.pr-status--PENDING {
-    background-color: green; }
-  .pull-request-item__status-indicator.pr-status--DISMISSED {
-    background-color: #333; }
+.contact-details__contact {
+  display: block;
+  white-space: pre;
+  margin: 3px 0 12px; }
 
 /**
  * HM Cloud Environmental Data pane.
@@ -209,35 +201,44 @@
   padding: 0 21px 7px; }
 
 /**
- * HM Points of Contact block.
+ * HM Cloud Pull Requests Pane.
  */
-.points-of-contact {
-  justify-content: space-between; }
-  @media screen and (min-width: 500px) {
-    .points-of-contact {
-      display: flex; } }
-  @media screen and (min-width: 800px) and (max-width: 900px) {
-    .points-of-contact {
-      display: block; } }
+.pull-request-item {
+  display: flex;
+  list-style-type: none;
+  margin: 15px; }
 
-.points-of-contact__section {
-  flex-basis: 48%;
-  margin: 20px 0; }
-  @media screen and (min-width: 500px) {
-    .points-of-contact__section {
-      margin: 10px; } }
-  @media screen and (min-width: 800px) and (max-width: 900px) {
-    .points-of-contact__section {
-      margin: 20px 0; } }
-  .points-of-contact__section:last-of-type {
-    margin-bottom: 0; }
+.pull-request-item__info {
+  flex-basis: 75%; }
 
-#dashboard-widgets h3.points-of-contact__title {
-  font-weight: bold; }
+#dashboard-widgets h3.pull-request-item__title {
+  margin: 0 0 3px;
+  font-size: 13px; }
 
-.points-of-contact__email {
-  display: block;
-  margin: 3px 0; }
+.pull-request-item__date {
+  margin: 0;
+  color: #999;
+  font-style: italic; }
+
+.pull-request-item__status {
+  color: #999;
+  flex: 0 1 23%; }
+
+.pull-request-item__status-indicator {
+  float: left;
+  margin-right: 7px;
+  height: 1.3em;
+  width: 1.3em;
+  border-radius: 50%;
+  background-color: transparent; }
+  .pull-request-item__status-indicator.pr-status--APPROVED {
+    background-color: green; }
+  .pull-request-item__status-indicator.pr-status--COMMENTED, .pull-request-item__status-indicator.pr-status--CHANGES_REQUESTED {
+    background-color: red; }
+  .pull-request-item__status-indicator.pr-status--PENDING {
+    background-color: green; }
+  .pull-request-item__status-indicator.pr-status--DISMISSED {
+    background-color: #333; }
 
 .hm-plugins {
   margin-right: 20px; }

@@ -1,8 +1,8 @@
 /**
- * HM Points of Contact block.
+ * HM Contact Details block.
  */
 
-.points-of-contact {
+.contact-details {
 	justify-content: space-between;
 
 	// Side-by-side display.
@@ -16,7 +16,7 @@
 	}
 }
 
-.points-of-contact__section {
+.contact-details__section {
 	flex-basis: 48%;
 	margin: 20px 0;
 
@@ -34,11 +34,12 @@
 }
 
 // Yes, this is gross. #becauseWP
-#dashboard-widgets h3.points-of-contact__title {
+#dashboard-widgets h3.contact-details__title {
 	font-weight: bold;
 }
 
-.points-of-contact__email {
+.contact-details__contact {
 	display: block;
-	margin: 3px 0;
+	white-space: pre;
+	margin: 3px 0 12px;
 }
