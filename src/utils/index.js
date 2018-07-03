@@ -70,11 +70,14 @@ export const getTimeSince = time => {
 };
 
 /**
- * Convert bytes to gigabytes and return a nicely formatted number.
+ * Convert bytes to MB, GB, etc. and return a nicely formatted number.
  *
- * @param bytes
+ * @param {Number} bytes
  * @returns {string}
  */
-export const convertBytesToGigabytes = bytes => {
-	return Number( bytes / 1073741824 ).toLocaleString( undefined, { maximumFractionDigits: 0 } );
+export const getHumanReadableBytes = bytes => {
+	const suffixes = [ 'b', 'KB', 'MB', 'GB', 'TB' ];
+	const exp = parseInt( Math.log( bytes ) / Math.log( 1024 ) );
+
+	return Number( bytes / Math.pow( 1024, exp ) ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) + ' ' + suffixes[ exp ];
 }

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withApiFetch from '../../utils/withApiFetch';
+import orWpError from '../../utils/wp-error';
 import { compose } from 'recompose';
 import { VictoryLine, VictoryChart, VictoryAxis, VictoryTooltip } from 'victory';
 
@@ -15,10 +16,20 @@ import { adminTheme } from '../../victory-theme';
  */
 const PageGenerationTime = ( { loading, data } ) => {
 
-	console.log( data );
+	if ( loading || ! Array.isArray( data ) ) {
+		return '';
+	}
 
-	if ( loading || ! Array.isArray( data ) ) return '';
-	const highestTime = data.reduce( ( carry, item ) => { return item.time > carry ? item.time : carry }, 0 );
+	/**
+	 * Format a label for a time measuments.
+	 *
+	 * @param {Number} Value, expected in seconds from API.
+	 * @return {String} Label, with number formatted in ms.
+	 */
+	const formatLabels = sec => `${ parseInt( sec * 1000 ) } ms`;
+
+	// Find the highest time value to label peaks on the graph.
+	const highestTime = data.reduce( ( acc, datum ) => datum.value > acc ? datum.value : acc, 0 );
 
 	return <DashboardBlock title="Page Generation Time" isLoading={ loading }>
 		<VictoryChart
@@ -28,12 +39,12 @@ const PageGenerationTime = ( { loading, data } ) => {
 			<VictoryAxis
 				dependentAxis
 				tickCount={ 5 }
-				tickFormat={ y => `${ Number( y ).toFixed( 0 ) } ms` }
+				tickFormat={ formatLabels }
 			/>
 			<VictoryAxis
 				label="(Date)"
 				tickCount={ 7 }
-				tickFormat={ x => { console.log( x); return new Date( x ).getDate(); } }
+				tickFormat={ x => new Date( x ).getDate() }
 				style={ { grid: {
 						fill: "none",
 						stroke: "none",
@@ -42,15 +53,9 @@ const PageGenerationTime = ( { loading, data } ) => {
 			/>
 			<VictoryLine
 				data={ data }
-				labels={ datum => {
-					if ( datum.time !== highestTime ) {
-						return '';
-					}
-
-					return `${ datum.time } ms`
-				} }
+				labels={ datum => datum.value > ( highestTime * .8 ) ? formatLabels( datum.value ) : '' }
 				x="date"
-				y="time"
+				y="value"
 			/>
 		</VictoryChart>
 	</DashboardBlock>
@@ -59,18 +64,17 @@ const PageGenerationTime = ( { loading, data } ) => {
 PageGenerationTime.defaultProps = { data: [] }
 
 PageGenerationTime.propTypes = {
-	data: PropTypes.oneOfType([
-		PropTypes.arrayOf( PropTypes.shape( {
-			time: PropTypes.number,
-			date: PropTypes.string,
-		} ) ),
-		PropTypes.shape( {
-			code: PropTypes.string,
-			message: PropTypes.string
-		} )
-	] ),
+	data: orWpError(
+		PropTypes.arrayOf(
+			PropTypes.shape( {
+				date: PropTypes.string,
+				value: PropTypes.number,
+				unit: PropTypes.string
+			} )
+		),
+	),
 	loading: PropTypes.bool
-}
+};
 
 const PageGenerationTimeWithData = compose(
 	withApiFetch( 'hm-stack/v1/page-generation/' )
