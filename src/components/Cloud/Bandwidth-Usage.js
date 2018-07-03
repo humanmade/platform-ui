@@ -68,15 +68,19 @@ const BandwidthUsage = ( { loading, data } ) => {
 	</DashboardBlock>
 }
 
-BandwidthUsage.defaultProps = { usageHistory: [] }
+BandwidthUsage.defaultProps = { data: [] }
 
-//BandwidthUsage.propTypes = {
-	//data: PropTypes.arrayOf( PropTypes.shape( {
-		//usage: PropTypes.number,
-		//date:  PropTypes.string,
-	//} ) ),
-	//loading: PropTypes.bool,
-//}
+BandwidthUsage.propTypes = {
+	data: orWpError(
+		PropTypes.arrayOf(
+			PropTypes.shape( {
+				usage: PropTypes.number,
+				date:  PropTypes.string,
+			} )
+		)
+	),
+	loading: PropTypes.bool
+};
 
 const BandwidthUsageWithData = compose(
 	withApiFetch( 'hm-stack/v1/bandwidth-usage/' )
