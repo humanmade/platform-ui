@@ -7,7 +7,7 @@ import DashboardBlock from '../Dashboard-Block';
 import AlertItem from './Alert-Item';
 
 /**
- * List all open alerts/ivity on a site's server.
+ * List all open alerts/activity on a site's server.
  *
  * @param {Boolean} loading Whether data is still fetching or not.
  * @param {Array} items Alerts.
