@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTooltip, VictoryLabel } from 'victory';
 
 import DashboardBlock from '../Dashboard-Block';
-import { adminTheme } from '../../victory-theme';
-import { convertBytesToGigabytes } from '../../utils';
 
 /**
  * Display an announcement fed in from the HM Stack
