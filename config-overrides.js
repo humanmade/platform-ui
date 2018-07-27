@@ -1,3 +1,4 @@
+const webpack = require( 'webpack' );
 const { compose } = require( 'react-app-rewired' );
 const rewireStyledComponents = require( 'react-app-rewire-styled-components' );
 const rewireSVG = require( 'react-app-rewire-svg-react-loader' );
@@ -33,7 +34,9 @@ module.exports = function ( config, env ) {
 	config.output.jsonpFunction = 'hmPlatformUIJSONP';
 
 	// Isolate styled components.
-	process.env.SC_ATTR = 'hm-ui';
+	config.plugins.push( new webpack.EnvironmentPlugin( {
+		SC_ATTR: 'hm-platform-ui',
+	} ) );
 
 	return rewires( config, env );
 }
