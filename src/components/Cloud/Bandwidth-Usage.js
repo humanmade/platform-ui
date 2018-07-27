@@ -1,10 +1,13 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import withApiFetch from '../../utils/withApiFetch';
+import orWpError from '../../utils/wp-error';
+import { compose } from 'recompose';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTooltip, VictoryLabel } from 'victory';
 
 import DashboardBlock from '../Dashboard-Block';
 import { adminTheme } from '../../victory-theme';
-import { convertBytesToGigabytes } from '../../utils';
+import { getHumanReadableBytes } from '../../utils';
 
 /**
  * Display current bandwidth usage against a site for a rolling 30-day period.
@@ -13,10 +16,14 @@ import { convertBytesToGigabytes } from '../../utils';
  * @param {Array}   data    An array of usage data for the current site.
  */
 const BandwidthUsage = ( { loading, data } ) => {
+	if ( loading || ! Array.isArray( data ) ) {
+		return '';
+	}
+
 	// Add a label to the usage history for each item.
 	data = data.map( day => {
-		const convertedUsage = convertBytesToGigabytes( day.usage );
-		day.label = `${ new Date( day.date ).toLocaleDateString() } \r\n ${ convertedUsage } GB`
+		const humanReadableBytes = getHumanReadableBytes( day.usage );
+		day.label = `${ new Date( day.date ).toLocaleDateString() } \r\n ${ humanReadableBytes }`
 
 		return day;
 	} );
@@ -32,12 +39,12 @@ const BandwidthUsage = ( { loading, data } ) => {
 			<VictoryLabel
 				x={ 350 }
 				y={ 25 }
-				text={ `${ convertBytesToGigabytes( totalBytes ) } GB cumulative` }
+				text={ `${ getHumanReadableBytes( totalBytes ) } cumulative` }
 			/>
 			<VictoryAxis
 				dependentAxis
 				tickCount={ 5 }
-				tickFormat={ y => `${ convertBytesToGigabytes( y ) } GB` }
+				tickFormat={ y => getHumanReadableBytes( y ) }
 			/>
 			<VictoryAxis
 				label="(Date)"
@@ -53,7 +60,7 @@ const BandwidthUsage = ( { loading, data } ) => {
 			/>
 			<VictoryBar
 				data={ data }
-				labelComponent={<VictoryTooltip/>}
+				labelComponent={ <VictoryTooltip/> }
 				x="date"
 				y="usage"
 			/>
@@ -61,14 +68,22 @@ const BandwidthUsage = ( { loading, data } ) => {
 	</DashboardBlock>
 }
 
-BandwidthUsage.defaultProps = { usageHistory: [] }
+BandwidthUsage.defaultProps = { data: [] }
 
 BandwidthUsage.propTypes = {
-	data: PropTypes.arrayOf( PropTypes.shape( {
-		usage: PropTypes.number,
-		date:  PropTypes.string,
-	} ) ),
-	loading: PropTypes.boolean,
-}
+	data: orWpError(
+		PropTypes.arrayOf(
+			PropTypes.shape( {
+				usage: PropTypes.number,
+				date:  PropTypes.string,
+			} )
+		)
+	),
+	loading: PropTypes.bool
+};
 
-export default BandwidthUsage;
+const BandwidthUsageWithData = compose(
+	withApiFetch( 'hm-stack/v1/bandwidth-usage/' )
+)( BandwidthUsage );
+
+export default BandwidthUsageWithData;
