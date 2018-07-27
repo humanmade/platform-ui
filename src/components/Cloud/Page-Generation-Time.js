@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import withApiFetch from '../../utils/withApiFetch';
 import orWpError from '../../utils/wp-error';
 import { compose } from 'recompose';
-import { VictoryLine, VictoryChart, VictoryAxis, VictoryTooltip } from 'victory';
+import { VictoryLine, VictoryChart, VictoryAxis } from 'victory';
 
 import DashboardBlock from '../Dashboard-Block';
 import { adminTheme } from '../../victory-theme';
@@ -26,7 +26,7 @@ const PageGenerationTime = ( { loading, data } ) => {
 	 * @param {Number} Value, expected in seconds from API.
 	 * @return {String} Label, with number formatted in ms.
 	 */
-	const formatLabels = sec => `${ parseInt( sec * 1000 ) } ms`;
+	const formatLabels = sec => `${ parseInt( sec * 1000, 10 ) } ms`;
 
 	// Find the highest time value to label peaks on the graph.
 	const highestTime = data.reduce( ( acc, datum ) => datum.value > acc ? datum.value : acc, 0 );
