@@ -39,7 +39,7 @@
     "react-scripts": "^1.1.4",
     "react-select": "^1.2.1",
     "react-tabs": "^2.2.2",
-    "react-transition-group": "^2.2.1",
+    "react-transition-group": "^2.4.0",
     "react-wp-scripts": "github:humanmade/react-wp-scripts#master",
     "reactjs-popup": "^1.1.1",
     "recompose": "^0.26.0",
