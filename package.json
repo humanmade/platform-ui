@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.5",
-    "@storybook/addon-links": "^3.4.5",
+    "@storybook/addon-links": "^3.4.10",
     "@storybook/react": "^3.4.5",
     "dynamic-public-path-webpack-plugin": "^1.0.4",
     "fuzzy": "^0.1.3",
