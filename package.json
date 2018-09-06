@@ -55,7 +55,7 @@
     "dynamic-public-path-webpack-plugin": "^1.0.4",
     "fuzzy": "^0.1.3",
     "husky": "^0.14.3",
-    "react-storybook-addon-props-combinations": "^1.0.1",
+    "react-storybook-addon-props-combinations": "^1.1.0",
     "replace-in-file": "^3.4.0"
   }
 }
