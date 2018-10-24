@@ -13,7 +13,7 @@ injectGlobal`
 		  border-left:  1px solid rgba(255, 255, 255, .3);
 		  padding-left: 10px;
 		}
-	
+
 		.hm-platform-ui-toolbar-logo-small {
 		  max-width:      24px;
 		  width:          auto;
@@ -21,12 +21,12 @@ injectGlobal`
 		  height:         auto;
 		  display:        inline-block;
 		}
-	
+
 	  .ab-submenu-header {
 	    margin-top: -6px;
 	    border-top:  1px solid rgba(255, 255, 255, .3);
 	    font-weight: bold;
-	    padding:     0 10px;
+	    padding:     0;
 	  }
   }
 
@@ -49,7 +49,6 @@ class Toolbar extends Component {
 			<div key="submenu" className="ab-sub-wrapper">
 				<ul className="ab-submenu">
 					<li><a className="ab-item">Environment: <strong>{ HM.UI.Environment }</strong></a></li>
-					{/*<li><a href={ HM.UI.AdminURL + '#/support' } className="ab-item">Get Support</a></li>*/}
 				</ul>
 				<DocsLinks/>
 			</div>

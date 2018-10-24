@@ -113,10 +113,9 @@ function platform_menu_order( $menu_order ) {
  */
 function get_submenu_pages() {
 	return [
-		[ 'title' => esc_html__( 'Dashboard', 'hm-platform' ), 'path' => '/', 'exact' => true ],
-		[ 'title' => esc_html__( 'Enterprise Kit', 'hm-platform' ), 'path' => '/ek' ],
-		[ 'title' => esc_html__( 'Cloud', 'hm-platform' ), 'path' => '/cloud' ],
-		[ 'title' => esc_html__( 'Documentation', 'hm-platform' ), 'path' => '/documentation' ],
+		[ 'title' => esc_html__( 'Documentation', 'hm-platform' ), 'path' => '/documentation', 'cap' => 'edit_posts' ],
+		[ 'title' => esc_html__( 'Enterprise Kit', 'hm-platform' ), 'path' => '/ek', 'cap' => 'edit_posts' ],
+		[ 'title' => esc_html__( 'Cloud', 'hm-platform' ), 'path' => '/cloud', 'cap' => 'manage_options' ],
 	];
 }
 
@@ -133,7 +132,7 @@ function add_menu_item() {
 	add_menu_page(
 		'Human Made Platform',
 		'Platform',
-		'manage_options',
+		'edit_posts',
 		'hm-platform',
 		$ek_page_callback,
 		'data:image/svg+xml;base64,' . base64_encode( file_get_contents( WP_CONTENT_DIR . '/hm-platform/plugins/hm-platform-ui/src/assets/logo-small-white.svg' ) ),
@@ -141,11 +140,15 @@ function add_menu_item() {
 	);
 
 	foreach ( get_submenu_pages() as $page ) {
+		if ( ! current_user_can( $page['cap'] ) ) {
+			continue;
+		}
+
 		add_submenu_page(
 			'hm-platform',
 			$page['title'],
 			$page['title'],
-			'manage_options',
+			$page['cap'],
 			'hm-platform#' . $page['path'],
 			$ek_page_callback
 		);

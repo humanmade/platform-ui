@@ -7,27 +7,12 @@ import IframeLink from '../IframeLink';
 
 export class DocsLinks extends React.Component {
 	render() {
-		if ( this.props.loading ) {
-			return <ul className="ab-submenu ab-sub-secondary">
-				<li className="ab-submenu-header">Documentation</li>
-				<li><Spinner /></li>
-			</ul>;
-		}
-
-		if ( ! this.props.data || ! this.props.data.results ) {
-			// @todo flag an error state, error boundary in outer app? modal?
-			return null;
-		}
-
-		const docs = getDocsForURL( this.props.data.results );
-
-		if ( ! docs.length ) {
-			return null;
-		}
+		const docs = this.props.loading || this.props.error ? [] : getDocsForURL( this.props.data.results );
 
 		return <ul className="ab-submenu ab-sub-secondary hm-docs-links">
-			<li className="ab-submenu-header">Documentation</li>
-			{ docs.map( doc => <li key={ doc.id }>
+			<li className="ab-submenu-header"><a href={`${HM.UI.AdminURL}#/documentation`}>Documentation</a></li>
+			{ this.props.loading && <li><Spinner /></li> }
+			{ ! this.props.loading && docs.map( doc => <li key={ doc.id }>
 				<IframeLink
 					src={ doc.link }
 					title={`${ doc.parent } ${ doc.title }`}

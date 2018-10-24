@@ -14,7 +14,7 @@ class Menu extends Component {
 		return [
 			<NavLink
 				key="main-link"
-				to="/"
+				to="/documentation"
 				className="wp-has-current-submenu menu-top toplevel_page_hm-enterprise-kit"
 				activeClassName="current"
 			>
