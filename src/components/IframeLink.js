@@ -16,6 +16,14 @@ class IframeLink extends React.Component {
 		this.onClose = this.onClose.bind( this );
 	}
 
+	componentDidMount() {
+		this._isMounted = true;
+	}
+
+	componentWillUnmount() {
+		this._isMounted = false;
+	}
+
 	onOpen( event ) {
 		event && event.preventDefault();
 
@@ -70,8 +78,8 @@ class IframeLink extends React.Component {
 			return;
 		}
 
-		this.iframe.contentWindow.onload = () => this.setState( { loading: false } );
-		this.iframe.contentWindow.onunload = () => this.setState( { loading: true } );
+		this.iframe.contentWindow.onload = () => this._isMounted && this.setState( { loading: false } );
+		this.iframe.contentWindow.onunload = () => this._isMounted && this.setState( { loading: true } );
 	}
 
 	/**

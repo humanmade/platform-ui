@@ -23,10 +23,12 @@ module.exports = function ( config, env ) {
 		} );
 	} );
 
-	config.plugins.push( new DynamicPublicPathPlugin( {
-		externalGlobal: 'window.HM.UI.BuildURL', //Your global variable name.
-		chunkName: 'hm-ui',
-	} ) );
+	if ( env === 'production' ) {
+		config.plugins.push( new DynamicPublicPathPlugin( {
+			externalGlobal: 'window.HM.UI.BuildURL',
+			chunkName: 'hm-ui',
+		} ) );
+	}
 
 	config.entry = { 'hm-ui': config.entry };
 
