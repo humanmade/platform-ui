@@ -77,7 +77,7 @@ const withFetch = ( url, options = {}, name = null ) => {
 					error,
 					loading: false,
 					fetching: false,
-					expires: Date.now() + ( options.expires || ( 5 * 60 * 1000 ) ) // 5 minutes.
+					expires: 0, // Date.now() + ( options.expires || ( 5 * 60 * 1000 ) ) // 5 minutes.
 				};
 
 				// Add a timeout to update the data after expiry time.

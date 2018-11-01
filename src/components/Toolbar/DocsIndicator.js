@@ -28,7 +28,10 @@ export class DocsIndicator extends React.Component {
 }
 
 const EnhancedDocsIndicator = withFetch(
-	`${HM.UI.EnterpriseKit.DocsURL}/wp-json/docs/v1/guides?version=${HM.UI.EnterpriseKit.DocsVersion}`
+	`${HM.UI.EnterpriseKit.DocsURL}/wp-json/docs/v1/guides?version=${HM.UI.EnterpriseKit.DocsVersion}`,
+	{
+		mode: 'cors',
+	}
 )( DocsIndicator );
 
 export default EnhancedDocsIndicator;
