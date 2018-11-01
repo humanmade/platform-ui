@@ -35,7 +35,7 @@ function get_base_url() {
 	return defined( 'HM_PLATFORM_UI_URL' ) ? HM_PLATFORM_UI_URL : WP_CONTENT_URL . '/hm-platform/plugins/hm-platform-ui';
 }
 
-function get_environment() {
+function get_environment_type() {
 	if ( defined( 'HM_DEV' ) && HM_DEV ) {
 		return 'local';
 	}
@@ -44,7 +44,15 @@ function get_environment() {
 		return HM_ENV_TYPE;
 	}
 
-	if ( defined( 'HM_ENV' ) && HM_ENV ) {
+	if ( strpos( $_SERVER['SERVER_NAME'], '.local' ) !== false ) {
+		return 'local';
+	}
+
+	return 'unknown';
+}
+
+function get_environment_name() {
+	if ( defined( 'HM_ENV' ) ) {
 		return HM_ENV;
 	}
 
@@ -57,13 +65,17 @@ function get_environment() {
  *
  * Uniqueness based on
  *  - installation URL
- *  - environment
+ *  - environment type
+ *  - environment name
  *  - user ID
+ *
+ * @todo find better obfuscation method eg. per session no ID.
  */
 function get_anonymous_user() {
 	return md5( serialize( [
 		WP_HOME,
-		get_environment(),
+		get_environment_type(),
+		get_environment_name(),
 		get_current_user_id(),
 	] ) );
 }
@@ -233,7 +245,10 @@ function enqueue_assets() {
 			'DocsURL'     => \HM\Platform\docs_url(),
 			'Config'      => get_plugin_manifest(),
 		],
-		'Environment'    => get_environment(),
+		'Environment'    => [
+			'type' => get_environment_type(),
+			'name' => get_environment_name(),
+		],
 		'User'           => get_anonymous_user(),
 		'Analytics'      => [
 			'OptoutBy' => defined( 'HM_ANALYTICS_OPTOUT' ) ? 'code' : 'setting',
