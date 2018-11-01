@@ -6,6 +6,7 @@ import EnvironmentData from './Environment-Data';
 import ContactDetails from './Contact-Details';
 import PageGenerationTime from './Page-Generation-Time';
 import BandwidthUsage from './Bandwidth-Usage';
+import Support from './Support';
 
 class Cloud extends React.Component {
 	render() {
@@ -14,6 +15,7 @@ class Cloud extends React.Component {
 				<Header key="header" title="Cloud" />
 				<DashboardWrapper>
 					<EnvironmentData />
+					<Support />
 					<PullRequests />
 					<ContactDetails />
 					<PageGenerationTime />
