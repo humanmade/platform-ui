@@ -21,7 +21,7 @@ const Deploys = props => {
 				<DeployItem key={ item.rev } { ...item } />
 			) ) }
 			{ ( ! loading && ! data.length )
-				&& <p>No deploys history.</p>
+				&& <p>No deployment history was found.</p>
 			}
 		</DashboardBlock>
 	);
