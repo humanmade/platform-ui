@@ -240,6 +240,26 @@
   .pull-request-item__status-indicator.pr-status--DISMISSED {
     background-color: #333; }
 
+.deploy-item {
+  list-style: none;
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 50px;
+  margin-bottom: 0; }
+  .deploy-item__meta {
+    font-style: italic;
+    margin-top: 0;
+    margin-bottom: 0; }
+    .deploy-item__meta__date {
+      margin-right: 0.5em; }
+  .deploy-item__avatar {
+    width: 40px;
+    height: auto;
+    position: absolute;
+    top: 10px;
+    left: 0; }
+
 .hm-plugins {
   margin-right: 20px; }
 
