@@ -30,10 +30,7 @@ export class DocsLinks extends React.Component {
 }
 
 const EnhancedDocsLinks = withFetch(
-	`${HM.UI.EnterpriseKit.DocsURL}/wp-json/docs/v1/guides?version=${HM.UI.EnterpriseKit.DocsVersion}`,
-	{
-		mode: 'cors',
-	}
+	`${HM.UI.EnterpriseKit.DocsURL}/wp-json/docs/v1/guides?version=${HM.UI.EnterpriseKit.DocsVersion}`
 )( DocsLinks );
 
 export default EnhancedDocsLinks;
