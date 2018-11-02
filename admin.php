@@ -59,6 +59,14 @@ function get_environment_name() {
 	return $_SERVER['SERVER_NAME'];
 }
 
+function get_environment_region() {
+	if ( defined( 'HM_ENV_REGION' ) ) {
+		return HM_ENV_REGION;
+	}
+
+	return  'local';
+}
+
 /**
  * Gets a unique user ID containing no identifiable info for use with
  * analytics packages.
@@ -246,8 +254,9 @@ function enqueue_assets() {
 			'Config'      => get_plugin_manifest(),
 		],
 		'Environment'    => [
-			'type' => get_environment_type(),
-			'name' => get_environment_name(),
+			'type'   => get_environment_type(),
+			'name'   => get_environment_name(),
+			'region' => get_environment_region(),
 		],
 		'User'           => get_anonymous_user(),
 		'Analytics'      => [

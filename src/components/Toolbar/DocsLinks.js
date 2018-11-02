@@ -7,12 +7,14 @@ import IframeLink from '../IframeLink';
 
 export class DocsLinks extends React.Component {
 	render() {
-		const docs = this.props.loading || this.props.error ? [] : getDocsForURL( this.props.data.results );
+		const { loading, data, error } = this.props;
+
+		const docs = loading || error ? [] : getDocsForURL( data.results );
 
 		return <ul className="ab-submenu ab-sub-secondary hm-docs-links">
 			<li className="ab-submenu-header"><a href={`${HM.UI.AdminURL}#/documentation`}>Documentation</a></li>
-			{ this.props.loading && <li><Spinner /></li> }
-			{ ! this.props.loading && docs.map( doc => <li key={ doc.id }>
+			{ loading && <li><Spinner /></li> }
+			{ ! loading && docs.map( doc => <li key={ doc.id }>
 				<IframeLink
 					src={ doc.link }
 					title={`${ doc.parent } ${ doc.title }`}

@@ -27,7 +27,7 @@ export const getDocsForURL = guides => {
 		.filter( guide => {
 			let match = false;
 			guide.showOn.forEach( pattern => {
-				match = window.location.href.match( new RegExp( pattern.replace( /^\/?(.*?)\/?$/, '$1' ) ) );
+				match = match || window.location.href.match( new RegExp( pattern.replace( /^\/?(.*?)\/?$/, '$1' ) ) );
 			} );
 
 			return match;
