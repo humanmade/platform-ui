@@ -1,0 +1,26 @@
+.deploy-item {
+	list-style: none;
+	position: relative;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 50px;
+	margin-bottom: 0;
+
+	&__meta {
+		font-style: italic;
+		margin-top: 0;
+		margin-bottom: 0;
+
+		&__date {
+			margin-right: 0.5em;
+		}
+	}
+
+	&__avatar {
+		width: 40px;
+		height: auto;
+		position: absolute;
+		top: 10px;
+		left: 0;
+	}
+}

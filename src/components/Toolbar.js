@@ -48,7 +48,7 @@ class Toolbar extends Component {
 			</a>,
 			<div key="submenu" className="ab-sub-wrapper">
 				<ul className="ab-submenu">
-					<li><a className="ab-item">Environment: <strong>{ HM.UI.Environment }</strong></a></li>
+					<li><a className="ab-item">Environment: <strong>{ HM.UI.Environment.type }</strong></a></li>
 				</ul>
 				<DocsLinks/>
 			</div>
