@@ -19,7 +19,7 @@ const Deploys = props => {
 	return (
 		<DashboardBlock title="Deploys">
 			{ ( ! loading && ! error && data ) && data.slice( 0, 5 ).map( item => (
-				<DeployItem key={ item.rev } { ...item } />
+				<DeployItem key={ item.id } { ...item } />
 			) ) }
 			{ ( ! loading && ! error && ! data )
 				&& <p>No deployment history found</p>
