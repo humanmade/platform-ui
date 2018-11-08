@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { distanceInWordsToNow } from 'date-fns';
 
 /**
  * Display status about a single Pull Request.
@@ -15,7 +16,7 @@ const DeployItem = props => {
 	const { description, date, status, user } = props;
 	const parsedDate = new Date( date );
 	const dateTime = parsedDate.toISOString();
-	const dateString = parsedDate.toLocaleDateString();
+	const dateString = distanceInWordsToNow( parsedDate, { addSuffix: true } );
 	const { avatar_urls, name } = user;
 	const avatarSize = Number( Object.keys( avatar_urls )[0] );
 
