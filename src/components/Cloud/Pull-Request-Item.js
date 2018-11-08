@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { distanceInWordsToNow } from 'date-fns';
 
 /**
  * Display status about a single Pull Request.
@@ -13,12 +14,15 @@ import PropTypes from 'prop-types';
  */
 const PullRequestItem = ( { date, id, link, status, statusText, title } ) => {
 	const parsedDate = new Date( date );
+	const dateTime = parsedDate.toISOString();
+	const dateString = distanceInWordsToNow( parsedDate, { addSuffix: true } );
+
 	return <li className="pull-request-item">
 		<div className="pull-request-item__info" >
 			<h3 className="pull-request-item__title">
 				<a href={ link }>#{ id }</a> <strong>{ title }</strong>
 			</h3>
-			<time datetime={ parsedDate.toISOString() } className="pull-request-item__date">{ parsedDate.toLocaleDateString() }</time>
+			<time datetime={ dateTime } className="pull-request-item__date">{ dateString }</time>
 		</div>
 		<div className="pull-request-item__status">
 			<div className={ `pull-request-item__status-indicator pr-status--${ status }` } />
