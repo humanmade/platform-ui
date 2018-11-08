@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { distanceInWordsToNow } from 'date-fns';
 
+import RelativeDate from '../RelativeDate';
 import StatusIndicator from '../StatusIndicator';
 
 /**
@@ -14,12 +14,8 @@ import StatusIndicator from '../StatusIndicator';
  * @param {String} statusText Formatted string describing the current status of the pull request,
  * @param {String} title      Title of the pull request.
  */
-const PullRequestItem = ( { date, id, link, status, title } ) => {
-	const parsedDate = new Date( date );
-	const dateTime = parsedDate.toISOString();
-	const dateString = distanceInWordsToNow( parsedDate, { addSuffix: true } );
-
-	return <li className="pull-request-item">
+const PullRequestItem = ( { date, id, link, status, title } ) => (
+	<li className="pull-request-item">
 		<div className="pull-request-item__info" >
 			<h3 className="pull-request-item__title">
 				<a href={ link }>#{ id }</a><br />
@@ -32,11 +28,11 @@ const PullRequestItem = ( { date, id, link, status, title } ) => {
 				>
 					{ status }
 				</StatusIndicator>
-				<time dateTime={ dateTime } className="pull-request-item__date">{ dateString }</time>
+				<RelativeDate className="pull-request-item__date" date={ date } />
 			</div>
 		</div>
 	</li>
-}
+);
 
 PullRequestItem.defaultProps = {};
 
