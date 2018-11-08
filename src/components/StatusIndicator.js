@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Dot = styled.span`
@@ -10,7 +11,7 @@ const Dot = styled.span`
 	background-color: ${ props => props.bgColor };
 `;
 
-export default function StatusDot( props ) {
+export default function StatusIndicator( props ) {
 	const { className, children, status } = props;
 	let bgColor;
 
@@ -43,3 +44,12 @@ export default function StatusDot( props ) {
 		</span>
 	);
 }
+
+StatusIndicator.defaultProps = {
+	className: '',
+};
+
+StatusIndicator.propTypes = {
+	className: PropTypes.string,
+	status: PropTypes.string.isRequired,
+};
