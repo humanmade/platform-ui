@@ -2,13 +2,8 @@
  * HM Cloud Pull Requests Pane.
  */
 .pull-request-item {
-	display: flex;
 	list-style-type: none;
 	margin: 15px;
-}
-
-.pull-request-item__info {
-	flex-basis: 75%;
 }
 
 #dashboard-widgets h3.pull-request-item__title {
@@ -19,9 +14,4 @@
 .pull-request-item__date {
 	@include date;
 	margin: 0;
-}
-
-.pull-request-item__status {
-	color: #999;
-	flex: 0 1 23%;
 }

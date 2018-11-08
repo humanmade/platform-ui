@@ -22,16 +22,19 @@ const PullRequestItem = ( { date, id, link, status, title } ) => {
 	return <li className="pull-request-item">
 		<div className="pull-request-item__info" >
 			<h3 className="pull-request-item__title">
-				<a href={ link }>#{ id }</a> <strong>{ title }</strong>
+				<a href={ link }>#{ id }</a><br />
+				<strong>{ title }</strong>
 			</h3>
-			<time datetime={ dateTime } className="pull-request-item__date">{ dateString }</time>
+			<div className="pull-request-item__meta">
+				<StatusIndicator
+					className="pull-request-item__status"
+					status={ 'commented' }
+				>
+					{ status }
+				</StatusIndicator>
+				<time dateTime={ dateTime } className="pull-request-item__date">{ dateString }</time>
+			</div>
 		</div>
-		<StatusIndicator
-			className="pull-request-item__status"
-			status={ 'commented' }
-		>
-			{ status }
-		</StatusIndicator>
 	</li>
 }
 
@@ -39,7 +42,7 @@ PullRequestItem.defaultProps = {};
 
 PullRequestItem.propTypes = {
 	date:       PropTypes.string,
-	id:         PropTypes.number,
+	id:         PropTypes.string,
 	link:       PropTypes.string,
 	status:     PropTypes.string,
 	statusText: PropTypes.string,
