@@ -16,7 +16,7 @@ const PullRequests = ( { data } ) => (
 	<DashboardBlock title="Pull Requests">
 		{ ( data && data.length > 0 )
 			? <ul>
-				{ data.map( pr => <PullRequestItem {...pr} /> ) }
+				{ data.map( pr => <PullRequestItem key={ pr.id } {...pr} /> ) }
 			</ul>
 			: <p>No Open Pull Requests</p>
 		}
