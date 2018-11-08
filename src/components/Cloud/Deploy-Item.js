@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { distanceInWordsToNow } from 'date-fns';
 
+import RelativeDate from '../RelativeDate';
 import StatusIndicator from '../StatusIndicator';
 
 
@@ -17,9 +17,6 @@ import StatusIndicator from '../StatusIndicator';
  */
 const DeployItem = props => {
 	const { description, date, status, user } = props;
-	const parsedDate = new Date( date );
-	const dateTime = parsedDate.toISOString();
-	const dateString = distanceInWordsToNow( parsedDate, { addSuffix: true } );
 	const { avatar_urls, name } = user;
 	const avatarSize = Number( Object.keys( avatar_urls )[0] );
 
@@ -28,7 +25,7 @@ const DeployItem = props => {
 			<h3 className="deploy-item__title">{ description }</h3>
 			<p className="deploy-item__meta">
 				<StatusIndicator className="deploy-item__meta__status" status={ status }>{ status }</StatusIndicator>
-				<time dateTime={ dateTime } className="deploy-item__meta__date">{ dateString }</time>
+				<RelativeDate className="deploy-item__meta__date" date={ date } />
 			</p>
 			<img className="deploy-item__avatar" src={ avatar_urls[ avatarSize ] } alt={ name } />
 		</li>
