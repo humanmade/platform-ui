@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { distanceInWordsToNow } from 'date-fns';
 
+import StatusIndicator from '../StatusIndicator';
+
+
 /**
  * Display status about a single Pull Request.
  *
@@ -24,8 +27,8 @@ const DeployItem = props => {
 		<li className="deploy-item">
 			<h3 className="deploy-item__title">{ description }</h3>
 			<p className="deploy-item__meta">
+				<StatusIndicator className="deploy-item__meta__status" status={ status }>{ status }</StatusIndicator>
 				<time dateTime={ dateTime } className="deploy-item__meta__date">{ dateString }</time>
-				<span className="deploy-item__meta__status">{ status }</span>
 			</p>
 			<img className="deploy-item__avatar" src={ avatar_urls[ avatarSize ] } alt={ name } />
 		</li>
