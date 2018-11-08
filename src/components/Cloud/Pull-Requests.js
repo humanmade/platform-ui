@@ -30,7 +30,7 @@ PullRequests.propTypes = {
 		PropTypes.arrayOf(
 			PropTypes.shape( {
 				date:       PropTypes.string,
-				id:         PropTypes.number,
+				id:         PropTypes.string,
 				link:       PropTypes.string,
 				status:     PropTypes.string,
 				statusText: PropTypes.string,
