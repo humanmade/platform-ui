@@ -11,7 +11,6 @@
 	font-size: 13px;
 }
 
-.pull-request-item__date {
-	@include date;
-	margin: 0;
+.pull-request-item__meta {
+	color: #737373;
 }
