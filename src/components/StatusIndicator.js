@@ -2,13 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+const Indicator = styled.span`
+	display: inline-block;
+	height: 1.2em;
+	line-height: 1.2em;
+	margin-right: 0.5em;
+`;
+
 const Dot = styled.span`
-	float: left;
-	margin-right: 7px;
-	height: 1.3em;
-	width: 1.3em;
-	border-radius: 50%;
-	background-color: ${ props => props.bgColor };
+	&::before {
+		content: '';
+		display: inline-block;
+		vertical-align: sub;
+		margin-right: 0.4em;
+		height: 1em;
+		width: 1em;
+		border-radius: 50%;
+		background-color: ${ props => props.bgColor };
+	}
 `;
 
 export default function StatusIndicator( props ) {
@@ -38,10 +49,9 @@ export default function StatusIndicator( props ) {
 	}
 
 	return (
-		<span className={ className }>
-			<Dot bgColor={ bgColor } />
-			{ children }
-		</span>
+		<Indicator className={ className }>
+			<Dot bgColor={ bgColor }>{ children }</Dot>
+		</Indicator>
 	);
 }
 
