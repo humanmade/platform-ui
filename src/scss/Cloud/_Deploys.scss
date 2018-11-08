@@ -7,13 +7,12 @@
 	margin-bottom: 0;
 
 	&__meta {
-		font-style: italic;
 		margin-top: 0;
 		margin-bottom: 0;
 
 		&__date {
 			margin-right: 0.5em;
-			color: #999;
+			@include date;
 		}
 	}
 
