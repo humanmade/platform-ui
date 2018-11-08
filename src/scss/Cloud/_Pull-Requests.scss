@@ -25,29 +25,3 @@
 	color: #999;
 	flex: 0 1 23%;
 }
-
-.pull-request-item__status-indicator {
-	float: left;
-	margin-right: 7px;
-	height: 1.3em;
-	width: 1.3em;
-	border-radius: 50%;
-	background-color: transparent;
-
-	&.pr-status--APPROVED {
-		background-color: green;
-	}
-
-	&.pr-status--COMMENTED,
-	&.pr-status--CHANGES_REQUESTED {
-		background-color: red;
-	}
-
-	&.pr-status--PENDING {
-		background-color: green;
-	}
-
-	&.pr-status--DISMISSED {
-		background-color: #333;
-	}
-}
