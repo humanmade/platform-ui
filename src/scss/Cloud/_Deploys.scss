@@ -6,13 +6,18 @@
 	padding-left: 50px;
 	margin-bottom: 0;
 
+	&__title {
+		min-height: 40px;
+	}
+
 	&__meta {
-		font-style: italic;
 		margin-top: 0;
 		margin-bottom: 0;
+		color: #737373;
+		margin-left: -50px;
 
-		&__date {
-			margin-right: 0.5em;
+		> * {
+			vertical-align: middle;
 		}
 	}
 

@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import RelativeDate from '../RelativeDate';
+import StatusIndicator from '../StatusIndicator';
+
+
 /**
  * Display status about a single Pull Request.
  *
@@ -13,9 +17,6 @@ import PropTypes from 'prop-types';
  */
 const DeployItem = props => {
 	const { description, date, status, user } = props;
-	const parsedDate = new Date( date );
-	const dateTime = parsedDate.toISOString();
-	const dateString = parsedDate.toLocaleDateString();
 	const { avatar_urls, name } = user;
 	const avatarSize = Number( Object.keys( avatar_urls )[0] );
 
@@ -23,8 +24,8 @@ const DeployItem = props => {
 		<li className="deploy-item">
 			<h3 className="deploy-item__title">{ description }</h3>
 			<p className="deploy-item__meta">
-				<time dateTime={ dateTime } className="deploy-item__meta__date">{ dateString }</time>
-				<span className="deploy-item__meta__status">{ status }</span>
+				<StatusIndicator className="deploy-item__meta__status" status={ status }>{ status }</StatusIndicator>
+				<RelativeDate className="deploy-item__meta__date" date={ date } />
 			</p>
 			<img className="deploy-item__avatar" src={ avatar_urls[ avatarSize ] } alt={ name } />
 		</li>

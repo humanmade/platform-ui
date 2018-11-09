@@ -16,7 +16,7 @@ const PullRequests = ( { data } ) => (
 	<DashboardBlock title="Pull Requests">
 		{ ( data && data.length > 0 )
 			? <ul>
-				{ data.map( pr => <PullRequestItem {...pr} /> ) }
+				{ data.map( pr => <PullRequestItem key={ pr.id } {...pr} /> ) }
 			</ul>
 			: <p>No Open Pull Requests</p>
 		}
@@ -30,7 +30,7 @@ PullRequests.propTypes = {
 		PropTypes.arrayOf(
 			PropTypes.shape( {
 				date:       PropTypes.string,
-				id:         PropTypes.number,
+				id:         PropTypes.string,
 				link:       PropTypes.string,
 				status:     PropTypes.string,
 				statusText: PropTypes.string,

@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import RelativeDate from '../RelativeDate';
+import StatusIndicator from '../StatusIndicator';
+
 /**
  * Display status about a single Pull Request.
  *
@@ -11,27 +14,31 @@ import PropTypes from 'prop-types';
  * @param {String} statusText Formatted string describing the current status of the pull request,
  * @param {String} title      Title of the pull request.
  */
-const PullRequestItem = ( { date, id, link, status, statusText, title } ) => {
-	const parsedDate = new Date( date );
-	return <li className="pull-request-item">
+const PullRequestItem = ( { date, id, link, status, title } ) => (
+	<li className="pull-request-item">
 		<div className="pull-request-item__info" >
 			<h3 className="pull-request-item__title">
-				<a href={ link }>#{ id }</a> <strong>{ title }</strong>
+				<a href={ link }>#{ id }</a><br />
+				<strong>{ title }</strong>
 			</h3>
-			<time datetime={ parsedDate.toISOString() } className="pull-request-item__date">{ parsedDate.toLocaleDateString() }</time>
-		</div>
-		<div className="pull-request-item__status">
-			<div className={ `pull-request-item__status-indicator pr-status--${ status }` } />
-			{ statusText }
+			<div className="pull-request-item__meta">
+				<StatusIndicator
+					className="pull-request-item__status"
+					status={ 'commented' }
+				>
+					{ status }
+				</StatusIndicator>
+				<RelativeDate className="pull-request-item__date" date={ date } />
+			</div>
 		</div>
 	</li>
-}
+);
 
 PullRequestItem.defaultProps = {};
 
 PullRequestItem.propTypes = {
 	date:       PropTypes.string,
-	id:         PropTypes.number,
+	id:         PropTypes.string,
 	link:       PropTypes.string,
 	status:     PropTypes.string,
 	statusText: PropTypes.string,
