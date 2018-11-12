@@ -146,7 +146,7 @@ function add_menu_item() {
 	global $submenu;
 
 	$ek_page_callback = function () {
-		printf( '<div id="hm-platform"><span class="loading--red"></span> %s</div>', 'Loading HM Platform' );
+		printf( '<div id="hm-platform" class="wrap"><span class="loading--red"></span> %s</div>', 'Loading HM Platform' );
 	};
 
 	add_menu_page(

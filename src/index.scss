@@ -18,6 +18,20 @@
 // Dashboard
 @import "./scss/Dashboard/Dashboard";
 
+// Root.
+#hm-platform {
+	margin-top: 0;
+}
+
+@media only screen and (min-width: 800px) and (max-width: 1499px) {
+	#wpbody-content #hm-platform #dashboard-widgets {
+		.postbox-container {
+			width: 50%;
+		}
+	}
+}
+
+
 // Hide update & admin notices, we'll move those elsewhere in the UI to avoid the fugly.
 .toplevel_page_hm-platform #wpbody-content {
   > .update-nag,

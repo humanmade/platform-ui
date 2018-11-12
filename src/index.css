@@ -9,6 +9,7 @@
  */
 .hm-platform-ui__Header {
   margin-left: -20px;
+  margin-right: -20px;
   background: #fff;
   padding: 30px 40px 20px; }
 
@@ -51,7 +52,8 @@
 .hm-platform-ui__Dismissable {
   background: #fff;
   border: 1px solid #d9d9d9;
-  margin: 20px 20px 20px 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
   padding: .5em 20px;
   position: relative; }
   .hm-platform-ui__Dismissable .notice-dismiss {
@@ -236,9 +238,6 @@
     position: absolute;
     top: 10px;
     left: 0; }
-
-.hm-plugins {
-  margin-right: 20px; }
 
 .hm-plugins--filters {
   display: flex;
@@ -585,6 +584,13 @@
       grid-template-columns: repeat(12, 1fr);
       grid-column-gap: 10px;
       grid-row-gap: 1em; } }
+
+#hm-platform {
+  margin-top: 0; }
+
+@media only screen and (min-width: 800px) and (max-width: 1499px) {
+  #wpbody-content #hm-platform #dashboard-widgets .postbox-container {
+    width: 50%; } }
 
 .toplevel_page_hm-platform #wpbody-content > .update-nag,
 .toplevel_page_hm-platform #wpbody-content > .notice {
