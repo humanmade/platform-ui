@@ -18,6 +18,11 @@
 // Dashboard
 @import "./scss/Dashboard/Dashboard";
 
+// Root.
+#hm-platform {
+	margin-top: 0;
+}
+
 // Hide update & admin notices, we'll move those elsewhere in the UI to avoid the fugly.
 .toplevel_page_hm-platform #wpbody-content {
   > .update-nag,
