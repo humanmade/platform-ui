@@ -133,7 +133,7 @@ function platform_menu_order( $menu_order ) {
  * Get an array of the sub menu items for platform.
  */
 function get_submenu_pages() {
-	return [
+	$pages = [
 		[
 			'title' => esc_html__( 'Documentation', 'hm-platform' ),
 			'path'  => '/documentation',
@@ -150,6 +150,13 @@ function get_submenu_pages() {
 			'cap'   => is_multisite() ? 'manage_network_options' : 'manage_options',
 		],
 	];
+
+
+	$pages = array_filter( $pages, function ( $page ) {
+		return current_user_can( $page['cap'] );
+	} );
+
+	return $pages;
 }
 
 /**
@@ -173,10 +180,6 @@ function add_menu_item() {
 	);
 
 	foreach ( get_submenu_pages() as $page ) {
-		if ( ! current_user_can( $page['cap'] ) ) {
-			continue;
-		}
-
 		add_submenu_page(
 			'hm-platform',
 			$page['title'],
