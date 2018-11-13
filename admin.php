@@ -256,7 +256,9 @@ function enqueue_assets() {
 		'Locale'         => str_replace( '_', '-', get_user_locale() ),
 		'CurrentSiteURL' => home_url(),
 		'BuildURL'       => ReactWPScripts\infer_base_url( __DIR__ . '/build/' ),
-		'AdminURL'       => admin_url( '/admin.php?page=hm-platform' ),
+		'AdminURL'       => is_network_admin()
+			? network_admin_url( '/admin.php?page=hm-platform' )
+			: admin_url( '/admin.php?page=hm-platform' ),
 		'REST'           => [
 			'URL'   => get_rest_url(),
 			'Nonce' => wp_create_nonce( 'wp_rest' ),
