@@ -147,7 +147,7 @@ function get_submenu_pages() {
 		[
 			'title' => esc_html__( 'Cloud', 'hm-platform' ),
 			'path'  => '/cloud',
-			'cap'   => 'manage_options',
+			'cap'   => is_multisite() ? 'manage_network_options' : 'manage_options',
 		],
 	];
 }
