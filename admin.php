@@ -12,6 +12,7 @@ use WP_Admin_Bar;
  * Bootstrap the admin.
  */
 add_action( 'admin_menu', __NAMESPACE__ . '\\add_menu_item' );
+add_action( 'network_admin_menu', __NAMESPACE__ . '\\add_menu_item' );
 add_action( 'admin_bar_menu', __NAMESPACE__ . '\\add_menu_bar_item' );
 add_filter( 'custom_menu_order', '__return_true' );
 add_filter( 'menu_order', __NAMESPACE__ . '\\platform_menu_order', 20 );
