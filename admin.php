@@ -134,9 +134,21 @@ function platform_menu_order( $menu_order ) {
  */
 function get_submenu_pages() {
 	return [
-		[ 'title' => esc_html__( 'Documentation', 'hm-platform' ), 'path' => '/documentation', 'cap' => 'edit_posts' ],
-		[ 'title' => esc_html__( 'Enterprise Kit', 'hm-platform' ), 'path' => '/ek', 'cap' => 'edit_posts' ],
-		[ 'title' => esc_html__( 'Cloud', 'hm-platform' ), 'path' => '/cloud', 'cap' => 'manage_options' ],
+		[
+			'title' => esc_html__( 'Documentation', 'hm-platform' ),
+			'path'  => '/documentation',
+			'cap'   => 'edit_posts',
+		],
+		[
+			'title' => esc_html__( 'Enterprise Kit', 'hm-platform' ),
+			'path'  => '/ek',
+			'cap'   => 'edit_posts',
+		],
+		[
+			'title' => esc_html__( 'Cloud', 'hm-platform' ),
+			'path'  => '/cloud',
+			'cap'   => 'manage_options',
+		],
 	];
 }
 
