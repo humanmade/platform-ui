@@ -9,7 +9,7 @@ import DeployItem, { propTypes as itemPropTypes } from './Deploy-Item';
  * List all open Pull Requests against the particular site.
  */
 const Deploys = ( { data } ) => {
-	if ( ! data || ! data.length ) {
+	if ( ! Array.isArray( data ) || ! data.length ) {
 		return <p>No deployment history found</p>;
 	}
 
