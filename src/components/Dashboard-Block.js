@@ -42,9 +42,14 @@ class DashboardBlock extends Component {
 	}
 }
 
+DashboardBlock.defaultProps = {
+	isLoading: false,
+};
+
 DashboardBlock.propTypes = {
-	id:    PropTypes.string.isRequired,
+	id: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
+	isLoading: PropTypes.bool,
 };
 
 export default DashboardBlock;
