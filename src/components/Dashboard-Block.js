@@ -34,11 +34,9 @@ class DashboardBlock extends Component {
 					<span className="toggle-indicator" aria-hidden="true" />
 				</button>
 				<h2 className="hndle"><span>{title}</span></h2>
-				{ isExpanded && (
-					<div className="inside">
-						{children}
-					</div>
-				) }
+				<div className="inside">
+					{children}
+				</div>
 			</div>
 		);
 	}
