@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'recompose';
+
+import withApiFetch from '../utils/withApiFetch';
 
 /**
  * Generic Dashboard wrapper block for displaying some information in the admin.
@@ -8,7 +11,7 @@ import PropTypes from 'prop-types';
  * @param {Array}  children React children.
  * @param {String} id       Unique ID to display for the block.
  */
-class DashboardBlock extends Component {
+export default class DashboardBlock extends Component {
 	constructor( props ) {
 		super( props );
 
@@ -22,7 +25,7 @@ class DashboardBlock extends Component {
 	}
 
 	render() {
-		const { title, children, id, isLoading } = this.props;
+		const { title, children, id } = this.props;
 		const { isExpanded } = this.state;
 		const className = `postbox ${ isExpanded ? 'expanded' : 'closed' }`;
 		const onClick = () => this.onToggleExpanded();
@@ -35,10 +38,7 @@ class DashboardBlock extends Component {
 				</button>
 				<h2 className="hndle"><span>{title}</span></h2>
 				<div className="inside">
-					{ isLoading ? (
-						// TODO: Fix Spinner and use it here.
-						<p>Loading...</p>
-					) : children }
+					{ children }
 				</div>
 			</div>
 		);
@@ -55,4 +55,32 @@ DashboardBlock.propTypes = {
 	isLoading: PropTypes.bool,
 };
 
-export default DashboardBlock;
+export function withData( { url, ...props } ) {
+	return WrappedComponent => {
+		class WithData extends Component {
+			render() {
+				const { error, loading, ...rest } = this.props;
+
+				if ( loading ) {
+					return <p>Loading...</p>;
+				}
+
+				if ( error ) {
+					return <p>{ error }</p>;
+				}
+
+				return <WrappedComponent { ...rest } />;
+			}
+		}
+
+		const WrappedComponentWithData = compose( withApiFetch( url ) )( WithData );
+
+		const DashboardBlockWithData = () => (
+			<DashboardBlock { ...props }>
+				<WrappedComponentWithData />
+			</DashboardBlock>
+		);
+
+		return DashboardBlockWithData;
+	};
+}
