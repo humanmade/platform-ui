@@ -52,20 +52,22 @@ DashboardBlock.propTypes = {
 
 export function withData( { url, ...props } ) {
 	return WrappedComponent => {
-		class WithData extends Component {
-			render() {
-				const { error, loading, ...rest } = this.props;
+		const WithData = ( props ) => {
+			const { error, loading, ...rest } = props;
 
-				if ( loading ) {
-					return <p>Loading...</p>;
-				}
-
-				if ( error ) {
-					return <p>{ error }</p>;
-				}
-
-				return <WrappedComponent { ...rest } />;
+			if ( url === 'hm-stack/v1/environment-data/x' ) {
+				console.log( props );
 			}
+
+			if ( loading ) {
+				return <p>Loading...</p>;
+			}
+
+			if ( error ) {
+				return <p>{ error }</p>;
+			}
+
+			return <WrappedComponent { ...rest } />;
 		}
 
 		const WrappedComponentWithData = compose( withApiFetch( url ) )( WithData );
