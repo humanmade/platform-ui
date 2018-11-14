@@ -29,7 +29,7 @@ class DashboardBlock extends Component {
 
 		return (
 			<div className={ className } id={ id }>
-				<button type="button" className="handlediv" aria-expanded="true" onClick={ onClick }>
+				<button type="button" className="handlediv" aria-expanded={ isExpanded } onClick={ onClick }>
 					<span className="screen-reader-text">Toggle panel: { title }</span>
 					<span className="toggle-indicator" aria-hidden="true" />
 				</button>
