@@ -15,7 +15,7 @@ const EnvironmentData = ( { data: { git_data, environment_data } } ) => {
 	if ( ! git_data ) { return ''; }
 
 	return (
-		<DashboardBlock title="Application Data" id="environment-data">
+		<DashboardBlock title="Application Data" id="cloud-environment-data-block">
 			<div className="environment-data">
 				<div className="environment-data-block">
 					<h3 className="environment-data-block__title">Application Version</h3>

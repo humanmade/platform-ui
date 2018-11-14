@@ -12,7 +12,7 @@ import DashboardBlock from '../Dashboard-Block';
  * @param {String} title       Main title for the announcement.
  */
 const Announcements = ( { buttonText, description, link, title } ) => {
-	return <DashboardBlock title="Announcement" id="announcements-block">
+	return <DashboardBlock title="Announcement" id="cloud-announcements-block">
 		<div className="announcement-block-content">
 			<h3 className="announcement-bloc__title">{ title }</h3>
 			{ description && <p className="announcement-block__description">{ description }</p> }

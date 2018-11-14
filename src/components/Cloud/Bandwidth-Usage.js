@@ -31,41 +31,43 @@ const BandwidthUsage = ( { loading, data } ) => {
 	// Compile all of the rolling usage data into one value.
 	const totalBytes = data.reduce( ( carry, day ) => ( carry + day.usage ), 0 );
 
-	return <DashboardBlock title="Bandwidth Usage" isLoading={ loading }>
-		<VictoryChart
-			theme={ adminTheme }
-			domainPadding={ 10 }
-		>
-			<VictoryLabel
-				x={ 350 }
-				y={ 25 }
-				text={ `${ getHumanReadableBytes( totalBytes ) } cumulative` }
-			/>
-			<VictoryAxis
-				dependentAxis
-				tickCount={ 5 }
-				tickFormat={ y => getHumanReadableBytes( y ) }
-			/>
-			<VictoryAxis
-				label="(Date)"
-				tickCount={ 7 }
-				tickFormat={ x => new Date( x ).getDate() }
-				style={
-					{ grid: {
-						fill: "none",
-						stroke: "none",
-						pointerEvents: "visible"
-					} }
-				}
-			/>
-			<VictoryBar
-				data={ data }
-				labelComponent={ <VictoryTooltip/> }
-				x="date"
-				y="usage"
-			/>
-		</VictoryChart>
-	</DashboardBlock>
+	return (
+		<DashboardBlock id="cloud-bw-usage-block" title="Bandwidth Usage" isLoading={ loading }>
+			<VictoryChart
+				theme={ adminTheme }
+				domainPadding={ 10 }
+			>
+				<VictoryLabel
+					x={ 350 }
+					y={ 25 }
+					text={ `${ getHumanReadableBytes( totalBytes ) } cumulative` }
+				/>
+				<VictoryAxis
+					dependentAxis
+					tickCount={ 5 }
+					tickFormat={ y => getHumanReadableBytes( y ) }
+				/>
+				<VictoryAxis
+					label="(Date)"
+					tickCount={ 7 }
+					tickFormat={ x => new Date( x ).getDate() }
+					style={
+						{ grid: {
+							fill: "none",
+							stroke: "none",
+							pointerEvents: "visible"
+						} }
+					}
+				/>
+				<VictoryBar
+					data={ data }
+					labelComponent={ <VictoryTooltip/> }
+					x="date"
+					y="usage"
+				/>
+			</VictoryChart>
+		</DashboardBlock>
+	);
 }
 
 BandwidthUsage.defaultProps = { data: [] }

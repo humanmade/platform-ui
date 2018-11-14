@@ -13,7 +13,7 @@ import PullRequestItem from './Pull-Request-Item';
  * @param {Array} items Pull Requests.
  */
 const PullRequests = ( { data } ) => (
-	<DashboardBlock title="Pull Requests">
+	<DashboardBlock id="cloud-pr-block" title="Pull Requests">
 		{ ( data && data.length > 0 )
 			? <ul>
 				{ data.map( pr => <PullRequestItem key={ pr.id } {...pr} /> ) }

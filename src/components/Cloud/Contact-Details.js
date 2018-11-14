@@ -18,7 +18,7 @@ const ContactDetails = ( { data: { contact_data } } ) => {
 	}
 
 	return (
-		<DashboardBlock title="Contact Details" id="contact-details">
+		<DashboardBlock title="Contact Details" id="cloud-contact-details-block">
 			<div className="contact-details">
 				{ contact_data.client && (
 					<div className="contact-details__section">

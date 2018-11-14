@@ -31,34 +31,36 @@ const PageGenerationTime = ( { loading, data } ) => {
 	// Find the highest time value to label peaks on the graph.
 	const highestTime = data.reduce( ( acc, datum ) => datum.value > acc ? datum.value : acc, 0 );
 
-	return <DashboardBlock title="Page Generation Time" isLoading={ loading }>
-		<VictoryChart
-			theme={ adminTheme }
-			domainPadding={ 10 }
-		>
-			<VictoryAxis
-				dependentAxis
-				tickCount={ 5 }
-				tickFormat={ formatLabels }
-			/>
-			<VictoryAxis
-				label="(Date)"
-				tickCount={ 7 }
-				tickFormat={ x => new Date( x ).getDate() }
-				style={ { grid: {
-						fill: "none",
-						stroke: "none",
-						pointerEvents: "visible"
-					} } }
-			/>
-			<VictoryLine
-				data={ data }
-				labels={ datum => datum.value > ( highestTime * .8 ) ? formatLabels( datum.value ) : '' }
-				x="date"
-				y="value"
-			/>
-		</VictoryChart>
-	</DashboardBlock>
+	return (
+		<DashboardBlock id="cloud-page-gen-time-block" title="Page Generation Time" isLoading={ loading }>
+			<VictoryChart
+				theme={ adminTheme }
+				domainPadding={ 10 }
+			>
+				<VictoryAxis
+					dependentAxis
+					tickCount={ 5 }
+					tickFormat={ formatLabels }
+				/>
+				<VictoryAxis
+					label="(Date)"
+					tickCount={ 7 }
+					tickFormat={ x => new Date( x ).getDate() }
+					style={ { grid: {
+							fill: "none",
+							stroke: "none",
+							pointerEvents: "visible"
+						} } }
+				/>
+				<VictoryLine
+					data={ data }
+					labels={ datum => datum.value > ( highestTime * .8 ) ? formatLabels( datum.value ) : '' }
+					x="date"
+					y="value"
+				/>
+			</VictoryChart>
+		</DashboardBlock>
+	);
 }
 
 PageGenerationTime.defaultProps = { data: [] }

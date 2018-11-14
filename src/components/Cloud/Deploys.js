@@ -17,7 +17,7 @@ const Deploys = props => {
 	const { data, loading, error } = props;
 
 	return (
-		<DashboardBlock title="Deploys">
+		<DashboardBlock id="cloud-deploys-block" title="Deploys">
 			{ ( ! loading && ! error && data ) && data.slice( 0, 5 ).map( item => (
 				<DeployItem key={ item.id } { ...item } />
 			) ) }
