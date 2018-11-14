@@ -12,8 +12,8 @@ import PullRequestItem from './Pull-Request-Item';
  *
  * @param {Array} items Pull Requests.
  */
-const PullRequests = ( { data } ) => (
-	<DashboardBlock id="cloud-pr-block" title="Pull Requests">
+const PullRequests = ( { data, loading } ) => (
+	<DashboardBlock id="cloud-pr-block" title="Pull Requests" isLoading={ loading }>
 		{ ( data && data.length > 0 )
 			? <ul>
 				{ data.map( pr => <PullRequestItem key={ pr.id } {...pr} /> ) }
