@@ -28,7 +28,11 @@ const EnvironmentData = ( { data } ) => {
 							{ git.commit && (
 								<dd>
 									<code className="commit-hash">{ git.commit.rev.substring( 0, 7 ) }</code>
-									<img className="commit-avatar" src={ git.commit.user.avatar_urls['96'] } alt={ git.commit.user.name } />
+									<img
+										className="commit-avatar"
+										src={ git.commit.user.avatar_urls['96'] }
+										alt={ git.commit.user.name }
+									/>
 									<span className="commit-user">{ git.commit.user.name }</span>
 								</dd>
 							) }
@@ -59,8 +63,7 @@ const EnvironmentData = ( { data } ) => {
 			) : null }
 		</div>
 	);
-}
-
+};
 
 EnvironmentData.propTypes = {
 	data: PropTypes.shape( {
@@ -79,7 +82,7 @@ EnvironmentData.propTypes = {
 			elasticsearch: PropTypes.string,
 		} ),
 	} ),
-}
+};
 
 const EnvironmentDataWithData = withData( {
 	url: 'hm-stack/v1/environment-data/',
