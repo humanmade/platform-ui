@@ -33,6 +33,12 @@ const BandwidthUsage = ( { data } ) => {
 	// Compile all of the rolling usage data into one value.
 	const totalBytes = chartData.reduce( ( carry, day ) => ( carry + day.usage ), 0 );
 
+	const dateStyle = { grid: {
+		fill: "none",
+		stroke: "none",
+		pointerEvents: "visible",
+	} };
+
 	return (
 		<VictoryChart theme={ adminTheme } domainPadding={ 10 }>
 			<VictoryLabel
@@ -49,13 +55,7 @@ const BandwidthUsage = ( { data } ) => {
 				label="(Date)"
 				tickCount={ 7 }
 				tickFormat={ x => new Date( x ).getDate() }
-				style={
-					{ grid: {
-						fill: "none",
-						stroke: "none",
-						pointerEvents: "visible"
-					} }
-				}
+				style={ dateStyle }
 			/>
 			<VictoryBar
 				data={ chartData }
