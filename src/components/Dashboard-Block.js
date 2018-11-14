@@ -22,7 +22,7 @@ class DashboardBlock extends Component {
 	}
 
 	render() {
-		const { title, children, id } = this.props;
+		const { title, children, id, isLoading } = this.props;
 		const { isExpanded } = this.state;
 		const className = `postbox ${ isExpanded ? 'expanded' : 'closed' }`;
 		const onClick = () => this.onToggleExpanded();
@@ -35,7 +35,10 @@ class DashboardBlock extends Component {
 				</button>
 				<h2 className="hndle"><span>{title}</span></h2>
 				<div className="inside">
-					{children}
+					{ isLoading ? (
+						// TODO: Fix Spinner and use it here.
+						<p>Loading...</p>
+					) : children }
 				</div>
 			</div>
 		);
