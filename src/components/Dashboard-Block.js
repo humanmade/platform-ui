@@ -43,8 +43,8 @@ class DashboardBlock extends Component {
 }
 
 DashboardBlock.propTypes = {
-	id:    PropTypes.string,
-	title: PropTypes.string,
-}
+	id:    PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired,
+};
 
 export default DashboardBlock;
