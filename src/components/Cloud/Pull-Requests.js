@@ -14,6 +14,7 @@ const PullRequests = ( { data } ) => {
 	if ( ! data || ! data.length ) {
 		return <p>No pull requests found.</p>;
 	}
+
 	return (
 		<ul>
 			{ data.map( pr => <PullRequestItem key={ pr.id } {...pr} /> ) }
@@ -21,7 +22,9 @@ const PullRequests = ( { data } ) => {
 	);
 }
 
-PullRequests.defaultProps = { data: [] }
+PullRequests.defaultProps = {
+	data: [],
+};
 
 PullRequests.propTypes = {
 	data: orWpError(
