@@ -36,7 +36,6 @@ PullRequests.propTypes = {
 			} ),
 		),
 	),
-	loading: PropTypes.bool,
 }
 
 const PullRequestsWithData = withData( {
