@@ -12,6 +12,7 @@ use WP_Admin_Bar;
  * Bootstrap the admin.
  */
 add_action( 'admin_menu', __NAMESPACE__ . '\\add_menu_item' );
+add_action( 'network_admin_menu', __NAMESPACE__ . '\\add_menu_item' );
 add_action( 'admin_bar_menu', __NAMESPACE__ . '\\add_menu_bar_item' );
 add_filter( 'custom_menu_order', '__return_true' );
 add_filter( 'menu_order', __NAMESPACE__ . '\\platform_menu_order', 20 );
@@ -132,11 +133,30 @@ function platform_menu_order( $menu_order ) {
  * Get an array of the sub menu items for platform.
  */
 function get_submenu_pages() {
-	return [
-		[ 'title' => esc_html__( 'Documentation', 'hm-platform' ), 'path' => '/documentation', 'cap' => 'edit_posts' ],
-		[ 'title' => esc_html__( 'Enterprise Kit', 'hm-platform' ), 'path' => '/ek', 'cap' => 'edit_posts' ],
-		[ 'title' => esc_html__( 'Cloud', 'hm-platform' ), 'path' => '/cloud', 'cap' => 'manage_options' ],
+	$pages = [
+		[
+			'title' => esc_html__( 'Documentation', 'hm-platform' ),
+			'path'  => '/documentation',
+			'cap'   => 'edit_posts',
+		],
+		[
+			'title' => esc_html__( 'Enterprise Kit', 'hm-platform' ),
+			'path'  => '/ek',
+			'cap'   => 'edit_posts',
+		],
+		[
+			'title' => esc_html__( 'Cloud', 'hm-platform' ),
+			'path'  => '/cloud',
+			'cap'   => is_multisite() ? 'manage_network_options' : 'manage_options',
+		],
 	];
+
+
+	$pages = array_filter( $pages, function ( $page ) {
+		return current_user_can( $page['cap'] );
+	} );
+
+	return $pages;
 }
 
 /**
@@ -160,10 +180,6 @@ function add_menu_item() {
 	);
 
 	foreach ( get_submenu_pages() as $page ) {
-		if ( ! current_user_can( $page['cap'] ) ) {
-			continue;
-		}
-
 		add_submenu_page(
 			'hm-platform',
 			$page['title'],
@@ -240,7 +256,9 @@ function enqueue_assets() {
 		'Locale'         => str_replace( '_', '-', get_user_locale() ),
 		'CurrentSiteURL' => home_url(),
 		'BuildURL'       => ReactWPScripts\infer_base_url( __DIR__ . '/build/' ),
-		'AdminURL'       => admin_url( '/admin.php?page=hm-platform' ),
+		'AdminURL'       => is_network_admin()
+			? network_admin_url( '/admin.php?page=hm-platform' )
+			: admin_url( '/admin.php?page=hm-platform' ),
 		'REST'           => [
 			'URL'   => get_rest_url(),
 			'Nonce' => wp_create_nonce( 'wp_rest' ),
