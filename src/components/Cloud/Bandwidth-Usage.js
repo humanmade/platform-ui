@@ -20,10 +20,14 @@ const BandwidthUsage = ( { data } ) => {
 
 	// Add a label to the usage history for each item.
 	const chartData = data.map( day => {
-		const humanReadableBytes = getHumanReadableBytes( day.usage );
-		day.label = `${ new Date( day.date ).toLocaleDateString() } \r\n ${ humanReadableBytes }`
+		const { date, usage } = day;
+		const humanReadableBytes = getHumanReadableBytes( usage );
+		const label = `${ new Date( date ).toLocaleDateString() } \r\n ${ humanReadableBytes }`
 
-		return day;
+		return {
+			...day,
+			label,
+		};
 	} );
 
 	// Compile all of the rolling usage data into one value.
