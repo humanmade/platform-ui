@@ -28,7 +28,6 @@ Deploys.propTypes = {
 	data: orWpError( PropTypes.arrayOf(
 		PropTypes.shape( itemPropTypes ),
 	) ),
-	loading: PropTypes.bool,
 };
 
 const DeploysWithData = withData( {
