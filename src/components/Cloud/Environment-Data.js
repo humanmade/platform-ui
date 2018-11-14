@@ -14,45 +14,49 @@ const EnvironmentData = ( { data } ) => {
 		return <p>No data found.</p>;
 	}
 
-	const { git_data, environment_data } = data;
+	const { git_data: git, environment_data: environment } = data;
 
 	return (
 		<div className="environment-data">
-			<div className="environment-data-block">
-				<h3 className="environment-data-block__title">Application Version</h3>
-				<dl>
-					<dt>Git Branch:</dt>
-					<dd>{ git_data.branch }</dd>
-					<dt>Commit:</dt>
-						{ git_data.commit && (
-							<dd>
-								<code className="commit-hash">{ git_data.commit.rev.substring( 0, 7 ) }</code>
-								<img className="commit-avatar" src={ git_data.commit.user.avatar_urls['96'] } alt={ git_data.commit.user.name } />
-								<span className="commit-user">{ git_data.commit.user.name }</span>
-							</dd>
-						) }
-				</dl>
-				{ git_data.commit && <p className="commit-message">{ git_data.commit.description }</p> }
-			</div>
-			<div className="environment-data-block">
-				<h3 className="environment-data-block__title">HM Cloud Software</h3>
-				<dl>
-					<dt>HM Platform:</dt>
-					<dd>{ environment_data.hmplatform }</dd>
-					<dt>{ environment_data.architecture }:</dt>
-					<dd>{ environment_data.version }</dd>
-					<dt>PHP:</dt>
-					<dd>v{ environment_data.php }</dd>
-					<dt>MySQL:</dt>
-					<dd>v{ environment_data.mysql }</dd>
-					{ environment_data.elasticsearch &&
-						<Fragment>
-							<dt>Elasticsearch:</dt>
-							<dd>v{ environment_data.elasticsearch }</dd>
-						</Fragment>
-					}
-				</dl>
-			</div>
+			{ git ? (
+				<div className="environment-data-block">
+					<h3 className="environment-data-block__title">Application Version</h3>
+					<dl>
+						<dt>Git Branch:</dt>
+						<dd>{ git.branch }</dd>
+						<dt>Commit:</dt>
+							{ git.commit && (
+								<dd>
+									<code className="commit-hash">{ git.commit.rev.substring( 0, 7 ) }</code>
+									<img className="commit-avatar" src={ git.commit.user.avatar_urls['96'] } alt={ git.commit.user.name } />
+									<span className="commit-user">{ git.commit.user.name }</span>
+								</dd>
+							) }
+					</dl>
+					{ git.commit && <p className="commit-message">{ git.commit.description }</p> }
+				</div>
+			) : null }
+			{ environment ? (
+				<div className="environment-data-block">
+					<h3 className="environment-data-block__title">HM Cloud Software</h3>
+					<dl>
+						<dt>HM Platform:</dt>
+						<dd>{ environment.hmplatform }</dd>
+						<dt>{ environment.architecture }:</dt>
+						<dd>{ environment.version }</dd>
+						<dt>PHP:</dt>
+						<dd>v{ environment.php }</dd>
+						<dt>MySQL:</dt>
+						<dd>v{ environment.mysql }</dd>
+						{ environment.elasticsearch &&
+							<Fragment>
+								<dt>Elasticsearch:</dt>
+								<dd>v{ environment.elasticsearch }</dd>
+							</Fragment>
+						}
+					</dl>
+				</div>
+			) : null }
 		</div>
 	);
 }
