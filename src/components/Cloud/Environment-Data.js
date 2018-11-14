@@ -25,7 +25,7 @@ const EnvironmentData = ( { data } ) => {
 						<dt>Git Branch:</dt>
 						<dd>{ git.branch }</dd>
 						<dt>Commit:</dt>
-							{ git.commit && (
+							{ git.commit ? (
 								<dd>
 									<code className="commit-hash">{ git.commit.rev.substring( 0, 7 ) }</code>
 									<img
@@ -35,9 +35,11 @@ const EnvironmentData = ( { data } ) => {
 									/>
 									<span className="commit-user">{ git.commit.user.name }</span>
 								</dd>
-							) }
+							) : null }
 					</dl>
-					{ git.commit && <p className="commit-message">{ git.commit.description }</p> }
+					{ git.commit ? (
+						<p className="commit-message">{ git.commit.description }</p>
+					) : null }
 				</div>
 			) : null }
 			{ environment ? (
@@ -52,12 +54,12 @@ const EnvironmentData = ( { data } ) => {
 						<dd>v{ environment.php }</dd>
 						<dt>MySQL:</dt>
 						<dd>v{ environment.mysql }</dd>
-						{ environment.elasticsearch &&
+						{ environment.elasticsearch ? (
 							<Fragment>
 								<dt>Elasticsearch:</dt>
 								<dd>v{ environment.elasticsearch }</dd>
 							</Fragment>
-						}
+						) : null }
 					</dl>
 				</div>
 			) : null }
