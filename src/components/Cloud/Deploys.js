@@ -1,36 +1,24 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import { compose } from 'recompose';
+import React, { Fragment } from 'react';
 
-import withApiFetch from '../../utils/withApiFetch';
 import orWpError from '../../utils/wp-error';
-import DashboardBlock from '../Dashboard-Block';
+import { withData } from '../Dashboard-Block';
 import DeployItem, { propTypes as itemPropTypes } from './Deploy-Item';
-import Spinner from '../Spinner';
 
 /**
  * List all open Pull Requests against the particular site.
- *
- * @param {Array} items Pull Requests.
  */
-const Deploys = props => {
-	const { data, loading, error } = props;
+const Deploys = ( { data } ) => {
+	if ( ! data || ! data.length ) {
+		return <p>No deployment history found</p>;
+	}
 
 	return (
-		<DashboardBlock id="cloud-deploys-block" title="Deploys">
-			{ ( ! loading && ! error && data ) && data.slice( 0, 5 ).map( item => (
+		<Fragment>
+			{ data.slice( 0, 5 ).map( item => (
 				<DeployItem key={ item.id } { ...item } />
 			) ) }
-			{ ( ! loading && ! error && ! data )
-				&& <p>No deployment history found</p>
-			}
-			{ ( loading )
-				&& <p><Spinner /> Loading...</p>
-			}
-			{ ( error )
-				&& <p>There was an error fetching the deployment history. We're working on it!</p>
-			}
-		</DashboardBlock>
+		</Fragment>
 	);
 };
 
@@ -43,8 +31,10 @@ Deploys.propTypes = {
 	loading: PropTypes.bool,
 };
 
-const DeploysWithData = compose(
-	withApiFetch( 'hm-stack/v1/deploys/' )
-)( Deploys );
+const DeploysWithData = withData( {
+	url: 'hm-stack/v1/deploys/',
+	id: 'cloud-deploys-block',
+	title: 'Deploys',
+} )( Deploys );
 
 export default DeploysWithData;
