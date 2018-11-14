@@ -24,10 +24,11 @@ class DashboardBlock extends Component {
 	render() {
 		const { title, children, id } = this.props;
 		const { isExpanded } = this.state;
+		const className = `postbox ${ isExpanded ? 'expanded' : 'closed' }`;
 		const onClick = () => this.onToggleExpanded();
 
 		return (
-			<div className={ 'postbox ' + ( isExpanded ? 'expanded' : 'closed' ) } id={ id } >
+			<div className={ className } id={ id }>
 				<button type="button" className="handlediv" aria-expanded="true" onClick={ onClick }>
 					<span className="screen-reader-text">Toggle panel: { title }</span>
 					<span className="toggle-indicator" aria-hidden="true" />
