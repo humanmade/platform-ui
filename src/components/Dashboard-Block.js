@@ -55,16 +55,12 @@ export function withData( { url, ...props } ) {
 		const WithData = ( props ) => {
 			const { error, loading, ...rest } = props;
 
-			if ( url === 'hm-stack/v1/environment-data/x' ) {
-				console.log( props );
-			}
-
 			if ( loading ) {
 				return <p>Loading...</p>;
 			}
 
 			if ( error ) {
-				return <p>{ error }</p>;
+				return <p>{ error.message } <code>({ error.code })</code></p>;
 			}
 
 			return <WrappedComponent { ...rest } />;
