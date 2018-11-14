@@ -1,43 +1,48 @@
 import PropTypes from 'prop-types';
 import React  from 'react';
-import withApiFetch from '../../utils/withApiFetch';
-import orWpError from '../../utils/wp-error';
-import { compose } from 'recompose';
 
-import DashboardBlock from '../Dashboard-Block';
+import orWpError from '../../utils/wp-error';
+import { withData } from '../Dashboard-Block';
+
+const NothingFound = () => <p>No data found.</p>;
 
 /**
  * Data about the current environment's data.
- *
- * @param {Object} data    Data loaded from API.
- * @param {Object} loading Whether data is still loading or not.
  */
-const ContactDetails = ( { data: { contact_data } } ) => {
+const ContactDetails = ( { data } ) => {
+	if ( ! data ) {
+		return <NothingFound />;
+	}
+
+	const { contact_data } = data;
+
 	if ( ! contact_data ) {
-		return null;
+		return <NothingFound />;
+	}
+
+	const { client, provider } = contact_data;
+
+	if ( ! client && ! provider ) {
+		return <NothingFound />;
 	}
 
 	return (
-		<DashboardBlock title="Contact Details" id="cloud-contact-details-block">
-			<div className="contact-details">
-				{ contact_data.client && (
-					<div className="contact-details__section">
-						<h3 className="contact-details__title">Client Contact</h3>
-						<address className="contact-details__contact contact-client">{ contact_data.client }</address>
-					</div>
-				) }
-
-				{ contact_data.provider && (
-					<div className="contact-details__section">
-						<h3 className="contact-details__title">Provider Contact</h3>
-						<address className="contact-details__contact contact-provider">{ contact_data.provider }</address>
-					</div>
-				) }
-			</div>
-		</DashboardBlock>
+		<div className="contact-details">
+			{ client ? (
+				<div className="contact-details__section">
+					<h3 className="contact-details__title">Client Contact</h3>
+					<address className="contact-details__contact contact-client">{ client }</address>
+				</div>
+			) : null }
+			{ provider ? (
+				<div className="contact-details__section">
+					<h3 className="contact-details__title">Provider Contact</h3>
+					<address className="contact-details__contact contact-provider">{ provider }</address>
+				</div>
+			) : null }
+		</div>
 	);
-}
-
+};
 
 ContactDetails.propTypes = {
 	data: orWpError(
@@ -48,11 +53,12 @@ ContactDetails.propTypes = {
 			} )
 		} ),
 	),
-	loading: PropTypes.bool,
-}
+};
 
-const ContactDetailsWithData = compose(
-	withApiFetch( 'hm-stack/v1/environment-data/' )
-)( ContactDetails );
+const ContactDetailsWithData = withData( {
+	url: 'hm-stack/v1/environment-data/',
+	title: 'Contact Details',
+	id: 'cloud-contact-details-block',
+} )( ContactDetails );
 
 export default ContactDetailsWithData;
