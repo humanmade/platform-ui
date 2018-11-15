@@ -42,8 +42,8 @@ class Cloud extends Component {
 					</HeaderLinks>
 				</Header>
 				<DashboardWrapper>
-					<EnvironmentData />
 					<Support />
+					<EnvironmentData />
 					<PullRequests />
 					<Deploys />
 					<ContactDetails />
