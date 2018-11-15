@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 
 import withApiFetch from '../utils/withApiFetch';
+import Loading from './Loading';
 
 /**
  * Generic Dashboard wrapper block for displaying some information in the admin.
@@ -56,7 +57,7 @@ export function withData( { url, ...props } ) {
 			const { error, loading, ...rest } = props;
 
 			if ( loading ) {
-				return <p>Loading...</p>;
+				return <Loading isLoading />;
 			}
 
 			if ( error ) {
