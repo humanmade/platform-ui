@@ -2,12 +2,12 @@ import React from 'react';
 import Loadable from 'react-loadable';
 
 import Loading from './Loading';
+import { adminTheme } from '../victory-theme';
 
 export default function LoadableVictory( Component ) {
 	return Loadable.Map( {
 		loader: {
 			Victory: () => import( 'victory' ),
-			theme: () => import( '../victory-theme' ),
 		},
 		loading: Loading,
 		render( loaded, props ) {
@@ -15,7 +15,7 @@ export default function LoadableVictory( Component ) {
 				...props,
 				victory: {
 					components: { ...loaded.Victory },
-					theme: loaded.theme.adminTheme,
+					theme: adminTheme,
 				},
 			};
 
