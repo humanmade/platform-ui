@@ -12,6 +12,7 @@ import Deploys from './Deploys';
 import PageGenerationTime from './Page-Generation-Time';
 import BandwidthUsage from './Bandwidth-Usage';
 import Support from './Support';
+import Backups from './Backups';
 
 const HeaderLinks = styled.nav`
 	display: block;
@@ -47,6 +48,7 @@ class Cloud extends Component {
 					<PullRequests />
 					<Deploys />
 					<ContactDetails />
+					<Backups />
 					<PageGenerationTime />
 					<BandwidthUsage />
 				</DashboardWrapper>
