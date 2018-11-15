@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTooltip, VictoryLabel } from 'victory';
 
 import orWpError from '../../utils/wp-error';
 import { withData } from '../Dashboard-Block';
-import { adminTheme } from '../../victory-theme';
+import LoadableVictory from '../LoadableVictory';
 import { getHumanReadableBytes } from '../../utils';
 
 /**
@@ -13,10 +12,13 @@ import { getHumanReadableBytes } from '../../utils';
  * @param {Boolean} loading Whether data is still fetching or not.
  * @param {Array}   data    An array of usage data for the current site.
  */
-const BandwidthUsage = ( { data } ) => {
+const BandwidthUsage = ( { data, victory } ) => {
 	if ( ! Array.isArray( data ) || ! data.length ) {
 		return <p>No data found.</p>;
 	}
+
+	const { components, theme } = victory;
+	const { VictoryBar, VictoryChart, VictoryAxis, VictoryTooltip, VictoryLabel } = components;
 
 	// Add a label to the usage history for each item.
 	const chartData = data.map( day => {
@@ -40,7 +42,7 @@ const BandwidthUsage = ( { data } ) => {
 	} };
 
 	return (
-		<VictoryChart theme={ adminTheme } domainPadding={ 10 }>
+		<VictoryChart theme={ theme } domainPadding={ 10 }>
 			<VictoryLabel
 				x={ 350 }
 				y={ 25 }
@@ -86,6 +88,6 @@ const BandwidthUsageWithData = withData( {
 	url: 'hm-stack/v1/bandwidth-usage/',
 	id: 'cloud-bw-usage-block',
 	title: 'Bandwidth Usage',
-} )( BandwidthUsage );
+} )( LoadableVictory( BandwidthUsage ) );
 
 export default BandwidthUsageWithData;
