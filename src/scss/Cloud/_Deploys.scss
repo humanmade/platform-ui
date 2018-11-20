@@ -7,14 +7,13 @@
 	margin-bottom: 0;
 
 	&__title {
-		min-height: 40px;
+		margin-bottom: 4px !important;
 	}
 
 	&__meta {
 		margin-top: 0;
 		margin-bottom: 0;
 		color: #737373;
-		margin-left: -50px;
 
 		> * {
 			vertical-align: middle;
@@ -27,5 +26,7 @@
 		position: absolute;
 		top: 10px;
 		left: 0;
+		border-radius: 100px;
+		box-shadow: inset 0 0 4px rgba(0,0,0,1);
 	}
 }

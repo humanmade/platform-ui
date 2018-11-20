@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withApiFetch from '../../utils/withApiFetch';
-import orWpError from '../../utils/wp-error';
-import { compose } from 'recompose';
-import { VictoryLine, VictoryChart, VictoryAxis } from 'victory';
 
-import DashboardBlock from '../Dashboard-Block';
-import { adminTheme } from '../../victory-theme';
+import orWpError from '../../utils/wp-error';
+import { withData } from '../Dashboard-Block';
+import LoadableVictory from '../LoadableVictory';
 
 /**
  * Display daily average page generation time for a rolling month period.
@@ -14,11 +11,13 @@ import { adminTheme } from '../../victory-theme';
  * @param {Boolean} loading Whether data is still fetching or not.
  * @param {Array}   data    An array of server response data for the current site.
  */
-const PageGenerationTime = ( { loading, data } ) => {
-
-	if ( loading || ! Array.isArray( data ) ) {
-		return '';
+const PageGenerationTime = ( { victory, data } ) => {
+	if ( ! Array.isArray( data ) || ! data.length ) {
+		return <p>No data found.</p>;
 	}
+
+	const { components, theme } = victory;
+	const { VictoryLine, VictoryChart, VictoryAxis } = components;
 
 	/**
 	 * Format a label for a time measuments.
@@ -31,11 +30,8 @@ const PageGenerationTime = ( { loading, data } ) => {
 	// Find the highest time value to label peaks on the graph.
 	const highestTime = data.reduce( ( acc, datum ) => datum.value > acc ? datum.value : acc, 0 );
 
-	return <DashboardBlock title="Page Generation Time" isLoading={ loading }>
-		<VictoryChart
-			theme={ adminTheme }
-			domainPadding={ 10 }
-		>
+	return (
+		<VictoryChart theme={ theme } domainPadding={ 10 }>
 			<VictoryAxis
 				dependentAxis
 				tickCount={ 5 }
@@ -58,7 +54,7 @@ const PageGenerationTime = ( { loading, data } ) => {
 				y="value"
 			/>
 		</VictoryChart>
-	</DashboardBlock>
+	);
 }
 
 PageGenerationTime.defaultProps = { data: [] }
@@ -76,8 +72,10 @@ PageGenerationTime.propTypes = {
 	loading: PropTypes.bool
 };
 
-const PageGenerationTimeWithData = compose(
-	withApiFetch( 'hm-stack/v1/page-generation/' )
-)( PageGenerationTime );
+const PageGenerationTimeWithData = withData( {
+	url: 'hm-stack/v1/page-generation/',
+	id: 'cloud-page-gen-time-block',
+	title: 'Page Generation Time',
+} )( LoadableVictory( PageGenerationTime ) );
 
 export default PageGenerationTimeWithData;

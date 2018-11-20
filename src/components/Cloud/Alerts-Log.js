@@ -10,14 +10,16 @@ import AlertItem from './Alert-Item';
  * @param {Boolean} loading Whether data is still fetching or not.
  * @param {Array} items Alerts.
  */
-const AlertsLog = ( { data, loading } ) => <DashboardBlock title="Activity Log" isLoading={ loading }>
-	{ ( data && data.length > 0 )
-		? <ul className="alert-listing">
-			{ data.map( alert => <AlertItem key={ alert.id } {...alert} /> ) }
-		</ul>
-		: <p>No Activity to Report</p>
-	}
-</DashboardBlock>
+const AlertsLog = ( { data, loading } ) => (
+	<DashboardBlock id="cloud-activity-log-block" title="Activity Log" isLoading={ loading }>
+		{ ( data && data.length > 0 )
+			? <ul className="alert-listing">
+				{ data.map( alert => <AlertItem key={ alert.id } {...alert} /> ) }
+			</ul>
+			: <p>No Activity to Report</p>
+		}
+	</DashboardBlock>
+);
 
 AlertsLog.defaultProps = { data: [] }
 

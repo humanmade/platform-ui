@@ -12,10 +12,12 @@ import DashboardBlock from '../Dashboard-Block';
  * @param {String} title       Main title for the announcement.
  */
 const Announcements = ( { buttonText, description, link, title } ) => {
-	return <DashboardBlock title="Announcement" id="announcements-block">
+	return <DashboardBlock title="Announcement" id="cloud-announcements-block">
 		<div className="announcement-block-content">
 			<h3 className="announcement-bloc__title">{ title }</h3>
-			{ description && <p className="announcement-block__description">{ description }</p> }
+			{ description ? (
+				<p className="announcement-block__description">{ description }</p>
+			) : null }
 			{ ( buttonText && link )
 				? <a className="button button-primary" href={ link } target="_blank">{ buttonText } <span className="screen-reader-text">Opens in a new window</span></a>
 				: null

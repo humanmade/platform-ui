@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'recompose';
+
+import withApiFetch from '../utils/withApiFetch';
+import Loading from './Loading';
 
 /**
  * Generic Dashboard wrapper block for displaying some information in the admin.
@@ -8,7 +12,7 @@ import PropTypes from 'prop-types';
  * @param {Array}  children React children.
  * @param {String} id       Unique ID to display for the block.
  */
-class DashboardBlock extends Component {
+export default class DashboardBlock extends Component {
 	constructor( props ) {
 		super( props );
 
@@ -23,28 +27,54 @@ class DashboardBlock extends Component {
 
 	render() {
 		const { title, children, id } = this.props;
-		const { isExpanded } = this.state
+		const { isExpanded } = this.state;
+		const className = `postbox ${ isExpanded ? 'expanded' : 'closed' }`;
+		const onClick = () => this.onToggleExpanded();
 
 		return (
-			<div className={ 'postbox ' + ( isExpanded ? 'expanded' : 'closed' ) } id={ id } >
-				<button type="button" className="handlediv" aria-expanded="true" onClick={ () => this.setState( { isExpanded: ! isExpanded } ) }>
+			<div className={ className } id={ id }>
+				<button type="button" className="handlediv" aria-expanded={ isExpanded } onClick={ onClick }>
 					<span className="screen-reader-text">Toggle panel: { title }</span>
 					<span className="toggle-indicator" aria-hidden="true" />
 				</button>
 				<h2 className="hndle"><span>{title}</span></h2>
-				{ isExpanded && (
-					<div className="inside">
-						{children}
-					</div>
-				) }
+				<div className="inside">
+					{ children }
+				</div>
 			</div>
 		);
 	}
 }
 
 DashboardBlock.propTypes = {
-	id:    PropTypes.string,
-	title: PropTypes.string,
-}
+	id: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired,
+};
 
-export default DashboardBlock;
+export function withData( { url, ...props } ) {
+	return WrappedComponent => {
+		const WithData = ( props ) => {
+			const { error, loading, ...rest } = props;
+
+			if ( loading ) {
+				return <Loading isLoading />;
+			}
+
+			if ( error ) {
+				return <p>{ error.message } <code>({ error.code })</code></p>;
+			}
+
+			return <WrappedComponent { ...rest } />;
+		}
+
+		const WrappedComponentWithData = compose( withApiFetch( url ) )( WithData );
+
+		const DashboardBlockWithData = () => (
+			<DashboardBlock { ...props }>
+				<WrappedComponentWithData />
+			</DashboardBlock>
+		);
+
+		return DashboardBlockWithData;
+	};
+}

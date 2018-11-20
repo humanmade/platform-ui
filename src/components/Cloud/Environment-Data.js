@@ -1,9 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import withApiFetch from '../../utils/withApiFetch';
-import { compose } from 'recompose';
 
-import DashboardBlock from '../Dashboard-Block';
+import { withData } from '../Dashboard-Block';
 
 /**
  * Data about the current environment's data.
@@ -11,52 +9,63 @@ import DashboardBlock from '../Dashboard-Block';
  * @param {Object} data    Data loaded from API.
  * @param {Object} loading Whether data is still loading or not.
  */
-const EnvironmentData = ( { data: { git_data, environment_data } } ) => {
-	if ( ! git_data ) { return ''; }
+const EnvironmentData = ( { data } ) => {
+	if ( ! data ) {
+		return <p>No data found.</p>;
+	}
+
+	const { git_data: git, environment_data: environment } = data;
 
 	return (
-		<DashboardBlock title="Application Data" id="environment-data">
-			<div className="environment-data">
+		<div className="environment-data">
+			{ git ? (
 				<div className="environment-data-block">
 					<h3 className="environment-data-block__title">Application Version</h3>
 					<dl>
 						<dt>Git Branch:</dt>
-						<dd>{ git_data.branch }</dd>
+						<dd>{ git.branch }</dd>
 						<dt>Commit:</dt>
-							{ git_data.commit && (
+							{ git.commit ? (
 								<dd>
-									<code className="commit-hash">{ git_data.commit.rev.substring( 0, 7 ) }</code>
-									<img className="commit-avatar" src={ git_data.commit.user.avatar_urls['96'] } alt={ git_data.commit.user.name } />
-									<span className="commit-user">{ git_data.commit.user.name }</span>
+									<code className="commit-hash">{ git.commit.rev.substring( 0, 7 ) }</code>
+									<img
+										className="commit-avatar"
+										src={ git.commit.user.avatar_urls['96'] }
+										alt={ git.commit.user.name }
+									/>
+									<span className="commit-user">{ git.commit.user.name }</span>
 								</dd>
-							) }
+							) : null }
 					</dl>
-					{ git_data.commit && <p className="commit-message">{ git_data.commit.description }</p> }
+					{ git.commit ? (
+						<p className="commit-message">{ git.commit.description }</p>
+					) : null }
 				</div>
+			) : null }
+			{ environment ? (
 				<div className="environment-data-block">
 					<h3 className="environment-data-block__title">HM Cloud Software</h3>
 					<dl>
 						<dt>HM Platform:</dt>
-						<dd>{ environment_data.hmplatform }</dd>
-						<dt>{ environment_data.architecture }:</dt>
-						<dd>{ environment_data.version }</dd>
+						<dd>{ environment.hmplatform }</dd>
+						<dt>{ environment.architecture }:</dt>
+						<dd>{ environment.version }</dd>
 						<dt>PHP:</dt>
-						<dd>v{ environment_data.php }</dd>
+						<dd>v{ environment.php }</dd>
 						<dt>MySQL:</dt>
-						<dd>v{ environment_data.mysql }</dd>
-						{ environment_data.elasticsearch &&
+						<dd>v{ environment.mysql }</dd>
+						{ environment.elasticsearch ? (
 							<Fragment>
 								<dt>Elasticsearch:</dt>
-								<dd>v{ environment_data.elasticsearch }</dd>
+								<dd>v{ environment.elasticsearch }</dd>
 							</Fragment>
-						}
+						) : null }
 					</dl>
 				</div>
-			</div>
-		</DashboardBlock>
+			) : null }
+		</div>
 	);
-}
-
+};
 
 EnvironmentData.propTypes = {
 	data: PropTypes.shape( {
@@ -75,11 +84,12 @@ EnvironmentData.propTypes = {
 			elasticsearch: PropTypes.string,
 		} ),
 	} ),
-	loading: PropTypes.bool,
-}
+};
 
-const EnvironmentDataWithData = compose(
-	withApiFetch( 'hm-stack/v1/environment-data/' )
-)( EnvironmentData );
+const EnvironmentDataWithData = withData( {
+	url: 'hm-stack/v1/environment-data/',
+	title: 'Application Data',
+	id: 'cloud-environment-data-block',
+} )( EnvironmentData );
 
 export default EnvironmentDataWithData;
