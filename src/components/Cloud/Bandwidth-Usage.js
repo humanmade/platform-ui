@@ -1,12 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import withApiFetch from '../../utils/withApiFetch';
-import orWpError from '../../utils/wp-error';
-import { compose } from 'recompose';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTooltip, VictoryLabel } from 'victory';
+import PropTypes from 'prop-types';
 
-import DashboardBlock from '../Dashboard-Block';
-import { adminTheme } from '../../victory-theme';
+import orWpError from '../../utils/wp-error';
+import { withData } from '../Dashboard-Block';
+import LoadableVictory from '../LoadableVictory';
 import { getHumanReadableBytes } from '../../utils';
 
 /**
@@ -15,27 +12,37 @@ import { getHumanReadableBytes } from '../../utils';
  * @param {Boolean} loading Whether data is still fetching or not.
  * @param {Array}   data    An array of usage data for the current site.
  */
-const BandwidthUsage = ( { loading, data } ) => {
-	if ( loading || ! Array.isArray( data ) ) {
-		return '';
+const BandwidthUsage = ( { data, victory } ) => {
+	if ( ! Array.isArray( data ) || ! data.length ) {
+		return <p>No data found.</p>;
 	}
 
-	// Add a label to the usage history for each item.
-	data = data.map( day => {
-		const humanReadableBytes = getHumanReadableBytes( day.usage );
-		day.label = `${ new Date( day.date ).toLocaleDateString() } \r\n ${ humanReadableBytes }`
+	const { components, theme } = victory;
+	const { VictoryBar, VictoryChart, VictoryAxis, VictoryTooltip, VictoryLabel } = components;
 
-		return day;
+	// Add a label to the usage history for each item.
+	const chartData = data.map( day => {
+		const { date, usage } = day;
+		const humanReadableBytes = getHumanReadableBytes( usage );
+		const label = `${ new Date( date ).toLocaleDateString() } \r\n ${ humanReadableBytes }`
+
+		return {
+			...day,
+			label,
+		};
 	} );
 
 	// Compile all of the rolling usage data into one value.
-	const totalBytes = data.reduce( ( carry, day ) => ( carry + day.usage ), 0 );
+	const totalBytes = chartData.reduce( ( carry, day ) => ( carry + day.usage ), 0 );
 
-	return <DashboardBlock title="Bandwidth Usage" isLoading={ loading }>
-		<VictoryChart
-			theme={ adminTheme }
-			domainPadding={ 10 }
-		>
+	const dateStyle = { grid: {
+		fill: "none",
+		stroke: "none",
+		pointerEvents: "visible",
+	} };
+
+	return (
+		<VictoryChart theme={ theme } domainPadding={ 10 }>
 			<VictoryLabel
 				x={ 350 }
 				y={ 25 }
@@ -50,25 +57,21 @@ const BandwidthUsage = ( { loading, data } ) => {
 				label="(Date)"
 				tickCount={ 7 }
 				tickFormat={ x => new Date( x ).getDate() }
-				style={
-					{ grid: {
-						fill: "none",
-						stroke: "none",
-						pointerEvents: "visible"
-					} }
-				}
+				style={ dateStyle }
 			/>
 			<VictoryBar
-				data={ data }
+				data={ chartData }
 				labelComponent={ <VictoryTooltip/> }
 				x="date"
 				y="usage"
 			/>
 		</VictoryChart>
-	</DashboardBlock>
+	);
 }
 
-BandwidthUsage.defaultProps = { data: [] }
+BandwidthUsage.defaultProps = {
+	data: [],
+};
 
 BandwidthUsage.propTypes = {
 	data: orWpError(
@@ -79,11 +82,12 @@ BandwidthUsage.propTypes = {
 			} )
 		)
 	),
-	loading: PropTypes.bool
 };
 
-const BandwidthUsageWithData = compose(
-	withApiFetch( 'hm-stack/v1/bandwidth-usage/' )
-)( BandwidthUsage );
+const BandwidthUsageWithData = withData( {
+	url: 'hm-stack/v1/bandwidth-usage/',
+	id: 'cloud-bw-usage-block',
+	title: 'Bandwidth Usage',
+} )( LoadableVictory( BandwidthUsage ) );
 
 export default BandwidthUsageWithData;

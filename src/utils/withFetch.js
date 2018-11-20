@@ -57,8 +57,18 @@ const withFetch = ( url, options = {}, name = null ) => {
 
 				this.setState( { fetching: true } );
 				fetch( url, Object.assign( {}, options, overrides ) )
-					.then( response => response.json() )
-					.then( data => this.updateStore( data ) )
+					.then( response => response.json().then( data => {
+						if ( response.ok ) {
+							this.updateStore( data );
+							return;
+						}
+
+						const err = new Error( data.message || 'Unknown server error.' );
+						err.code = data.code || '__unknown';
+						err.data = data;
+
+						throw err;
+					} ) )
 					.catch( error => this.updateStore( {}, error ) );
 			}
 

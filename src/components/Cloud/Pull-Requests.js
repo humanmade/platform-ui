@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import withApiFetch from '../../utils/withApiFetch';
-import orWpError from '../../utils/wp-error';
-import { compose } from 'recompose';
 
-import DashboardBlock from '../Dashboard-Block';
+import orWpError from '../../utils/wp-error';
+import { withData } from '../Dashboard-Block';
 import PullRequestItem from './Pull-Request-Item';
 
 /**
@@ -12,18 +10,21 @@ import PullRequestItem from './Pull-Request-Item';
  *
  * @param {Array} items Pull Requests.
  */
-const PullRequests = ( { data } ) => (
-	<DashboardBlock title="Pull Requests">
-		{ ( data && data.length > 0 )
-			? <ul>
-				{ data.map( pr => <PullRequestItem key={ pr.id } {...pr} /> ) }
-			</ul>
-			: <p>No Open Pull Requests</p>
-		}
-	</DashboardBlock>
-);
+const PullRequests = ( { data } ) => {
+	if ( ! data || ! data.length ) {
+		return <p>No pull requests found.</p>;
+	}
 
-PullRequests.defaultProps = { data: [] }
+	return (
+		<ul>
+			{ data.map( pr => <PullRequestItem key={ pr.id } {...pr} /> ) }
+		</ul>
+	);
+}
+
+PullRequests.defaultProps = {
+	data: [],
+};
 
 PullRequests.propTypes = {
 	data: orWpError(
@@ -38,11 +39,12 @@ PullRequests.propTypes = {
 			} ),
 		),
 	),
-	loading: PropTypes.bool,
 }
 
-const PullRequestsWithData = compose(
-	withApiFetch( 'hm-stack/v1/pull-requests/' )
-)( PullRequests );
+const PullRequestsWithData = withData( {
+	url: 'hm-stack/v1/pull-requests/',
+	id: 'cloud-pr-block',
+	title: 'Pull Requests',
+} )( PullRequests );
 
 export default PullRequestsWithData;

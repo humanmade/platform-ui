@@ -1,7 +1,8 @@
 /*global HM*/
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
 import Header from '../Header';
 import DashboardWrapper from '../Dashboard-Wrapper';
 import PullRequests from './Pull-Requests';
@@ -22,21 +23,27 @@ const HeaderLinks = styled.nav`
 	}
 `;
 
-class Cloud extends React.Component {
+class Cloud extends Component {
 	render() {
+		const { EnterpriseKit: ek, Environment: env } = HM.UI;
+		const { type: envType, region: envRegion, name: envName } = env;
+
 		return (
 			<Fragment>
 				<Header key="header" title="Cloud">
 					<HeaderLinks>
-						<Link to={`/documentation/${HM.UI.EnterpriseKit.DocsVersion}/cloud`}>Documentation</Link>
-						{ HM.UI.Environment.type !== 'local' && (
-							<a target="_vantage" href={`https://vantage.aws.hmn.md/#/${HM.UI.Environment.region}/${HM.UI.Environment.name}`}>Open in Vantage</a>
-						) }
+						<Link to={`/documentation/${ ek.DocsVersion }/cloud`}>Documentation</Link>
+						{ envType !== 'local' ? (
+							<a
+								target="_vantage"
+								href={ `https://vantage.aws.hmn.md/#/${ envRegion }/${ envName }` }
+							>Open in Vantage</a>
+						) : null }
 					</HeaderLinks>
 				</Header>
 				<DashboardWrapper>
-					<EnvironmentData />
 					<Support />
+					<EnvironmentData />
 					<PullRequests />
 					<Deploys />
 					<ContactDetails />
