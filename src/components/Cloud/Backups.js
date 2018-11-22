@@ -8,6 +8,8 @@ const Backups = ( { data } ) => {
 		return <p>No backups found.</p>;
 	}
 
+	const labels = [ 'database', 'uploads' ];
+
 	return (
 		<ul>
 			{ data.slice( 0, 5 ).map( item => (
@@ -15,6 +17,9 @@ const Backups = ( { data } ) => {
 					<a href={ item.url }>{ item.id }</a>
 					<p>
 						<span>{ getHumanReadableBytes( item.size ) }</span>
+						{ labels.map( label => (
+							item[ label ] ? <code>{ label }</code> : null
+						) ) }
 					</p>
 				</li>
 			) ) }
