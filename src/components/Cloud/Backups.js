@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { withData } from '../Dashboard-Block';
+import { getHumanReadableBytes } from '../../utils';
 
 const Backups = ( { data } ) => {
 	if ( ! Array.isArray( data ) || ! data.length ) {
@@ -12,6 +13,9 @@ const Backups = ( { data } ) => {
 			{ data.slice( 0, 5 ).map( item => (
 				<li key={ item.id }>
 					<a href={ item.url }>{ item.id }</a>
+					<p>
+						<span>{ getHumanReadableBytes( item.size ) }</span>
+					</p>
 				</li>
 			) ) }
 		</ul>
