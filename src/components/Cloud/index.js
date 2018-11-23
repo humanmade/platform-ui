@@ -7,7 +7,6 @@ import Header from '../Header';
 import DashboardWrapper from '../Dashboard-Wrapper';
 import PullRequests from './Pull-Requests';
 import EnvironmentData from './Environment-Data';
-import ContactDetails from './Contact-Details';
 import Deploys from './Deploys';
 import PageGenerationTime from './Page-Generation-Time';
 import BandwidthUsage from './Bandwidth-Usage';
@@ -43,14 +42,13 @@ class Cloud extends Component {
 					</HeaderLinks>
 				</Header>
 				<DashboardWrapper>
-					<Support />
 					<EnvironmentData />
+					<Support />
 					<PullRequests />
 					<Deploys />
-					<ContactDetails />
-					<Backups />
 					<PageGenerationTime />
 					<BandwidthUsage />
+					<Backups />
 				</DashboardWrapper>
 			</Fragment>
 		);

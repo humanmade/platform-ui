@@ -2,6 +2,7 @@ import React from 'react';
 
 import { withData } from '../Dashboard-Block';
 import { getHumanReadableBytes } from '../../utils';
+import { format } from 'date-fns';
 
 const buildItems = ( items, count = 5 ) => {
 	return items
@@ -28,16 +29,24 @@ const Backups = ( { data } ) => {
 	const labels = [ 'database', 'uploads' ];
 
 	return (
-		<ul>
+		<ul className="backup-items">
 			{ items.map( item => (
-				<li key={ item.id }>
-					<a href={ item.url }>{ item.id }</a>
-					<p>
-						<span>{ getHumanReadableBytes( item.size ) }</span>
-						{ labels.map( label => (
-							item[ label ] ? <code>{ label }</code> : null
-						) ) }
-					</p>
+				<li key={ item.id } className="backup-item">
+					<h3 className="backup-item__title">
+						<a href={ item.url } title="Download backup">
+							{ format( item.date, 'dddd Do MMMM, YYYY @ HH:mm' ) }
+						</a>
+					</h3>
+					<dl>
+						<dt>Size</dt>
+						<dd>{ getHumanReadableBytes( item.size, 2 ) }</dd>
+						<dt>Contains</dt>
+						<dd>
+							{ labels.filter( label => item[ label ] ).map( label => (
+								<code key={label}>{ label }</code>
+							) ) }
+						</dd>
+					</dl>
 				</li>
 			) ) }
 		</ul>

@@ -75,9 +75,9 @@ export const getTimeSince = time => {
  * @param {Number} bytes
  * @returns {string}
  */
-export const getHumanReadableBytes = bytes => {
+export const getHumanReadableBytes = ( bytes, maximumFractionDigits = 0 ) => {
 	const suffixes = [ 'b', 'KB', 'MB', 'GB', 'TB' ];
 	const exp = parseInt( Math.log( bytes ) / Math.log( 1024 ), 10 );
 
-	return Number( bytes / Math.pow( 1024, exp ) ).toLocaleString( undefined, { maximumFractionDigits: 0 } ) + ' ' + suffixes[ exp ];
+	return Number( bytes / Math.pow( 1024, exp ) ).toLocaleString( undefined, { maximumFractionDigits } ) + ' ' + suffixes[ exp ];
 }

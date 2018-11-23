@@ -16,7 +16,7 @@ const PullRequests = ( { data } ) => {
 	}
 
 	return (
-		<ul>
+		<ul className="pull-request-items">
 			{ data.map( pr => <PullRequestItem key={ pr.id } {...pr} /> ) }
 		</ul>
 	);
