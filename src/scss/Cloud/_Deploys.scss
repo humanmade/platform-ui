@@ -1,13 +1,24 @@
+.deploy-items {
+	margin: 0;
+	padding: 0;
+}
+
 .deploy-item {
 	list-style: none;
 	position: relative;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-left: 50px;
-	margin-bottom: 0;
+	margin: 0;
+	border-bottom: 1px solid rgba(0,0,0,.1);
+
+	&:last-of-type {
+		border: 0;
+	}
 
 	&__title {
-		margin-bottom: 4px !important;
+		margin-bottom: 3px !important;
+		font-weight: 600 !important;
 	}
 
 	&__meta {

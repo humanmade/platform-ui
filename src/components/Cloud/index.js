@@ -7,11 +7,11 @@ import Header from '../Header';
 import DashboardWrapper from '../Dashboard-Wrapper';
 import PullRequests from './Pull-Requests';
 import EnvironmentData from './Environment-Data';
-import ContactDetails from './Contact-Details';
 import Deploys from './Deploys';
 import PageGenerationTime from './Page-Generation-Time';
 import BandwidthUsage from './Bandwidth-Usage';
 import Support from './Support';
+import Backups from './Backups';
 
 const HeaderLinks = styled.nav`
 	display: block;
@@ -42,13 +42,13 @@ class Cloud extends Component {
 					</HeaderLinks>
 				</Header>
 				<DashboardWrapper>
-					<Support />
 					<EnvironmentData />
+					<Support />
 					<PullRequests />
 					<Deploys />
-					<ContactDetails />
 					<PageGenerationTime />
 					<BandwidthUsage />
+					<Backups />
 				</DashboardWrapper>
 			</Fragment>
 		);
