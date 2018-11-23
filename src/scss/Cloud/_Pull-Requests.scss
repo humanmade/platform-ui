@@ -1,9 +1,21 @@
 /**
  * HM Cloud Pull Requests Pane.
  */
+.pull-request-items {
+	margin: 0;
+	padding: 0;
+}
+
 .pull-request-item {
 	list-style-type: none;
-	margin: 15px;
+	margin: 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid rgba(0,0,0,.1);
+
+	&:last-of-type {
+		border: 0;
+	}
 }
 
 #dashboard-widgets h3.pull-request-item__title {

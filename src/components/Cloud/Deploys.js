@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import orWpError from '../../utils/wp-error';
 import { withData } from '../Dashboard-Block';
@@ -14,11 +14,11 @@ const Deploys = ( { data } ) => {
 	}
 
 	return (
-		<Fragment>
+		<ul className="deploy-items">
 			{ data.slice( 0, 5 ).map( item => (
 				<DeployItem key={ item.id } { ...item } />
 			) ) }
-		</Fragment>
+		</ul>
 	);
 };
 

@@ -11,6 +11,7 @@
 @import "./scss/Cloud/Environment-Data";
 @import "./scss/Cloud/Pull-Requests";
 @import "./scss/Cloud/Deploys";
+@import "./scss/Cloud/Backups";
 // Enterprise Kit.
 @import "./scss/EnterpriseKit/Plugins";
 @import "./scss/EnterpriseKit/Plugin";
@@ -25,6 +26,7 @@
 
 @media only screen and (min-width: 800px) and (max-width: 1499px) {
 	#wpbody-content #hm-platform #dashboard-widgets {
+		padding-top: 20px;
 		.postbox-container {
 			width: 50%;
 		}
