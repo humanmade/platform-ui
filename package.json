@@ -1,6 +1,7 @@
 {
   "name": "hm-platform",
   "version": "0.1.0",
+  "secbottest": true,
   "docsVersion": "beta",
   "description": "Core HM Platform UI",
   "repository": "https://github.com/humanmade/platform-ui",
